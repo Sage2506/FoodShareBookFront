@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'; 
+import { ListGroup } from "react-bootstrap";
 
 export class DishIngredientListItem extends Component {
   render() {
     return (
-      <li>
+      <ListGroup.Item>
         <p>{this.props.ingredient_name}</p>
         <p>{this.props.measure_id}</p>
         <p>{this.props.quantity}</p>
-      </li>
+      </ListGroup.Item>
     );
   }
 }

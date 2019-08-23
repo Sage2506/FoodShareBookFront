@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import {default as DishIngredientListItem} from '../dish_ingredients/dish_ingredient_list_item_hoc'
+import { ListGroup } from "react-bootstrap";
 
 export class DishListItem extends Component {
   render() {
     return (
-      <li>
+      <ListGroup.Item>
         <p>id {this.props.dish_id}</p>
         <img src={this.props.dish_image} alt="La imagen del platillo"/>
         <h3>{this.props.dish_name}</h3>
         <h4>{this.props.dish_description}</h4>
         <h4>{this.props.dish_recipe}</h4>
-        <ul>
+        <ListGroup>
           {this.props.dish_ingredients.map( dish_ingredient => <DishIngredientListItem dish_ingredient = {dish_ingredient} key = {this.props.dish_id.toString()+' '+dish_ingredient.measure_id.toString()}></DishIngredientListItem>)}
         
-        </ul>
-      </li>
+        </ListGroup>
+      </ListGroup.Item>
     );
   }
 }

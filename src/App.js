@@ -1,6 +1,7 @@
 import React from 'react';
 //import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { DishesIndex } from "./components/dishes/index.jsx";
