@@ -6,11 +6,14 @@ export class DishListItem extends Component {
   render() {
     return (
       <li>
+        <p>id {this.props.dish_id}</p>
+        <img src={this.props.dish_image} alt="La imagen del platillo"/>
         <h3>{this.props.dish_name}</h3>
         <h4>{this.props.dish_description}</h4>
         <h4>{this.props.dish_recipe}</h4>
         <ul>
-        <DishIngredientListItem></DishIngredientListItem>
+          {this.props.dish_ingredients.map( dish_ingredient => <DishIngredientListItem dish_ingredient = {dish_ingredient} key = {this.props.dish_id.toString()+' '+dish_ingredient.measure_id.toString()}></DishIngredientListItem>)}
+        
         </ul>
       </li>
     );
