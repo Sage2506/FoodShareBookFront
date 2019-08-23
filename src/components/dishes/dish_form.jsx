@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 
 export class DishForm extends Component {
+  
   render() {
     return (
       <div>
-        
+        <h1>{this.props.dish_image}</h1>
       </div>
     );
   }
