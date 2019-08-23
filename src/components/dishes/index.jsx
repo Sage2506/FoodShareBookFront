@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { default as DishListItem } from "./dish_list_item_hoc";
 import { dishes } from "../mock_dishes";
+import { Link } from "react-router-dom";
 // TODO: pull data from api (axios)
 // TODO: add redux
-class DishesIndex extends Component {
+// TODO: view react bootstrap usage
+export class DishesIndex extends Component {
   constructor(){
     super();
     this.state = {
@@ -18,19 +20,11 @@ class DishesIndex extends Component {
   render() {
     return (
       <div>
-        <header>
-          <h1>I'm in the header</h1>
-          <h2>Me too</h2>
-        </header>
-        <ul>
+        <Link to="/1">Test Component 1</Link>
+        <Link to="/2">Test Component 2</Link>
         {this.state.dishes.map( dish => 
         <DishListItem dish = {dish} key = {dish.id}/>
           )}
-        </ul>
-          <button onClick={this.testLog}>Algun botón</button>
-      <footer>
-        <h1>And I am the footer</h1>
-      </footer>
       </div>
     );
   }
