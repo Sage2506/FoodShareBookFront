@@ -17,10 +17,10 @@ function App() {
     <Layout>
           <Switch>
             <Route exact path="/" component={DishesIndex}/>          
-            <Route path="/dishes" component={DishesIndex}/>
+            <Route exact path="/dishes" component={DishesIndex}/>
             <Route path="/dishes/:id" component={DishForm}/>
-            <Route path="/1" component={test_component_1}/>
-            <Route path="/2" component={test_component_2}/>
+            <Route path="1" component={test_component_1}/>
+            <Route path="2" component={test_component_2}/>
             <Route path="*" component={PageNotFound}/>
           </Switch>
     </Layout>

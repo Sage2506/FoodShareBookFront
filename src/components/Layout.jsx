@@ -9,9 +9,9 @@ export class Layout extends Component {
         <header className="sticky-top" >
           <Navbar bg="primary" variant="dark" >
           <Nav className="mr-auto">
-          <Nav.Item><Nav.Link ><LinkContainer to="/"><p>Home</p></LinkContainer></Nav.Link></Nav.Item>
-          <Nav.Item><Nav.Link ><LinkContainer to="/1"><p>Component 1</p></LinkContainer></Nav.Link></Nav.Item>
-          <Nav.Item><Nav.Link eventKey="disabled" disabled ><LinkContainer to="/2"><p>Component 2</p></LinkContainer></Nav.Link></Nav.Item>
+          <Nav.Item><LinkContainer to="/"><Nav.Link ><p>Home</p></Nav.Link></LinkContainer></Nav.Item>
+          <Nav.Item><LinkContainer to="/1"><Nav.Link ><p>Component 1</p></Nav.Link></LinkContainer></Nav.Item>
+          <Nav.Item><LinkContainer to="/2"><Nav.Link ><p>Component 2</p></Nav.Link></LinkContainer></Nav.Item>
           </Nav>
           </Navbar>   
         </header>

@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { DishListItem } from "./dish_list_item";
+import { PropTypes } from 'prop-types';
 export class DishListItemHOC extends Component {
   render() {
     return (
         <DishListItem
+          position = {this.props.position}
           dish_name = {this.props.dish.name}
           dish_image = {this.props.dish.image}
           dish_description = {this.props.dish.description}
@@ -13,6 +15,10 @@ export class DishListItemHOC extends Component {
         />
     );
   }
+}
+
+DishListItemHOC.propTypes = {
+  position : PropTypes.number.isRequired,
 }
 
 export default DishListItemHOC;

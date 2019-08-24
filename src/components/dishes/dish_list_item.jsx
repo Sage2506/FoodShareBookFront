@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import {default as DishIngredientListItem} from '../dish_ingredients/dish_ingredient_list_item_hoc'
 import { ListGroup } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 
 export class DishListItem extends Component {
   render() {
     return (
       <ListGroup.Item>
+        <LinkContainer to={'dishes/'+this.props.position}>
+          <div>
         <p>id {this.props.dish_id}</p>
         <img src={this.props.dish_image} alt="La imagen del platillo"/>
         <h3>{this.props.dish_name}</h3>
@@ -16,12 +19,15 @@ export class DishListItem extends Component {
           {this.props.dish_ingredients.map( dish_ingredient => <DishIngredientListItem dish_ingredient = {dish_ingredient} key = {this.props.dish_id.toString()+' '+dish_ingredient.measure_id.toString()}></DishIngredientListItem>)}
         
         </ListGroup>
+        </div>
+        </LinkContainer>
       </ListGroup.Item>
     );
   }
 }
 
 DishListItem.propTypes = {
+  position : PropTypes.number.isRequired,
   dish_name : PropTypes.string,
   dish_image : PropTypes.string,
   dish_description : PropTypes.string,
