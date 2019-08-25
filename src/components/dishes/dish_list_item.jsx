@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import {default as DishIngredientListItem} from '../dish_ingredients/dish_ingredient_list_item_hoc'
-import { ListGroup } from "react-bootstrap";
+import { ListGroup, Image } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 export class DishListItem extends Component {
   render() {
     return (
-      <ListGroup.Item>
-        <LinkContainer to={'dishes/'+this.props.position}>
+      <ListGroup.Item >
+        <LinkContainer to={'dishes/'+this.props.dish_id}>
           <div>
         <p>id {this.props.dish_id}</p>
-        <img src={this.props.dish_image} alt="La imagen del platillo"/>
+        <Image src={this.props.dish_image} alt="La imagen del platillo" fluid />
         <h3>{this.props.dish_name}</h3>
         <h4>{this.props.dish_description}</h4>
         <h4>{this.props.dish_recipe}</h4>

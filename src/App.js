@@ -1,30 +1,37 @@
 import React from 'react';
-//import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+
+import { Provider } from "react-redux";
+
+
+import configureStore from './store';
+import { get_dishes } from "./services/dish_calls";
 import { Layout } from "./components/Layout";
 import { PageNotFound } from "./components/PageNotFound";
-import 'bootstrap/dist/css/bootstrap.css';
+import { default as DishesIndex } from "./containers/dish_index_container";
+//import { default as DishShow } from "./components/dishes/dish_show_hoc";
+import {default as DishShow } from "./containers/dish/dish_show_container"
 
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { DishesIndex } from "./components/dishes/index.jsx";
-import { test_component_1 } from "./components/test_component_1";
-import { test_component_2 } from "./components/test_component_2";
-import { DishForm } from "./components/dishes/dish_form";
+const store = configureStore()
+store.dispatch(get_dishes());
 
 function App() {
+  
   return (
-  <BrowserRouter>
-    <Layout>
-          <Switch>
-            <Route exact path="/" component={DishesIndex}/>          
-            <Route exact path="/dishes" component={DishesIndex}/>
-            <Route path="/dishes/:id" component={DishForm}/>
-            <Route path="1" component={test_component_1}/>
-            <Route path="2" component={test_component_2}/>
-            <Route path="*" component={PageNotFound}/>
-          </Switch>
-    </Layout>
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <Layout>
+            <Switch>
+              <Route exact path="/" component={DishesIndex}/>          
+              <Route exact path="/dishes" component={DishesIndex}/>
+              <Route path="/dishes/:id" component={DishShow}/>
+              <Route path="*" component={PageNotFound}/>
+            </Switch>
+      </Layout>
+    </BrowserRouter>
+  </Provider>
   );
 }
 

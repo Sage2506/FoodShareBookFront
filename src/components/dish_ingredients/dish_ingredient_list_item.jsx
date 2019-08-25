@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'; 
-import { ListGroup } from "react-bootstrap";
+import { ListGroup, Image } from "react-bootstrap";
 
 export class DishIngredientListItem extends Component {
   render() {
@@ -9,6 +9,7 @@ export class DishIngredientListItem extends Component {
         <p>{this.props.ingredient_name}</p>
         <p>{this.props.measure_id}</p>
         <p>{this.props.quantity}</p>
+        <Image src={this.props.ingredient_image} alt="No image found" fluid></Image>
       </ListGroup.Item>
     );
   }
