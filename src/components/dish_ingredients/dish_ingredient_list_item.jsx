@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'; 
+import { ListGroup, Image } from "react-bootstrap";
 
 export class DishIngredientListItem extends Component {
   render() {
     return (
-      <li>
+      <ListGroup.Item>
         <p>{this.props.ingredient_name}</p>
         <p>{this.props.measure_id}</p>
         <p>{this.props.quantity}</p>
-      </li>
+        <Image src={this.props.ingredient_image} alt="No image found" fluid></Image>
+      </ListGroup.Item>
     );
   }
 }
