@@ -1,6 +1,6 @@
  import React, { Component } from 'react';
  import { DishShow } from "./dish_show"; 
- export class DishShowHoc extends Component {
+ export class DishShowHOC extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,5 +26,5 @@
    }
  }
  
- export default DishShowHoc;
+ export default DishShowHOC;
  

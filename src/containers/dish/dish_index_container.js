@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
-import { get_dishes } from "../services/dish_calls";
-import DishesIndex from "../components/dishes/index";
+import { get_dishes } from "../../services/dish_calls";
+import DishesIndex from "../../components/dishes/index";
 
 
 const mapStateToProps = (store) => {

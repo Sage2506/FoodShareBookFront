@@ -9,7 +9,7 @@ export class DishShow extends Component {
     return (
       <div>
         <h1>{this.props.dish_name}</h1>
-        <Image src={this.props.dish_image} alt="Imagen no encontrada" thumbnail/>
+        <Image src={this.props.dish_image === ""? "https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg" :this.props.dish_image } alt="Imagen no encontrada" thumbnail/>
         <h2>{this.props.dish_description}</h2>
         <h2>{this.props.dish_recipe}</h2>
         <ListGroup>
@@ -30,7 +30,7 @@ DishShow.propTypes = {
 
 DishShow.defaultProps = {
   dish_name : "Nombre de platillo",
-  dish_image : "",
+  dish_image : "https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg",
   dish_description : "Descripcion del platillo",
   dish_recipe : "Receta del platillo",
   dish_id : 2.0,

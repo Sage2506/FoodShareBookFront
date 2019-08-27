@@ -2,22 +2,21 @@ import { GET_DISH, GET_DISHES, DELETE_DISH, ADD_DISH } from "../actions/dish";
 
 const initialDishState = {
     dishes: [],
-    dish: []
+    dish: {},
+    newDish: {}
 }
 export const dishReducer = ( state = initialDishState, action) => {
     switch (action.type) {
         case GET_DISHES:
-            return {...state, dishes: action.dishes};
+            return {...state, dishes: action.dishes, dish:[]};
         case GET_DISH:
-            return {...state, dish: action.dish}
+            return {...state, dish: action.dish, newDish: []}
         case DELETE_DISH:
             const dishes = state.dishes.filter((dish =>
                 dish.id !== action.id))
             return {...state, dishes}
         case ADD_DISH:
-            let newDishes = state.dishes.slice();
-            newDishes.splice(newDishes.length, 0, action.dish)
-            return {...state, dishes: newDishes}
+            return {...state, newDish: action.dish}
         default:
             return state;
     }
