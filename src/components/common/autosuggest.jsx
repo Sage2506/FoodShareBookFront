@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import Autosuggest from 'react-autosuggest';
 export class ReactAutosuggest extends Component {
     render() {
-        var defaultTheme =  {
+        const defaultTheme =  {
             input: 'form-control',
+            suggestionsList: 'list-group',
+            suggestionContainerOpen: 'list-group'
           };
-        return (
+        return (            
             <Autosuggest 
             theme={defaultTheme}
             suggestions={this.props.suggestions}

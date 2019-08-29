@@ -1,65 +1,6 @@
 import React, { Component } from 'react';
-import {  } from "react-autosuggest";
+import { ListGroup } from "react-bootstrap";
 import ReactAutosuggest from "./autosuggest";
-const languages = [
-    {
-      name: 'C',
-      year: 1972
-    },
-    {
-      name: 'C#',
-      year: 2000
-    },
-    {
-      name: 'C++',
-      year: 1983
-    },
-    {
-      name: 'Clojure',
-      year: 2007
-    },
-    {
-      name: 'Elm',
-      year: 2012
-    },
-    {
-      name: 'Go',
-      year: 2009
-    },
-    {
-      name: 'Haskell',
-      year: 1990
-    },
-    {
-      name: 'Java',
-      year: 1995
-    },
-    {
-      name: 'Javascript',
-      year: 1995
-    },
-    {
-      name: 'Perl',
-      year: 1987
-    },
-    {
-      name: 'PHP',
-      year: 1995
-    },
-    {
-      name: 'Python',
-      year: 1991
-    },
-    {
-      name: 'Ruby',
-      year: 1995
-    },
-    {
-      name: 'Scala',
-      year: 2003
-    }
-  ];
-
 
 export class ReactAutosuggestHOC extends Component {
   constructor() {
@@ -81,7 +22,8 @@ export class ReactAutosuggestHOC extends Component {
       return [];
     }
     const regex = new RegExp('^' + escapedValue, 'i');
-    return languages.filter(language => regex.test(language.name));
+    
+    return this.props.ingredients //.filter(ingredient => regex.test(ingredient.name));
   }
 
   getSuggestionValue = suggestion => {
@@ -90,20 +32,21 @@ export class ReactAutosuggestHOC extends Component {
 
   renderSuggestion = suggestion => {
     return (
-      <span>{suggestion.name}</span>
+      <ListGroup.Item>{suggestion.name}</ListGroup.Item>
     );
   }
 
-  onChange = (event, { newValue, method }) => {
+  onChange = (event, { newValue, method }) => {        
     this.setState({
       value: newValue
     });
   };
 
   onSuggestionsFetchRequested = ({ value }) => {
-    this.setState({
-      suggestions: this.getSuggestions(value)
-    });
+    this.props.get_ingredients();
+    //this.setState({
+      //suggestions: this.getSuggestions(value)
+    //});
   };
 
   onSuggestionsClearRequested = () => {
@@ -113,16 +56,16 @@ export class ReactAutosuggestHOC extends Component {
   };
 
   render() {
-    const { value, suggestions } = this.state;
+    const { value } = this.state;
     const inputProps = {
-      placeholder: "Type 'c'",
+      placeholder: "Type 'h'",
       value,
       onChange: this.onChange
-    };
+    };    
 
     return (
       <ReactAutosuggest
-      suggestions={suggestions}
+      suggestions={this.props.ingredients}
       onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
       onSuggestionsClearRequested={this.onSuggestionsClearRequested}
       getSuggestionValue={this.getSuggestionValue}

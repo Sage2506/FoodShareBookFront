@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Button, Col } from "react-bootstrap";
-import { default as Autosuggest } from "../common/autosuggest_hoc";
+import { default as Autosuggest } from "../../containers/common/autosuggest";
 export class DishForm extends Component {
   render() {
     return (
