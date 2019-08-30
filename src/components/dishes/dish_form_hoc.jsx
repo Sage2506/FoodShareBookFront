@@ -45,10 +45,10 @@ export class DishFormHOC extends Component {
 
   handleInputSubmit = e => {
     e.preventDefault();
-    console.log(this.state.dish);
-    
+    console.log(e.target);
+    /*
     this.props.create_dish(this.state.dish)
-    this.handleReset()    
+    this.handleReset()    */
   }
   render() {
     if(this.props.newDish.id === undefined ){

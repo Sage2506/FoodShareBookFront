@@ -40,7 +40,7 @@ export class DishForm extends Component {
         </Form.Text>
       
       </Form.Group>
-      <Form.Group as={Col}>
+      <Form.Group as={Col} xl={8} xs={12}>
       <Form.Label>Ingrediente</Form.Label>
         <Autosuggest />
       </Form.Group>

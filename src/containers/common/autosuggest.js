@@ -1,17 +1,17 @@
 import { connect } from "react-redux";
-import { get_ingredients } from "../../services/ingredient_requests";
+import { get_ingredients_search } from "../../services/ingredient_requests";
 import { ReactAutosuggestHOC } from "../../components/common/autosuggest_hoc";
 
 const mapStateToProps = store => {
   return{
-    ingredients : store.ingredientReducer.ingredients
+    items : store.ingredientReducer.ingredients
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    get_ingredients: () => {
-      dispatch(get_ingredients())
+    get_items: (name, per_page = 10) => {
+      dispatch(get_ingredients_search(name, per_page))
     }
   }
 }

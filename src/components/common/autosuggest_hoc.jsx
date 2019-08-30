@@ -3,29 +3,14 @@ import { ListGroup } from "react-bootstrap";
 import ReactAutosuggest from "./autosuggest";
 
 export class ReactAutosuggestHOC extends Component {
-  constructor() {
-    super();
-
+  constructor(props) {
+    super(props);
     this.state = {
       value: '',
       suggestions: []
     };    
   }
-
-  escapeRegexCharacters = str => {
-    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  }
-
-  getSuggestions = value => {
-    const escapedValue = this.escapeRegexCharacters(value.trim());
-    if (escapedValue === '') {
-      return [];
-    }
-    const regex = new RegExp('^' + escapedValue, 'i');
-    
-    return this.props.ingredients //.filter(ingredient => regex.test(ingredient.name));
-  }
-
+  
   getSuggestionValue = suggestion => {
     return suggestion.name;
   }
@@ -37,22 +22,20 @@ export class ReactAutosuggestHOC extends Component {
   }
 
   onChange = (event, { newValue, method }) => {        
-    this.setState({
-      value: newValue
-    });
+      this.setState({
+        value: this.escapeRegexCharacters(newValue)
+      });
   };
 
-  onSuggestionsFetchRequested = ({ value }) => {
-    this.props.get_ingredients();
-    //this.setState({
-      //suggestions: this.getSuggestions(value)
-    //});
+   escapeRegexCharacters = str => {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  onSuggestionsFetchRequested = ({ value }) => {  
+    this.props.get_items(value.trim())
   };
 
   onSuggestionsClearRequested = () => {
-    this.setState({
-      suggestions: []
-    });
   };
 
   render() {
@@ -65,7 +48,7 @@ export class ReactAutosuggestHOC extends Component {
 
     return (
       <ReactAutosuggest
-      suggestions={this.props.ingredients}
+      suggestions={this.props.items}
       onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
       onSuggestionsClearRequested={this.onSuggestionsClearRequested}
       getSuggestionValue={this.getSuggestionValue}
