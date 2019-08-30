@@ -12,7 +12,18 @@ export class ReactAutosuggestHOC extends Component {
   }
   
   getSuggestionValue = suggestion => {
+    
     return suggestion.name;
+  }
+
+  onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => {    
+    if (method === 'enter') {
+      event.preventDefault();
+    }
+    this.props.selected_item(suggestion);
+    this.setState({
+      value: ""
+    });
   }
 
   renderSuggestion = suggestion => {
@@ -21,10 +32,14 @@ export class ReactAutosuggestHOC extends Component {
     );
   }
 
-  onChange = (event, { newValue, method }) => {        
+  onChange = (event, { newValue, method }) => {     
       this.setState({
         value: this.escapeRegexCharacters(newValue)
       });
+  };
+
+  onKeyDown = (event) => {
+    if (event.keyCode === 13) { event.preventDefault() }
   };
 
    escapeRegexCharacters = str => {
@@ -43,6 +58,7 @@ export class ReactAutosuggestHOC extends Component {
     const inputProps = {
       placeholder: "Type 'h'",
       value,
+      onKeyDown: this.onKeyDown,
       onChange: this.onChange
     };    
 
@@ -53,6 +69,7 @@ export class ReactAutosuggestHOC extends Component {
       onSuggestionsClearRequested={this.onSuggestionsClearRequested}
       getSuggestionValue={this.getSuggestionValue}
       renderSuggestion={this.renderSuggestion}
+      onSuggestionSelected={this.onSuggestionSelected}
       inputProps={inputProps} />
     );
   }

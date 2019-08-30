@@ -15,6 +15,7 @@ export class ReactAutosuggest extends Component {
             onSuggestionsClearRequested={this.props.onSuggestionsClearRequested}
             getSuggestionValue={this.props.getSuggestionValue}
             renderSuggestion={this.props.renderSuggestion}
+            onSuggestionSelected={this.props.onSuggestionSelected}
             inputProps={this.props.inputProps} />
         );
     }

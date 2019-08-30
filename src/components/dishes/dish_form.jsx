@@ -41,8 +41,8 @@ export class DishForm extends Component {
       
       </Form.Group>
       <Form.Group as={Col} xl={8} xs={12}>
-      <Form.Label>Ingrediente</Form.Label>
-        <Autosuggest />
+        <Form.Label>Ingrediente</Form.Label>
+        <Autosuggest selected_item={this.props.selected_item} />
       </Form.Group>
           <Button variant="primary" type="submit">
             Submit

@@ -18,6 +18,11 @@ export class DishFormHOC extends Component {
     };
   }
 
+  ingredient_selected = ingredient => {
+    console.log("dish_form_hoc.jsx");
+    console.log(ingredient);
+  }
+
   create_dish = () => {
     this.props.create_dish(this.state.dish);
   }
@@ -45,15 +50,14 @@ export class DishFormHOC extends Component {
 
   handleInputSubmit = e => {
     e.preventDefault();
-    console.log(e.target);
-    /*
     this.props.create_dish(this.state.dish)
-    this.handleReset()    */
+    this.handleReset();
   }
   render() {
     if(this.props.newDish.id === undefined ){
       return (
         <DishForm
+        selected_item = {this.ingredient_selected}
         validated = {this.state.validated}
         handleInputChange = {this.handleInputChange}
         handleInputSubmit = {this.handleInputSubmit}
