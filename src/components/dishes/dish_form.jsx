@@ -3,17 +3,22 @@ import { Form, Button, Col, FormGroup, ListGroup } from "react-bootstrap";
 import { default as Autosuggest } from "../../containers/common/autosuggest";
 import { default as DishIngredientListItem } from "../../containers/dish_ingredient/dish_ingredient_list_item_container";
 export class DishForm extends Component {
+  
   render() {
+    console.log(this.props.validated);
     return (
-      <Form noValidate={this.props.setValidated} validated={this.props.validated} onSubmit={this.props.handleInputSubmit}>
+      <Form noValidate validated={this.props.validated} onSubmit={this.props.handleInputSubmit}>
         <Form.Group as={Col} xl={8} xs={12} controlId="name" >
           <Form.Label>Dish name</Form.Label>
           <Form.Control
-            required
             type="text" 
             value={this.props.name }
             placeholder="Describe a dish name" 
-            onChange={this.props.handleInputChange}/>
+            onChange={this.props.handleInputChange}
+            isValid={this.props.name !== ""}/>
+            <Form.Control.Feedback type="invalid">
+              Please choose a username.
+            </Form.Control.Feedback>
           <Form.Text className="text-muted">
             Set a fancy name
           </Form.Text>
@@ -21,11 +26,14 @@ export class DishForm extends Component {
       <Form.Group as={Col} xl={8} xs={12} controlId="description" >
         <Form.Label>description</Form.Label>
         <Form.Control 
-          required
           as="textarea" 
           value={this.props.description }
           placeholder="write a dish description" 
-          onChange={this.props.handleInputChange}/>
+          onChange={this.props.handleInputChange}
+          isValid={this.props.description !== ""}/>
+            <Form.Control.Feedback type="invalid">
+              Please choose a username.
+            </Form.Control.Feedback>
         <Form.Text className="text-muted">
           Give it a description
         </Form.Text>
@@ -33,7 +41,6 @@ export class DishForm extends Component {
       <Form.Group as={Col} xl={8} xs={12} controlId="recipe" >
         <Form.Label>Recipe</Form.Label>
         <Form.Control
-          required
           as="textarea"
           value={this.props.recipe }
           placeholder="Give me the recipe" 
@@ -60,7 +67,7 @@ export class DishForm extends Component {
           <Col>
           <Form.Control as="select"
             onChange={this.props.handleSelectChange}
-            disabled={this.props.new_ingredient.ingredient_id === -1}>
+            disabled={this.props.new_ingredient.ingredient_id === -1 || this.props.measures.length < 1}>
                     <option>Medida...</option>
                     {this.props.measures.map( measure => 
                       <option key={`m_${measure.id}`} value={measure.id}>{measure.name}</option>
@@ -71,7 +78,7 @@ export class DishForm extends Component {
           <Form.Control
                   type="number" 
                   placeholder="Cantidad"
-                  disabled={this.props.new_ingredient.ingredient_id === -1}
+                  disabled={this.props.new_ingredient.measure_id === -1}
                   value={this.props.new_ingredient.quantity}
                   onChange={this.props.handleInputQuantityChange}
                   onKeyDown={this.props.onKeyDown}

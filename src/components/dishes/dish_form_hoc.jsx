@@ -37,7 +37,6 @@ export class DishFormHOC extends Component {
     })
   }
   addNewIngredient = () => {
-    console.log("you're almost there");
     console.log(this.state.new_ingredient);
     this.setState({
       dish: {
