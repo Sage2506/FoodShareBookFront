@@ -13,6 +13,13 @@ export class DishFormHOC extends Component {
         image: "",
         dish_ingredients: []
       },
+      new_ingredient: {
+        ingredient_name: "",
+        ingredient_image: "",
+        quantity: "",
+        measure_id: "",
+      },
+      measure_ids: [],
       validated : false,
       setValidated : false
     };
@@ -20,6 +27,12 @@ export class DishFormHOC extends Component {
 
   ingredient_selected = ingredient => {
     console.log("dish_form_hoc.jsx");
+    this.setState({
+      new_ingredient: {
+        ...this.state.new_ingredient,
+        ingredient_name: ingredient.name
+      }
+    })
     console.log(ingredient);
   }
 
@@ -65,7 +78,7 @@ export class DishFormHOC extends Component {
         description={this.state.dish.description}
         recipe={this.state.dish.recipe}
         image={this.state.dish.image}
-        dish_ingredients={this.state.dish.dish_ingredients}
+        new_ingredient={this.state.new_ingredient}
         />      
       );
     } else {
