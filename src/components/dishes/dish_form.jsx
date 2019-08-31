@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { Form, Button, Col, FormGroup, Row } from "react-bootstrap";
+import { Form, Button, Col, FormGroup, ListGroup } from "react-bootstrap";
 import { default as Autosuggest } from "../../containers/common/autosuggest";
+import { default as DishIngredientListItem } from "../../containers/dish_ingredient/dish_ingredient_list_item_container";
 export class DishForm extends Component {
   render() {
     return (
-      <Form noValidate  validated={this.props.validated} onSubmit={this.props.handleInputSubmit}>
-      
+      <Form noValidate={this.props.setValidated} validated={this.props.validated} onSubmit={this.props.handleInputSubmit}>
         <Form.Group as={Col} xl={8} xs={12} controlId="name" >
           <Form.Label>Dish name</Form.Label>
-          <Form.Control 
+          <Form.Control
+            required
             type="text" 
             value={this.props.name }
             placeholder="Describe a dish name" 
@@ -20,7 +21,8 @@ export class DishForm extends Component {
       <Form.Group as={Col} xl={8} xs={12} controlId="description" >
         <Form.Label>description</Form.Label>
         <Form.Control 
-           as="textarea" 
+          required
+          as="textarea" 
           value={this.props.description }
           placeholder="write a dish description" 
           onChange={this.props.handleInputChange}/>
@@ -30,8 +32,9 @@ export class DishForm extends Component {
       </Form.Group>  
       <Form.Group as={Col} xl={8} xs={12} controlId="recipe" >
         <Form.Label>Recipe</Form.Label>
-        <Form.Control 
-           as="textarea"
+        <Form.Control
+          required
+          as="textarea"
           value={this.props.recipe }
           placeholder="Give me the recipe" 
           onChange={this.props.handleInputChange}/>
@@ -48,34 +51,45 @@ export class DishForm extends Component {
         <Form.Row>
           <Col xl={6} xs={5}>
             <Form.Control
-                  disabled
-                  placeholder="Platillo"
-                  type="text" 
-                  value={this.props.new_ingredient.ingredient_name}
-                  />
+              disabled
+              placeholder="Ingrediente"
+              type="text" 
+              value={this.props.new_ingredient.ingredient_name}
+              />
+          </Col>
+          <Col>
+          <Form.Control as="select"
+            onChange={this.props.handleSelectChange}
+            disabled={this.props.new_ingredient.ingredient_id === -1}>
+                    <option>Medida...</option>
+                    {this.props.measures.map( measure => 
+                      <option key={`m_${measure.id}`} value={measure.id}>{measure.name}</option>
+                    )}
+          </Form.Control>
           </Col>
           <Col>
           <Form.Control
-                  disabled
-                  type="text" 
-                  placeholder="Medida"
-                  //value={this.props.new_ingredient.ingredient_name}
-                  />
-          </Col>
-          <Col>
-          <Form.Control
-                  disabled
-                  type="text" 
+                  type="number" 
                   placeholder="Cantidad"
-                  //value={this.props.new_ingredient.ingredient_name}
+                  disabled={this.props.new_ingredient.ingredient_id === -1}
+                  value={this.props.new_ingredient.quantity}
+                  onChange={this.props.handleInputQuantityChange}
+                  onKeyDown={this.props.onKeyDown}
                   />
           </Col>
           <Col xl={1} xs={1}>
-          <Form.Control
-                  type="button"
-                  ></Form.Control>
+          <Button
+                  disabled={this.props.new_ingredient.ingredient_id === -1 || this.props.new_ingredient.quantity === "" || this.props.new_ingredient.quantity < 0.05  || this.props.new_ingredient.measure_id === -1 }
+                  variant="info"
+                  onClick={this.props.addNewIngredient}
+                  ><i className="fas fa-plus"></i></Button>
           </Col>
         </Form.Row>
+        <ListGroup>
+        {this.props.dish_ingredients.map( dish_ingredient =>
+        <ListGroup.Item> <DishIngredientListItem dish_ingredient={dish_ingredient} ></DishIngredientListItem> </ListGroup.Item>
+          )}
+          </ListGroup>
         </FormGroup>
           <Button variant="primary" type="submit">
             Submit

@@ -3,6 +3,11 @@ import { Navbar, Nav, NavItem, Container} from "react-bootstrap";
 import { IndexLinkContainer } from "react-router-bootstrap";
 
 export class Layout extends Component {
+
+  componentDidMount = () => {
+    this.props.get_measures()
+  }
+
   render() {
     return (
       <div>

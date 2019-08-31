@@ -10,6 +10,7 @@ export class DishIngredientListItemHoc extends Component {
         ingredient_id = {this.props.dish_ingredient.ingredient_id}
         measure_id = {this.props.dish_ingredient.measure_id}
         quantity = {this.props.dish_ingredient.quantity}
+        measures = {this.props.measures}
       />
     );
   }

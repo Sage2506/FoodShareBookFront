@@ -5,7 +5,8 @@ import { DishFormHOC } from "../../components/dishes/dish_form_hoc";
 const mapStateToProps = store => {
     return {
         dish: store.dishReducer.dish,
-        newDish: store.dishReducer.newDish
+        newDish: store.dishReducer.newDish,
+        measures: store.measureReducer.measures
     }
 }
 

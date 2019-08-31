@@ -14,28 +14,40 @@ export class DishFormHOC extends Component {
         dish_ingredients: []
       },
       new_ingredient: {
+        ingredient_id: -1,
         ingredient_name: "",
         ingredient_image: "",
-        quantity: "",
-        measure_id: "",
+        quantity: '',
+        measure_id: -1,
       },
-      measure_ids: [],
+      valid_measures: [],
       validated : false,
       setValidated : false
     };
   }
 
   ingredient_selected = ingredient => {
-    console.log("dish_form_hoc.jsx");
     this.setState({
       new_ingredient: {
         ...this.state.new_ingredient,
+        ingredient_id: ingredient.id,
         ingredient_name: ingredient.name
+      },
+      valid_measures: this.props.measures.filter( measure => ingredient.measures.includes(measure.id))
+    })
+  }
+  addNewIngredient = () => {
+    console.log("you're almost there");
+    console.log(this.state.new_ingredient);
+    this.setState({
+      dish: {
+        ...this.state.dish,
+        dish_ingredients: [...this.state.dish.dish_ingredients, this.state.new_ingredient]
       }
     })
-    console.log(ingredient);
+    console.log(this.state.dish);
+    
   }
-
   create_dish = () => {
     this.props.create_dish(this.state.dish);
   }
@@ -45,6 +57,24 @@ export class DishFormHOC extends Component {
       dish: {
         ...this.state.dish,
         [e.target.id] : e.target.value
+      }
+    })
+  }
+
+  handleInputQuantityChange = e => {
+    this.setState({
+      new_ingredient: {
+        ...this.state.new_ingredient,
+        quantity: parseFloat(e.target.value)
+      }
+    })
+  }
+
+  handleSelectChange = e => {    
+    this.setState({
+      new_ingredient: {
+        ...this.state.new_ingredient,
+        measure_id: parseInt(e.target.value)
       }
     })
   }
@@ -61,24 +91,48 @@ export class DishFormHOC extends Component {
     })
   }
 
+  onKeyDown = (event) => {
+    if (event.keyCode === 13) { event.preventDefault() }
+  };
+
+  onNumericInputKeyDown = e => {
+    console.log(e.keyCode);
+    
+  }
+
   handleInputSubmit = e => {
     e.preventDefault();
-    this.props.create_dish(this.state.dish)
-    this.handleReset();
+    const form = e.currentTarget
+    if(form.checkValidity() === false || this.state.dish.dish_ingredients.length < 2){
+      e.stopPropagation()
+      this.setState({
+        validated: false,
+        setValidated: false
+      })
+    } else {
+      this.props.create_dish(this.state.dish)
+      this.handleReset();
+    }
   }
   render() {
     if(this.props.newDish.id === undefined ){
       return (
         <DishForm
-        selected_item = {this.ingredient_selected}
-        validated = {this.state.validated}
         handleInputChange = {this.handleInputChange}
+        handleSelectChange = {this.handleSelectChange}
+        handleInputQuantityChange = {this.handleInputQuantityChange}
+        onKeyDown = {this.onKeyDown}
+        addNewIngredient = {this.addNewIngredient}
+        selected_item = {this.ingredient_selected}
         handleInputSubmit = {this.handleInputSubmit}
+        validated = {this.state.validated}
+        measures = {this.state.valid_measures}
+        new_ingredient={this.state.new_ingredient}
         name={this.state.dish.name}
         description={this.state.dish.description}
         recipe={this.state.dish.recipe}
         image={this.state.dish.image}
-        new_ingredient={this.state.new_ingredient}
+        dish_ingredients={this.state.dish.dish_ingredients}
         />      
       );
     } else {

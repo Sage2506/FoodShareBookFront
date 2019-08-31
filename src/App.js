@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 
 import configureStore from './store';
 
-import { Layout } from "./components/Layout";
+import { default as Layout } from "./containers/layout_container";
 import { PageNotFound } from "./components/PageNotFound";
 import { default as DishesIndex } from "./containers/dish/dish_index_container";
 import {default as DishShow } from "./containers/dish/dish_show_container"

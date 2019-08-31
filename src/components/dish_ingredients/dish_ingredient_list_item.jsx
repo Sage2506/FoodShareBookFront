@@ -7,7 +7,7 @@ export class DishIngredientListItem extends Component {
     return (
       <ListGroup.Item>
         <p>{this.props.ingredient_name}</p>
-        <p>{this.props.measure_id}</p>
+        <p>{this.props.measures.find( measure => measure.id === this.props.measure_id).name}</p>
         <p>{this.props.quantity}</p>
         <Image src={this.props.ingredient_image} alt="No image found" fluid></Image>
       </ListGroup.Item>
