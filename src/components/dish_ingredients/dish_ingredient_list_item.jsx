@@ -4,12 +4,21 @@ import { ListGroup, Image } from "react-bootstrap";
 
 export class DishIngredientListItem extends Component {
   render() {
+    
+    let {
+      ingredient_name,
+      measures,
+      quantity,
+      ingredient_image,
+      measure_id,
+    } = this.props
+
     return (
       <ListGroup.Item>
-        <p>{this.props.ingredient_name}</p>
-        <p>{this.props.measure_id}</p>
-        <p>{this.props.quantity}</p>
-        <Image src={this.props.ingredient_image} alt="No image found" fluid></Image>
+        <p>{ingredient_name}</p>
+        <p>{measures.length > 0 ? measures.find( measure => measure.id === measure_id).name : measure_id}</p>
+        <p>{quantity}</p>
+        <Image src={ingredient_image} alt="No image found" fluid></Image>
       </ListGroup.Item>
     );
   }

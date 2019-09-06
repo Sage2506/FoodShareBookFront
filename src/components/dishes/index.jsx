@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { default as DishListItem } from "./dish_list_item_hoc";
-import { ListGroup } from "react-bootstrap";
-
-// TODO: pull data from api (axios)
-// TODO: add redux
+import { default as DishTableRow } from "./dish_table_row_hoc";
+import {  Table} from "react-bootstrap";
 
 export class DishesIndex extends Component {
 
@@ -13,13 +10,22 @@ export class DishesIndex extends Component {
   
   render() {        
     return (
-      <div>
-        <ListGroup>
+      <Table>
+         <thead>
+          <tr>
+            <th>id</th>
+            <th>Platillo</th>
+            <th>Descripcion</th>
+            <th>Numero de ingredientes</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
         { this.props.dishes.map( (dish, position) => 
-        <DishListItem dish = {dish} position = {position} key = {dish.id}/>
+        <DishTableRow dish = {dish} position = {position} key = {dish.id}/>
           )}
-        </ListGroup>
-      </div>
+        </tbody>
+      </Table>
     );
   }
 }

@@ -3,17 +3,25 @@ import { PropTypes } from 'prop-types';
 import { ListGroup, Image } from "react-bootstrap";
 //import { dishes } from "../mock_dishes";
 
-import {default as DishIngredientListItem} from '../dish_ingredients/dish_ingredient_list_item_hoc';
+import {default as DishIngredientListItem} from '../../containers/dish_ingredient/dish_ingredient_list_item_container';
 export class DishShow extends Component {
   render() {
+    const {
+      dish_id,
+      dish_name, 
+      dish_description, 
+      dish_recipe, 
+      dish_image, 
+      dish_ingredients, 
+    } = this.props
     return (
       <div>
-        <h1>{this.props.dish_name}</h1>
-        <Image src={this.props.dish_image} alt="Imagen no encontrada" thumbnail/>
-        <h2>{this.props.dish_description}</h2>
-        <h2>{this.props.dish_recipe}</h2>
+        <h1>{dish_name}</h1>
+        <Image src={dish_image === ""? "https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg" :dish_image } alt="Imagen no encontrada" thumbnail/>
+        <h2>{dish_description}</h2>
+        <h2>{dish_recipe}</h2>
         <ListGroup>
-          {this.props.dish_ingredients.map( dish_ingredient => <DishIngredientListItem dish_ingredient={dish_ingredient} key={this.props.dish_id+`_`+dish_ingredient.ingredient_id} />)}
+          {dish_ingredients.map( (dish_ingredient, index) => <DishIngredientListItem dish_ingredient={dish_ingredient} key={dish_id+"_"+index} />)}
         </ListGroup>
       </div>
     );
@@ -30,7 +38,7 @@ DishShow.propTypes = {
 
 DishShow.defaultProps = {
   dish_name : "Nombre de platillo",
-  dish_image : "",
+  dish_image : "https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg",
   dish_description : "Descripcion del platillo",
   dish_recipe : "Receta del platillo",
   dish_id : 2.0,
