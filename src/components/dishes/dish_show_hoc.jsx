@@ -12,7 +12,7 @@
     this.props.getDish(this.props.match.params.id)
   }
 
-   render() {     
+   render() {
      return (
        <DishShow
           dish_name = {this.props.dish.name}

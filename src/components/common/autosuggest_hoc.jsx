@@ -62,9 +62,11 @@ export class ReactAutosuggestHOC extends Component {
       onChange: this.onChange
     };    
 
+    let { items } = this.props;
+
     return (
       <ReactAutosuggest
-      suggestions={this.props.items}
+      suggestions={items}
       onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
       onSuggestionsClearRequested={this.onSuggestionsClearRequested}
       getSuggestionValue={this.getSuggestionValue}

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { get_dishes } from "../../services/dish_calls";
+import { get_dishes } from "../../services/dish_requests";
 import DishesIndex from "../../components/dishes/index";
 
 

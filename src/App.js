@@ -22,12 +22,12 @@ function App() {
   <Provider store={store}>
     <BrowserRouter>
       <Layout>
-            <Switch>
-              <Route exact path="/" component={DishesIndex}/>          
-              <Route path="/dishes/new" component={DishForm}/>
-              <Route path="/dishes/:id" component={DishShow}/>
-              <Route path="*" component={PageNotFound}/>
-            </Switch>
+        <Switch>
+          <Route exact path="/" component={DishesIndex}/>          
+          <Route path="/dishes/new" component={DishForm}/>
+          <Route path="/dishes/:id" component={DishShow}/>
+          <Route path="*" component={PageNotFound}/>
+        </Switch>
       </Layout>
     </BrowserRouter>
   </Provider>

@@ -7,19 +7,19 @@ const initialIngredientState = {
 }
 
 export const ingredientReducer = ( state = initialIngredientState, action) => {
-    switch (action.type) {
-        case GET_INGREDIENTS:
-            return {...state, ingredients: action.ingredients};
-        case GET_INGREDIENT:
-            return {...state, ingredient: action.ingredient, newIngredient: []}
-        case DELETE_INGREDIENT:
-            const ingredients = state.ingredients.filter((ingredient =>
-                ingredient.id !== action.id))
-            return {...state, ingredients}
-        case ADD_INGREDIENT:
-            return {...state, newIngredient: action.ingredient}
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case GET_INGREDIENTS:
+      return {...state, ingredients: action.ingredients};
+    case GET_INGREDIENT:
+      return {...state, ingredient: action.ingredient, newIngredient: []}
+    case DELETE_INGREDIENT:
+      const ingredients = state.ingredients.filter((ingredient =>
+      ingredient.id !== action.id))
+      return {...state, ingredients}
+    case ADD_INGREDIENT:
+      return {...state, newIngredient: action.ingredient}
+    default:
+      return state;
+  }
 }
 export default ingredientReducer;

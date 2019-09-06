@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { default as DishTableRow } from "./dish_table_row_hoc";
 import {  Table} from "react-bootstrap";
 
-// TODO: pull data from api (axios)
-// TODO: add redux
-
 export class DishesIndex extends Component {
 
   componentDidMount() {

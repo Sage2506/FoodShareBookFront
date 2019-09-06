@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { get_dish } from "../../services/dish_calls";
+import { get_dish } from "../../services/dish_requests";
 import DishShowHoc from "../../components/dishes/dish_show_hoc";
 
 

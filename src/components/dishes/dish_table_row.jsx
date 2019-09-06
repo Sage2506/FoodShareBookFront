@@ -4,16 +4,16 @@ import { LinkContainer } from "react-router-bootstrap";
 
 export class DishTableRow extends Component {
   render() {  
-      return (
-          <LinkContainer to={'/dishes/'+this.props.dish_id}>
-              <tr>
-        <td>{this.props.dish_id}</td>
-        <td>{this.props.dish_name}</td>
-        <td>{this.props.dish_description}</td>
-        <td>{this.props.dish_ingredients.length}</td>
-        <td>Aqui van a ir las acciones</td>
+    return (
+      <LinkContainer to={'/dishes/'+this.props.dish_id}>
+        <tr>
+          <td>{this.props.dish_id}</td>
+          <td>{this.props.dish_name}</td>
+          <td>{this.props.dish_description}</td>
+          <td>{this.props.dish_ingredients.length}</td>
+          <td>Aqui van a ir las acciones</td>
         </tr>
-        </LinkContainer>
+      </LinkContainer>
     );
   }
 }

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { post_dish } from "../../services/dish_calls";
+import { post_dish } from "../../services/dish_requests";
 import { DishFormHOC } from "../../components/dishes/dish_form_hoc";
 
 const mapStateToProps = store => {

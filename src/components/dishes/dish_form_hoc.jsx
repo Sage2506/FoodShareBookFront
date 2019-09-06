@@ -27,25 +27,23 @@ export class DishFormHOC extends Component {
   }
 
   ingredient_selected = ingredient => {
+
     this.setState({
       new_ingredient: {
         ...this.state.new_ingredient,
         ingredient_id: ingredient.id,
         ingredient_name: ingredient.name
-      },
+      },      
       valid_measures: this.props.measures.filter( measure => ingredient.measures.includes(measure.id))
     })
   }
   addNewIngredient = () => {
-    console.log(this.state.new_ingredient);
     this.setState({
       dish: {
         ...this.state.dish,
         dish_ingredients: [...this.state.dish.dish_ingredients, this.state.new_ingredient]
       }
     })
-    console.log(this.state.dish);
-    
   }
   create_dish = () => {
     this.props.create_dish(this.state.dish);
@@ -69,7 +67,7 @@ export class DishFormHOC extends Component {
     })
   }
 
-  handleSelectChange = e => {    
+  handleSelectChange = e => {
     this.setState({
       new_ingredient: {
         ...this.state.new_ingredient,
@@ -91,12 +89,14 @@ export class DishFormHOC extends Component {
   }
 
   onKeyDown = (event) => {
-    if (event.keyCode === 13) { event.preventDefault() }
+    if (event.keyCode === 13) { 
+      event.preventDefault() 
+    }
   };
 
   onNumericInputKeyDown = e => {
     console.log(e.keyCode);
-    
+    console.log("rememble to handle 'e'")
   }
 
   handleInputSubmit = e => {
@@ -117,26 +117,24 @@ export class DishFormHOC extends Component {
     if(this.props.newDish.id === undefined ){
       return (
         <DishForm
-        handleInputChange = {this.handleInputChange}
-        handleSelectChange = {this.handleSelectChange}
-        handleInputQuantityChange = {this.handleInputQuantityChange}
-        onKeyDown = {this.onKeyDown}
-        addNewIngredient = {this.addNewIngredient}
-        selected_item = {this.ingredient_selected}
-        handleInputSubmit = {this.handleInputSubmit}
-        validated = {this.state.validated}
-        measures = {this.state.valid_measures}
-        new_ingredient={this.state.new_ingredient}
-        name={this.state.dish.name}
-        description={this.state.dish.description}
-        recipe={this.state.dish.recipe}
-        image={this.state.dish.image}
-        dish_ingredients={this.state.dish.dish_ingredients}
-        />      
+          handleInputChange = {this.handleInputChange}
+          handleSelectChange = {this.handleSelectChange}
+          handleInputQuantityChange = {this.handleInputQuantityChange}
+          onKeyDown = {this.onKeyDown}
+          addNewIngredient = {this.addNewIngredient}
+          selected_item = {this.ingredient_selected}
+          handleInputSubmit = {this.handleInputSubmit}
+          validated = {this.state.validated}
+          measures = {this.state.valid_measures}
+          new_ingredient={this.state.new_ingredient}
+          name={this.state.dish.name}
+          description={this.state.dish.description}
+          recipe={this.state.dish.recipe}
+          image={this.state.dish.image}
+          dish_ingredients={this.state.dish.dish_ingredients}
+        />
       );
     } else {
-      console.log("redirecting");
-      
       return <Redirect to={'/dishes/'+this.props.newDish.id} />
     }
   }
