@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const LoginForm = props => {
+export const Login = props => {
 
   
   let { 
@@ -123,7 +123,7 @@ const LoginForm = props => {
 
 
 
-export class Login extends Component {
+export class LoginForm extends Component {
   render() {    
     let { 
       email , 

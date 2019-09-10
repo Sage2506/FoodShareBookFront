@@ -5,9 +5,7 @@ import { login } from "../actions/user";
 export const log_in = (user, rememberMe) => {
   return async dispatch => {
     try {
-      const response = await api.post(`users/login`, user);
-      console.log(response.status);
-      
+      const response = await api.post(`users/login`, user);      
       if(response.status === 200 ){
         if(rememberMe){
           const cookies = new Cookies();
@@ -16,7 +14,7 @@ export const log_in = (user, rememberMe) => {
         dispatch(login())
       }
     }
-    catch (error) {
+    catch (error) {      
       throw (error)
     }
   }
