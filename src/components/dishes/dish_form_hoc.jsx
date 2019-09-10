@@ -33,7 +33,7 @@ export class DishFormHOC extends Component {
         ...this.state.new_ingredient,
         ingredient_id: ingredient.id,
         ingredient_name: ingredient.name
-      },      
+      },
       valid_measures: this.props.measures.filter( measure => ingredient.measures.includes(measure.id))
     })
   }

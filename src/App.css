@@ -1,3 +1,8 @@
 .list-group li {
   list-style-type: none;
 }
+
+.MuiFab-primary {
+  color: #fff;
+  background-color: #007bff;
+}
