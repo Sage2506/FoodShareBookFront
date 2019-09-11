@@ -1,22 +1,41 @@
 import React, { Component } from 'react';
 import { Form, Button, Col, FormGroup, ListGroup } from "react-bootstrap";
+import Dropzone from 'react-dropzone'
+import Paper from '@material-ui/core/Paper';
 
-export class IngredientForm extends Component {
 
-  render() {
+
+
+export const IngredientForm = props => {  
     let {
       name,
       description,
       image,
       measures,
       measuresCatalog,
-      showCloudinaryWidget,
       validated,
       handleInputChange,
       handleInputSubmit,
-    } = this.props
+      catchImage
+    } = props
     return (
       <Form noValidate validated={validated} onSubmit={handleInputSubmit}>
+        <Form.Group as={Col} xl={8} xs={12} controlId="image">
+          <Form.Label>Ingredient image</Form.Label>
+          <Paper>
+          <Dropzone onDrop={acceptedFiles => catchImage(acceptedFiles)}>
+            {({getRootProps, getInputProps}) => (
+              <section className="dropzone dz-clickable" >
+                <div {...getRootProps()} className="dz-message">
+                <i className="fa fa-cloud-upload" aria-hidden="true"></i>
+                <input {...getInputProps()} />
+                  <p>Drag 'n' drop some images here, or click to select files</p>
+                </div>
+              </section>
+            )}
+          </Dropzone>
+          </Paper>
+        </Form.Group>
         <Form.Group as={Col} xl={8} xs={12} controlId="name" >
           <Form.Label>Ingredient name</Form.Label>
           <Form.Control
@@ -60,13 +79,11 @@ export class IngredientForm extends Component {
             />
             )}
         </Form.Group>
-        <Button variant="info" onClick={showCloudinaryWidget}>Upload Photo</Button>
         <Button variant="primary" type="submit">
             Submit
           </Button>
       </Form>
     );
-  }
 }
 
 export default IngredientForm;

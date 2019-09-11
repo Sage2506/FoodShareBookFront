@@ -2,7 +2,22 @@
   list-style-type: none;
 }
 
-.MuiFab-primary {
-  color: #fff;
-  background-color: #007bff;
+.dropzone {
+  text-align: center;
+  cursor: pointer;
+}
+.dropzone .dz-clickable {
+  cursor: pointer;
+}
+
+.dropzone i{
+  font-size: 5rem;
+  margin: auto;
+}
+
+.dropzone .dz-message {
+  color: rgba(0,0,0,.54);
+  font-weight: 500;
+  font-size: initial;
+  text-transform: uppercase;
 }

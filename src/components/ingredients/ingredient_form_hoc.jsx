@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import IngredientForm from './ingredient_form';
-import { thisExpression } from '@babel/types';
+import RootRef from '@material-ui/core/RootRef'
 
 export class IngredientFormHOC extends Component {
   constructor(props) {
@@ -14,6 +14,18 @@ export class IngredientFormHOC extends Component {
       },
       validated: false
     };
+  }
+
+  catchImage = acceptedFiles => {
+    console.log(acceptedFiles);
+    const reader = new FileReader()
+    reader.onload = () => {
+      // Do whatever you want with the file contents
+      const binaryStr = reader.result
+      console.log(binaryStr)
+    }
+    reader.readAsBinaryString(acceptedFiles[0])
+    
   }
 
   handleInputChange = e => {
@@ -58,29 +70,8 @@ export class IngredientFormHOC extends Component {
     }
   }
 
-  showWidget = () => {
-    let widget = window.cloudinary.createUploadWidget({
-      cloudName: 'dbo96sjb',
-      apiKey: '757447362712211',
-      uploadPreset: 'rfsb_images',
-      preBatch: (cb, data) => {
-        cb({
-          cancel: true
-        })
-        console.log(data.files[0]);
-        
-      }
-    }, (error, result) => { this.checkUploadResult(result)})
-    
-    widget.open();
-  }
 
-  checkUploadResult = result => {
-    if (result.event === 'success'){
-      console.log(result.info.secure_url);
-      console.log(result.info)
-    }
-  }
+
 
   render() {
     let { ingredient, validated } = this.state
@@ -94,7 +85,7 @@ export class IngredientFormHOC extends Component {
         image={image}
         measures={measures}
         measuresCatalog={measuresCatalog}
-        showCloudinaryWidget={this.showWidget}
+        catchImage = {this.catchImage}
         handleInputChange={this.handleInputChange}
         handleInputSubmit={this.handleInputSubmit}
         validated={validated}
