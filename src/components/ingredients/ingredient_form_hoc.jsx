@@ -9,23 +9,24 @@ export class IngredientFormHOC extends Component {
       ingredient : {
         name : "",
         description: "",
-        image : "",
+        image : null,
         measures : []
       },
       validated: false
     };
   }
 
-  catchImage = acceptedFiles => {
-    console.log(acceptedFiles);
+  onPreviewDrop = acceptedFiles => {
     const reader = new FileReader()
-    reader.onload = () => {
-      // Do whatever you want with the file contents
-      const binaryStr = reader.result
-      console.log(binaryStr)
+    reader.onloadend = ev => {
+      this.setState({
+        ingredient : {
+          ...this.state.ingredient,
+          image : reader.result
+        }
+      })
     }
-    reader.readAsBinaryString(acceptedFiles[0])
-    
+    reader.readAsDataURL(acceptedFiles[0])
   }
 
   handleInputChange = e => {
@@ -60,7 +61,9 @@ export class IngredientFormHOC extends Component {
   handleInputSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget
-    if(form.checkValidity() === false || this.state.ingredient.measures.length < 1){
+    let { ingredient } = this.state
+    let { name , description, image, measures } = ingredient
+    if(form.checkValidity() === false || measures.length < 1 || image === null || name === "" || description === "" ){
       e.stopPropagation()
       this.setState({
         validated: false,
@@ -85,7 +88,7 @@ export class IngredientFormHOC extends Component {
         image={image}
         measures={measures}
         measuresCatalog={measuresCatalog}
-        catchImage = {this.catchImage}
+        onPreviewDrop = {this.onPreviewDrop}
         handleInputChange={this.handleInputChange}
         handleInputSubmit={this.handleInputSubmit}
         validated={validated}
