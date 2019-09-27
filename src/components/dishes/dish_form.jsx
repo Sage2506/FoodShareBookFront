@@ -93,7 +93,7 @@ export class DishForm extends Component {
             disabled={ingredient_id === -1 || measures.length < 1}
           >
             <option>Medida...</option>
-            {measures.map( measure => 
+            {measures.map( (measure) => 
               <option key={`m_${measure.id}`} value={measure.id}>{measure.name}</option>
               )
             }
@@ -103,6 +103,7 @@ export class DishForm extends Component {
           <Form.Control
             type="number" 
             placeholder="Cantidad"
+            min="0"
             disabled={measure_id === -1}
             value={quantity}
             onChange={handleInputQuantityChange}
@@ -111,7 +112,7 @@ export class DishForm extends Component {
           </Col>
           <Col xl={1} xs={1}>
           <Button
-            disabled={ingredient_id === -1 || quantity === "" || quantity < 0.05  || new_ingredient.measure_id === -1 }
+            disabled={ingredient_id === -1 || quantity === "" || quantity < 0.005  || new_ingredient.measure_id === -1 }
             variant="info"
             onClick={addNewIngredient}
             >
@@ -119,8 +120,8 @@ export class DishForm extends Component {
           </Col>
         </Form.Row>
         <ListGroup>
-          {dish_ingredients.map( dish_ingredient =>
-            <ListGroup.Item> <DishIngredientListItem dish_ingredient={dish_ingredient} ></DishIngredientListItem> </ListGroup.Item>
+          {dish_ingredients.map( (dish_ingredient, index) =>
+            <ListGroup.Item key={index}> <DishIngredientListItem dish_ingredient={dish_ingredient} ></DishIngredientListItem> </ListGroup.Item>
             )
           }
         </ListGroup>

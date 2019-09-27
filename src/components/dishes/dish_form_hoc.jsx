@@ -27,7 +27,6 @@ export class DishFormHOC extends Component {
   }
 
   ingredient_selected = ingredient => {
-
     this.setState({
       new_ingredient: {
         ...this.state.new_ingredient,
@@ -102,7 +101,13 @@ export class DishFormHOC extends Component {
   handleInputSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget
-    if(form.checkValidity() === false || this.state.dish.dish_ingredients.length < 2){
+    let { name, recipe, dish_ingredients,} = this.state.dish
+    if(
+      form.checkValidity() === false || 
+      dish_ingredients.length < 2 ||
+      name === "" ||
+      recipe === "" 
+      ){
       e.stopPropagation()
       this.setState({
         validated: false,

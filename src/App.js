@@ -14,6 +14,7 @@ import { default as DishesIndex } from "./containers/dish/dish_index_container";
 import {default as DishShow } from "./containers/dish/dish_show_container"
 import { default as DishForm } from "./containers/dish/dish_form_container";
 import {default as IngredientForm} from './containers/ingredient/ingredient_form_container'
+import { default as IngredientShow } from "./containers/ingredient/ingredient_show_container";
 
 const store = configureStore();
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="/dishes/new" component={DishForm}/>
           <Route path="/dishes/:id" component={DishShow}/>
           <Route path="/ingredients/new" component={IngredientForm}/>
+          <Route path="/ingredients/:id" component={IngredientShow}/>
           <Route path="*" component={PageNotFound}/>
         </Switch>
       </Layout>

@@ -3,7 +3,7 @@ import { GET_INGREDIENTS, GET_INGREDIENT, ADD_INGREDIENT, DELETE_INGREDIENT} fro
 const initialIngredientState = {
     ingredients: [],
     ingredient: {},
-    newIngredient : {}
+    newIngredient : {},
 }
 
 export const ingredientReducer = ( state = initialIngredientState, action) => {
