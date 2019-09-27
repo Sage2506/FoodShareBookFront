@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import IngredientForm from './ingredient_form';
 import axios from "axios";
-import cloudinary from 'cloudinary-core'; 
+import { Redirect } from 'react-router-dom'
 
 export class IngredientFormHOC extends Component {
   constructor(props) {
@@ -15,9 +15,9 @@ export class IngredientFormHOC extends Component {
       },
       validated: false
     };
-  }
+  };
 
-  onPreviewDrop = acceptedFiles => {
+  onPreviewDrop = (acceptedFiles) => {
     const reader = new FileReader()
     reader.onloadend = ev => {
       this.setState({
@@ -59,7 +59,7 @@ export class IngredientFormHOC extends Component {
     }
   }
 
-  handleInputSubmit = e => {
+  handleInputSubmit = (e) => {
     e.preventDefault();
     const form = e.currentTarget
     let { ingredient } = this.state
@@ -69,87 +69,35 @@ export class IngredientFormHOC extends Component {
       this.setState({
         validated: false,
       })
-
     } else {
-      //let cl = new cloudinary.Cloudinary({cloud_name: "demo", secure: true});
-
       let url = `https://api.cloudinary.com/v1_1/dbo96sjb/upload`;
       let fd = new FormData();
-      // fd.append("upload_preset", unsignedUploadPreset);
-      fd.append("tags", "browser_upload"); // Optional - add tag for image admin in Cloudinary
-      fd.append("upload_preset", "demo preset")
+      fd.append("tags", "browser_upload");
+      fd.append("upload_preset", "rfsb_images")
       fd.append("api_key", "757447362712211");
       fd.append("api_secret", "z_F0g_ccUUJG24DDJJjyNdjl0RM");
+      fd.append("return_delete_token", true);
+      fd.append("folder","ingredients");
       fd.append("file", image);
-      const config = {}
-      axios.post(url, fd, config)
-              .then(function (res) {
-                console.log(res);
-                this.props.create_ingredient(this.state.ingredient)
-              })
-              .catch(function (err) {
-                console.error('err', err);
-              });
-
-
-
-
+      axios.post(url, fd)
+        .then( res => {
+          this.props.create_ingredient({...this.state.ingredient, image : res.data.public_id})
+        })
+        .catch(function (err) {
+          console.error('err', err);
+        });
     }
   }
 
-  /*function uploadFile(file) {
-    var url = `https://api.cloudinary.com/v1_1/dbo96sjb/upload`;
-    var fd = new FormData();
-    // fd.append("upload_preset", unsignedUploadPreset);
-    fd.append("tags", "browser_upload"); // Optional - add tag for image admin in Cloudinary
-    fd.append("api_key", "757447362712211");
-    fp.append("api_secret", "z_F0g_ccUUJG24DDJJjyNdjl0RM");
-    fd.append("file", file);
-    const config = {}
-      /*headers: { "X-Requested-With": "XMLHttpRequest" },
-      onUploadProgress: function(progressEvent) {
-        // Do whatever you want with the native progress event
-        // console.log('progressEvent', progressEvent);
-        var progress = Math.round((progressEvent.loaded * 100.0) / progressEvent.total);
-        document.getElementById('progress').style.width = progress + "%";
-  
-        console.log(`onUploadProgress progressEvent.loaded: ${progressEvent.loaded},
-      progressEvent.total: ${progressEvent.total}`);
-      }
-    };
-    axios.post(url, fd, config)
-              .then(function (res) {
-                // console.log('res', res)
-                // File uploaded successfully
-                /*var response = res.data;
-                // https://res.cloudinary.com/cloudName/image/upload/v1483481128/public_id.jpg
-                var url = response.secure_url;
-                // Create a thumbnail of the uploaded image, with 150px width
-                var tokens = url.split('/');
-                tokens.splice(-2, 0, 'w_150,c_scale');
-                var img = new Image(); // HTML5 Constructor
-                img.src = tokens.join('/');
-                img.alt = response.public_id;
-                document.getElementById('gallery').appendChild(img);
-              })
-              .catch(function (err) {
-                console.error('err', err);
-              });
-  
-    // Reset the upload progress bar
-    document.getElementById("progress").style.width = 0;
-  }*/
-
-
-
-
   render() {
-    let { ingredient, validated } = this.state
-    let { name, description, image, measures} = ingredient
-    let { measuresCatalog } = this.props
-    
-    return (
-      <IngredientForm
+    if ( this.props.newIngredient.id === undefined ) {
+
+      let { ingredient, validated } = this.state
+      let { name, description, image, measures} = ingredient
+      let { measuresCatalog } = this.props
+      
+      return (
+        <IngredientForm
         name={name}
         description={description}
         image={image}
@@ -159,8 +107,11 @@ export class IngredientFormHOC extends Component {
         handleInputChange={this.handleInputChange}
         handleInputSubmit={this.handleInputSubmit}
         validated={validated}
-      />
-    );
+        />
+        );
+    } else {
+      return <Redirect to={'/ingredients/'+this.props.newIngredient.id} />
+    }
   }
 }
 
