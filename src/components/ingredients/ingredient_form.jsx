@@ -1,6 +1,7 @@
-import React, { Fragment } from 'react';
-import { Form, Button, Col, Image } from "react-bootstrap";
-import Dropzone from 'react-dropzone'
+import React from 'react';
+import { Form, Button, Col } from "react-bootstrap";
+import { default as Dropzone } from "../common/dropzone_hoc";
+//import Dropzone from 'react-dropzone'
 import Paper from '@material-ui/core/Paper';
 
 
@@ -10,50 +11,20 @@ export const IngredientForm = props => {
     let {
       name,
       description,
-      image,
       measures,
       measuresCatalog,
       validated,
       handleInputChange,
       handleInputSubmit,
-      onPreviewDrop
+      onImageSelected
     } = props
     return (
       <Form noValidate validated={validated} onSubmit={handleInputSubmit}>
         <Form.Group as={Col} xl={8} xs={12} controlId="image">
           <Form.Label>Ingredient image</Form.Label>
-          <Paper>
-          <Dropzone 
-          accept="image/*"
-
-          onDrop={onPreviewDrop}
-          >
-            {({getRootProps, getInputProps}) => (
-              <section className="dropzone dz-clickable" >
-                { image === null &&
-                  <div {...getRootProps()} className="dz-message">
-                    <i className="fa fa-cloud-upload" aria-hidden="true"></i>
-                    <input {...getInputProps()} />
-                    <p>Drag 'n' drop some images here, or click to select files</p>
-                  </div>
-                }
-                { image !== null &&
-                  <div {...getRootProps()} className="dz-message">
-                    <Fragment>
-                      <Image
-                        alt="Preview"
-                        src={image}
-                        fluid
-                      />
-                      <input {...getInputProps()} />
-                    </Fragment>
-                  </div>
-                }
-              </section>
-            )}
-          </Dropzone>
-          </Paper>
-          
+          <Dropzone
+            onImageSelected = {onImageSelected}
+          />
         </Form.Group>
         <Form.Group as={Col} xl={8} xs={12} controlId="name" >
           <Form.Label>Ingredient name</Form.Label>
@@ -66,9 +37,9 @@ export const IngredientForm = props => {
             <Form.Control.Feedback type="invalid">
               Please choose a username.
             </Form.Control.Feedback>
-          <Form.Text className="text-muted">
-            Set a fancy name
-          </Form.Text>
+            <Form.Text className="text-muted">
+              Set a fancy name
+            </Form.Text>
           </Form.Group> 
           <Form.Group as={Col} xl={8} xs={12} controlId="description" >
           <Form.Label>description</Form.Label>
@@ -78,15 +49,15 @@ export const IngredientForm = props => {
             placeholder="write a Ingredient description" 
             onChange={handleInputChange}
             isValid={description !== ""}/>
-              <Form.Control.Feedback type="invalid">
-                Please choose a username.
-              </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">
+            Please choose a username.
+          </Form.Control.Feedback>
           <Form.Text className="text-muted">
             Give it a description
           </Form.Text>
         </Form.Group>
         <Form.Group as={Col} controlId="formBasicCheckbox">
-        <Form.Label>Measures</Form.Label>
+          <Form.Label>Measures</Form.Label>
           {measuresCatalog.map( measure => 
             <Form.Check 
               key={'measure_id_'+measure.id} 
@@ -96,7 +67,7 @@ export const IngredientForm = props => {
               onChange={handleInputChange} 
               checked={measures.includes(measure.id)}
             />
-            )}
+          )}
         </Form.Group>
         <Button variant="primary" type="submit">
             Submit

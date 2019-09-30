@@ -29,6 +29,15 @@ export class IngredientFormHOC extends Component {
     reader.readAsDataURL(acceptedFiles[0])
   }
 
+  onImageSelected = (image) => {
+    this.setState({
+      ingredient : {
+        ...this.state.ingredient,
+        image
+      }
+    })
+  }
+
   handleInputChange = e => {
     if ( e.target.type === 'checkbox'){
       if(e.target.checked){
@@ -131,6 +140,7 @@ export class IngredientFormHOC extends Component {
         handleInputChange={this.handleInputChange}
         handleInputSubmit={this.handleInputSubmit}
         validated={validated}
+        onImageSelected={this.onImageSelected}
         />
         );
     } else {

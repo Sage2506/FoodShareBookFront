@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, Container } from "react-bootstrap";
 import { IndexLinkContainer } from "react-router-bootstrap";
-import Cookies from 'universal-cookie';
+import {Cookies} from 'react-cookie';
 import { default as Login } from "../containers/user/login_container";
 import { api } from "../services/foodsharebook_api";
 

@@ -51,7 +51,7 @@ export class LoginHOC extends Component {
         }
       })
     } else {
-      this.props.log_in(user, rememberMe );
+      this.props.logIn(user, rememberMe );
     }
   }
 

@@ -10,7 +10,7 @@ const mapStateToProps = store => {
     }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => { 
     return {
         create_dish: dish =>{       
             dispatch(post_dish(dish))
