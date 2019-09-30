@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Form, Button, Col, FormGroup, ListGroup } from "react-bootstrap";
 import { default as Autosuggest } from "../../containers/common/autosuggest";
 import { default as DishIngredientListItem } from "../../containers/dish_ingredient/dish_ingredient_list_item_container";
+import { default as Dropzone } from "../common/dropzone_hoc";
 export class DishForm extends Component {
   
   render() {
@@ -20,6 +21,7 @@ export class DishForm extends Component {
       handleSelectChange,
       handleInputQuantityChange,
       onKeyDown,
+      onImageSelected
     } = this.props
 
     let {
@@ -40,12 +42,18 @@ export class DishForm extends Component {
             onChange={handleInputChange}
             isValid={name !== ""}/>
             <Form.Control.Feedback type="invalid">
-              Please choose a username.
+              Please write a valid dish name.
             </Form.Control.Feedback>
           <Form.Text className="text-muted">
             Set a fancy name
           </Form.Text>
-          </Form.Group> 
+        </Form.Group> 
+        <Form.Group as={Col} xl={8} xs={12} controlId="image">
+          <Form.Label>Dish image</Form.Label>
+          <Dropzone 
+            onImageSelected={onImageSelected}
+          />
+        </Form.Group>
         <Form.Group as={Col} xl={8} xs={12} controlId="description" >
           <Form.Label>description</Form.Label>
           <Form.Control 

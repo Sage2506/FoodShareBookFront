@@ -26,6 +26,15 @@ export class DishFormHOC extends Component {
     };
   }
 
+  onImageSelected = (image) => {
+    this.setState({
+      dish: {
+        ...this.state.dish,
+        image
+      }
+    })
+  }
+
   ingredient_selected = ingredient => {
     this.setState({
       new_ingredient: {
@@ -137,6 +146,7 @@ export class DishFormHOC extends Component {
           recipe={this.state.dish.recipe}
           image={this.state.dish.image}
           dish_ingredients={this.state.dish.dish_ingredients}
+          onImageSelected={this.onImageSelected}
         />
       );
     } else {
