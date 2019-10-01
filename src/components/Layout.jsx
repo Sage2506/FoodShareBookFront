@@ -37,8 +37,7 @@ export class Layout extends Component {
             <Navbar bg="primary" variant="dark" >
               <Nav className="mr-auto">
                 <NavItem><IndexLinkContainer to="/"><Nav.Link ><p>Home</p></Nav.Link></IndexLinkContainer></NavItem>
-                <NavItem><IndexLinkContainer to="/dishes/new"><Nav.Link ><p>New dish</p></Nav.Link></IndexLinkContainer></NavItem>
-                <NavItem><IndexLinkContainer to="/ingredients/new"><Nav.Link><p>New Ingredient</p></Nav.Link></IndexLinkContainer></NavItem>
+                <NavItem><IndexLinkContainer to="/ingredients"><Nav.Link><p>Ingredients</p></Nav.Link></IndexLinkContainer></NavItem>
                 <NavItem><Nav.Link onClick={this.logout} ><p>Logout</p></Nav.Link></NavItem>
               </Nav>
             </Navbar>   

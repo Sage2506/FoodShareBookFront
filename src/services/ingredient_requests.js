@@ -1,9 +1,9 @@
 import { api } from "./foodsharebook_api";
 import { getIngredient, getIngredients, postIngredient, destroyIngredient } from "../actions/ingredient";
 
-export const get_ingredients = () => {        
+export const get_ingredients = (page = 1, per_page = 10) => {        
   return (dispatch) =>{
-    return api.get(`ingredients`)
+    return api.get(`ingredients?page=${page}&per_page=${per_page}`)
     .then( response => {
       dispatch(getIngredients(response.data))
     })
