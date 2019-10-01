@@ -79,6 +79,8 @@ export class IngredientFormHOC extends Component {
       })
     } else {
       this.uploadFile(image);
+      //let imageData = uploadImage(image);
+      //this.props.create_ingredient({...this.state.ingredient, image : imageData})
       /*let url = `https://api.cloudinary.com/v1_1/dbo96sjb/upload`;
       let fd = new FormData();
       fd.append("tags", "browser_upload");

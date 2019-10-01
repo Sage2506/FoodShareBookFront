@@ -6,11 +6,11 @@ import { default as Dropzone } from "../common/dropzone_hoc";
 export class DishForm extends Component {
   
   render() {
-    let { 
-      name, 
-      description, 
+    let {
+      name,
+      description,
       recipe,
-      handleInputChange, 
+      handleInputChange,
       validated,
       selected_item,
       new_ingredient,

@@ -1,5 +1,6 @@
  import React, { Component } from 'react';
  import { DishShow } from "./dish_show"; 
+ import { buildImageSecureUrl } from "../common/helpers";
  export class DishShowHOC extends Component {
   constructor(props) {
     super(props);
@@ -13,14 +14,18 @@
   }
 
    render() {
+    
+     let {dish} = this.props
+     let {name, image, description, recipe, id, dish_ingredients} = dish
+     console.log(buildImageSecureUrl(image));
      return (
        <DishShow
-          dish_name = {this.props.dish.name}
-          dish_image = {this.props.dish.image}
-          dish_description = {this.props.dish.description}
-          dish_recipe = {this.props.dish.recipe}
-          dish_id = {this.props.dish.id}
-          dish_ingredients = {this.props.dish.dish_ingredients}
+          name = {name}
+          image = {buildImageSecureUrl(image)}
+          description = {description}
+          recipe = {recipe}
+          id = {id}
+          ingredients = {dish_ingredients}
        />
      );
    }

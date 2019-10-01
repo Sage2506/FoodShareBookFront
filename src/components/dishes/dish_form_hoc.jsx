@@ -90,7 +90,7 @@ export class DishFormHOC extends Component {
         name: "",
         description:"",
         recipe: "",
-        image: "",
+        image: null,
         dish_ingredients: []
       }
     })
@@ -110,12 +110,13 @@ export class DishFormHOC extends Component {
   handleInputSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget
-    let { name, recipe, dish_ingredients,} = this.state.dish
+    let { name, recipe, dish_ingredients, image} = this.state.dish
     if(
       form.checkValidity() === false || 
       dish_ingredients.length < 2 ||
       name === "" ||
-      recipe === "" 
+      recipe === "" ||
+      image === null
       ){
       e.stopPropagation()
       this.setState({
@@ -123,10 +124,36 @@ export class DishFormHOC extends Component {
         setValidated: false
       })
     } else {
-      this.props.create_dish(this.state.dish)
-      this.handleReset();
+      this.uploadFile(image)
+      //this.props.create_dish(this.state.dish)
     }
   }
+
+  uploadFile = (image) => {
+    let url = `https://api.cloudinary.com/v1_1/dbo96sjb/upload`;
+    let xhr = new XMLHttpRequest();
+    let fd = new FormData();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhr.onreadystatechange = (e) => {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        var response = JSON.parse(xhr.responseText);
+        let imageData = response.version + ' ' + response.public_id + ' ' + response.format
+        this.props.create_dish({...this.state.dish, image : imageData})
+        this.handleReset();
+      }
+    };
+
+    fd.append("tags", "browser_upload");
+    fd.append("upload_preset", "rfsb_images")
+    fd.append("api_key", "757447362712211");
+    fd.append("api_secret", "z_F0g_ccUUJG24DDJJjyNdjl0RM");
+    fd.append("folder","dishes");
+    fd.append("file", image);
+    xhr.send(fd);
+  }
+
+
   render() {
     if(this.props.newDish.id === undefined ){
       return (

@@ -1,11 +1,6 @@
 import React from 'react';
 import { Form, Button, Col } from "react-bootstrap";
 import { default as Dropzone } from "../common/dropzone_hoc";
-//import Dropzone from 'react-dropzone'
-import Paper from '@material-ui/core/Paper';
-
-
-
 
 export const IngredientForm = props => {  
     let {
