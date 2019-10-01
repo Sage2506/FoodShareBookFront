@@ -3,7 +3,8 @@ import { GET_DISH, GET_DISHES, DELETE_DISH, ADD_DISH } from "../actions/dish";
 const initialDishState = {
   dishes: [],
   dish: {},
-  newDish: {}
+  newDish: {},
+  pagination: {}
 }
 export const dishReducer = ( state = initialDishState, action) => {
   switch (action.type) {

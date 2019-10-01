@@ -3,6 +3,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { LinkContainer } from "react-router-bootstrap";
 import { makeStyles } from '@material-ui/core/styles';
+import { Pagination } from "react-bootstrap";
 import { default as DishTableRow } from "./dish_table_row_hoc";
 import {  Table} from "react-bootstrap";
 
@@ -52,6 +53,17 @@ export class DishesIndex extends Component {
           )}
         </tbody>
       </Table>
+      <Pagination size="lg">
+        <Pagination.Item>
+          1
+        </Pagination.Item>
+        <Pagination.Item>
+          2
+        </Pagination.Item>
+        <Pagination.Item>
+          3
+        </Pagination.Item>
+      </Pagination>
       <FloatingActionButtonPlus/>
       </div>
     );

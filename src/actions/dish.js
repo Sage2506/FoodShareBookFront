@@ -4,9 +4,10 @@ export const DELETE_DISH = 'DELETE_DISH';
 export const GET_DISH = 'GET_DISH';
 export const ADD_DISH = 'ADD_DISH';
 // Action Creators
-export const getDishes = (dishes) => ({
+export const getDishes = (dishes, pagination) => ({
   type: GET_DISHES,
   dishes,
+  pagination,
 });
 
 export const deleteDish = (id) => ({
