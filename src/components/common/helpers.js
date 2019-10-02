@@ -36,7 +36,7 @@ export function buildImageSecureUrl (image) {
 export function paginate(totalItems, currentPage = 1 , pageSize = 10, maxPages = 10, links){
   let result = {}
   let totalPages = Math.ceil(totalItems / pageSize);
-  // ensure current page isn't out of range
+  
   if (currentPage < 1) {
       currentPage = 1;
   } else if (currentPage > totalPages) {
