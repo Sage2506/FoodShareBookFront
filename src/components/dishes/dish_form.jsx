@@ -98,7 +98,8 @@ export class DishForm extends Component {
           <Col>
           <Form.Control as="select"
             onChange={handleSelectChange}
-            disabled={ingredient_id === -1 || measures.length < 1}
+            disabled={ingredient_id === -1 || measures.length < 1 }
+            value={new_ingredient.measure_id}
           >
             <option>Medida...</option>
             {measures.map( (measure) => 
@@ -112,7 +113,7 @@ export class DishForm extends Component {
             type="number" 
             placeholder="Cantidad"
             min="0"
-            disabled={measure_id === -1}
+            disabled={ measure_id === -1 || ingredient_id === -1}
             value={quantity}
             onChange={handleInputQuantityChange}
             onKeyDown={onKeyDown}

@@ -3,10 +3,11 @@ export const GET_INGREDIENT = 'GET_INGREDIENT'
 export const ADD_INGREDIENT = 'ADD_INGREDIENT'
 export const DELETE_INGREDIENT = 'DELETE_INGREDIENT'
 
-export const getIngredients = ingredients => {
+export const getIngredients = (ingredients, pagination) => {
   return {
     type : GET_INGREDIENTS,
-    ingredients: ingredients
+    ingredients,
+    pagination,
   }
 }
 

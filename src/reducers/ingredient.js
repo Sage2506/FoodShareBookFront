@@ -9,12 +9,16 @@ const initialIngredientState = {
   ingredients: [],
   ingredient: {},
   newIngredient: {},
+  pagination: {
+    pages: [], 
+    arrows: {},
+  }
 };
 
 export const ingredientReducer = (state = initialIngredientState, action) => {
   switch (action.type) {
     case GET_INGREDIENTS:
-      return { ...state, ingredients: action.ingredients };
+      return { ...state, ingredients: action.ingredients, pagination: action.pagination, ingredient:[] };
     case GET_INGREDIENT:
       return { ...state, ingredient: action.ingredient, newIngredient: [] };
     case DELETE_INGREDIENT:
