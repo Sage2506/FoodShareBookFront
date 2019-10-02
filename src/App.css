@@ -21,3 +21,8 @@
   font-size: initial;
   text-transform: uppercase;
 }
+
+.pagination{
+  margin: auto;
+  width: fit-content;
+}

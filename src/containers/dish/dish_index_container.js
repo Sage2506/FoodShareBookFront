@@ -12,8 +12,8 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        getDishes: () => {
-            dispatch(get_dishes())
+        getDishes: (page = 1, per_page = 10) => {
+            dispatch(get_dishes(page, per_page))
         }
     }
 }

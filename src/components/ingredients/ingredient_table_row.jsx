@@ -5,7 +5,7 @@ export class IngredientTableRow extends Component {
   render() {  
     let {id, name, description} = this.props
     return (
-      <LinkContainer to={'/ingredients/'+this.props.dish_id}>
+      <LinkContainer to={'/ingredients/'+id}>
         <tr>
           <td>{id}</td>
           <td>{name}</td>

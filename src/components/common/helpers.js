@@ -109,9 +109,22 @@ function extractLinkRef(link) {
 export function extractLinksPages(links){
   let pages = {}
   links = links.split(',');
-  for(let link in links) {
-    let linkString = links[link]
-    pages[extractLinkRef(linkString)] = extractPageNumber(linkString)
-  }
+  links.forEach(link => {
+    pages[extractLinkRef(link)] = extractPageNumber(link)
+  });
   return pages;
+}
+
+export function urlGetParam(param, link) {
+  let result = '';
+  let startIndex = link.indexOf(param)
+  if (startIndex > -1) {
+    link = link.substring(startIndex + param.length +1 );
+    let i = 0;
+    while(i < link.length && link[i] !== '&')	{
+      result += link[i]
+      i++;
+    }
+  }
+  return result;
 }

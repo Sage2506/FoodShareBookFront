@@ -1,15 +1,23 @@
 import { api } from "./foodsharebook_api";
 import { getIngredient, getIngredients, postIngredient, destroyIngredient } from "../actions/ingredient";
+import { paginate } from '../components/common/helpers';
 
-export const get_ingredients = (page = 1, per_page = 10) => {        
-  return (dispatch) =>{
-    return api.get(`ingredients?page=${page}&per_page=${per_page}`)
-    .then( response => {
-      dispatch(getIngredients(response.data))
-    })
-    .catch(error => {
+export const get_ingredients = (page, per_page ) => {        
+  return async dispatch => {
+    try{
+
+      const response = await api.get(`ingredients?page=${page}&per_page=${per_page}`)
+      let pagination = paginate(
+        response.headers['pagination-total'],
+        response.headers['pagination-page'],
+        response.headers['pagination-per-page'],
+        undefined,
+        response.headers['link']);
+      dispatch(getIngredients(response.data, pagination))
+    }
+    catch(error) {
       throw(error)
-    })
+    }
   }
 }
 
