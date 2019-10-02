@@ -34,7 +34,13 @@ export class DishesIndex extends Component {
   componentDidMount() {
       this.props.getDishes();
   }
-  render() {        
+  render() {
+    console.log(this.props.pagination);
+    
+    let { pages, arrows, currentPage } = this.props.pagination;
+    console.log(arrows);
+    
+    let { prev, next, first, last, } = arrows;
     return (
       <div>
       <Table>
@@ -54,15 +60,31 @@ export class DishesIndex extends Component {
         </tbody>
       </Table>
       <Pagination size="lg">
-        <Pagination.Item>
-          1
-        </Pagination.Item>
-        <Pagination.Item>
-          2
-        </Pagination.Item>
-        <Pagination.Item>
-          3
-        </Pagination.Item>
+        { first  && 
+          <Pagination.Item>
+            {first}
+          </Pagination.Item>
+        }
+        { prev && 
+          <Pagination.Item>
+            {prev}
+          </Pagination.Item>
+        }
+        {pages.map( page => 
+          <Pagination.Item>
+            {page}
+          </Pagination.Item>
+        )}
+        { next && 
+          <Pagination.Item>
+            {next}
+          </Pagination.Item>
+        }
+        { last && 
+          <Pagination.Item>
+            {last}
+          </Pagination.Item>
+        }
       </Pagination>
       <FloatingActionButtonPlus/>
       </div>

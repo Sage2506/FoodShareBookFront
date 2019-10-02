@@ -18,7 +18,7 @@ export class DishFormHOC extends Component {
         ingredient_name: "",
         ingredient_image: "",
         quantity: '',
-        measure_id: -1,
+        measure_id: 0,
       },
       valid_measures: [],
       validated : false,
@@ -50,6 +50,13 @@ export class DishFormHOC extends Component {
       dish: {
         ...this.state.dish,
         dish_ingredients: [...this.state.dish.dish_ingredients, this.state.new_ingredient]
+      },
+      new_ingredient : {
+        ingredient_id: 0,
+        ingredient_name: "",
+        ingredient_image: "",
+        quantity: '',
+        measure_id: -1,
       }
     })
   }
@@ -70,9 +77,9 @@ export class DishFormHOC extends Component {
     this.setState({
       new_ingredient: {
         ...this.state.new_ingredient,
-        quantity: parseFloat(e.target.value)
+        quantity: e.target.value === '' ? '' : parseFloat(e.target.value)
       }
-    })
+    });
   }
 
   handleSelectChange = e => {

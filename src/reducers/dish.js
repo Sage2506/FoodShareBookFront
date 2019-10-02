@@ -1,15 +1,19 @@
+
 import { GET_DISH, GET_DISHES, DELETE_DISH, ADD_DISH } from "../actions/dish";
 
 const initialDishState = {
   dishes: [],
   dish: {},
   newDish: {},
-  pagination: {}
+  pagination: {
+    pages: [], 
+    arrows: {},
+  }
 }
 export const dishReducer = ( state = initialDishState, action) => {
   switch (action.type) {
     case GET_DISHES:
-      return {...state, dishes: action.dishes, dish:[]};
+      return {...state, dishes: action.dishes, pagination: action.pagination, dish:[]};
     case GET_DISH:
       return {...state, dish: action.dish, newDish: []}
     case DELETE_DISH:

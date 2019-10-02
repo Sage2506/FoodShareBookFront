@@ -5,7 +5,8 @@ import DishesIndex from "../../components/dishes/index";
 
 const mapStateToProps = (store) => {
     return{
-        dishes: store.dishReducer.dishes
+        dishes: store.dishReducer.dishes,
+        pagination: store.dishReducer.pagination
     }
 }
 

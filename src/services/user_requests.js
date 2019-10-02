@@ -9,7 +9,7 @@ export const logIn = (user, rememberMe) => {
       if(response.status === 200 ){
         if(rememberMe){
           const cookies = new Cookies();
-          cookies.set('Authorization', response.data.auth_token, { path: '/' });
+          cookies.set('Authorization', response.data.auth_token, { path: '/' , maxAge: 31536000});
         }
         dispatch(login())
       }

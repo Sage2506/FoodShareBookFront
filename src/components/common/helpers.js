@@ -33,8 +33,9 @@ export function buildImageSecureUrl (image) {
   }
 }
 
-export function paginate(totalItems, currentPage = 1 , pageSize = 10, maxPages = 10, totalPages, firstPage = null, prevPage = null, nextPage = null, lastPage = null){
-  // I can get the total pages from the API
+export function paginate(totalItems, currentPage = 1 , pageSize = 10, maxPages = 10, links){
+  let result = {}
+  let totalPages = Math.ceil(totalItems / pageSize);
   // ensure current page isn't out of range
   if (currentPage < 1) {
       currentPage = 1;
@@ -75,7 +76,7 @@ export function paginate(totalItems, currentPage = 1 , pageSize = 10, maxPages =
   let pages = Array.from(Array((endPage + 1) - startPage).keys()).map(i => startPage + i);
 
   // return object with all pager properties required by the view
-  return {
+  result = {
       totalItems: totalItems,
       currentPage: currentPage,
       pageSize: pageSize,
@@ -85,23 +86,32 @@ export function paginate(totalItems, currentPage = 1 , pageSize = 10, maxPages =
       startIndex: startIndex,
       endIndex: endIndex,
       pages: pages,
-      prevPage,
-      nextPage,
-      firstPage,
-      lastPage
+      arrows : extractLinksPages(links)
   };
+  
+  return result;
 }
 
-export function extractPageNumber(link){
+function extractPageNumber(link){
   let page_index = link.indexOf('page=');
   let greater_than_index = link.indexOf('&per_page')
-  let page = link.subStr(page_index+5,greater_than_index);
+  let page = link.substring(page_index+5,greater_than_index);
+  return page;
+}
+
+function extractLinkRef(link) {
+  let page_index = link.indexOf('rel="');
+  let greater_than_index = link.length - 1
+  let page = link.substring(page_index+5,greater_than_index);
   return page;
 }
 
 export function extractLinksPages(links){
   let pages = {}
-  links = links.split('rel=');
-  
-
+  links = links.split(',');
+  for(let link in links) {
+    let linkString = links[link]
+    pages[extractLinkRef(linkString)] = extractPageNumber(linkString)
+  }
+  return pages;
 }
