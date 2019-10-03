@@ -5,6 +5,7 @@ import { default as Dropzone } from "../common/dropzone_hoc";
 export const IngredientForm = props => {  
     let {
       name,
+      image,
       description,
       measures,
       measuresCatalog,
@@ -19,6 +20,7 @@ export const IngredientForm = props => {
           <Form.Label>Ingredient image</Form.Label>
           <Dropzone
             onImageSelected = {onImageSelected}
+            image = {image}
           />
         </Form.Group>
         <Form.Group as={Col} xl={8} xs={12} controlId="name" >

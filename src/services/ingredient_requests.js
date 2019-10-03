@@ -1,6 +1,6 @@
 import { api } from "./foodsharebook_api";
-import { getIngredient, getIngredients, postIngredient, destroyIngredient } from "../actions/ingredient";
-import { paginate } from '../components/common/helpers';
+import { getIngredient, getIngredients, postIngredient, putIngredient, destroyIngredient } from '../actions/ingredient';
+import { paginate } from '../components/lib/common';
 
 export const get_ingredients = (page, per_page ) => {        
   return async dispatch => {
@@ -50,6 +50,18 @@ export const post_ingredient = ingredient => {
     return api.post(`ingredients`, ingredient)
     .then( response => {
       dispatch(postIngredient(response.data))
+    })
+    .catch(error => {
+      throw(error)
+    })
+  }
+}
+
+export const put_ingredient = (id, ingredient ) => {
+  return (dispatch) => {
+    return api.put(`ingredients/${id}`, ingredient)
+    .then( response => {
+      dispatch(putIngredient(response.data))
     })
     .catch(error => {
       throw(error)

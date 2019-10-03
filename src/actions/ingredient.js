@@ -1,6 +1,7 @@
 export const GET_INGREDIENTS = 'GET_INGREDIENTS'
 export const GET_INGREDIENT = 'GET_INGREDIENT'
 export const ADD_INGREDIENT = 'ADD_INGREDIENT'
+export const UPDATE_INGREDIENT = 'UPDATE_INGREDIENT'
 export const DELETE_INGREDIENT = 'DELETE_INGREDIENT'
 
 export const getIngredients = (ingredients, pagination) => {
@@ -25,6 +26,12 @@ export const postIngredient = ingredient => {
   }
 }
 
+export const putIngredient = ingredient => {
+  return {
+    type : UPDATE_INGREDIENT,
+    ingredient: ingredient
+  }
+}
 export const destroyIngredient = id => {
   return {
     type : DELETE_INGREDIENT,

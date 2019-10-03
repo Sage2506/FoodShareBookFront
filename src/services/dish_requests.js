@@ -1,6 +1,6 @@
 import { api } from "./foodsharebook_api";
 import { getDish, getDishes, postDish } from "../actions/dish";
-import { paginate } from '../components/common/helpers';
+import { paginate } from '../components/lib/common';
 
 export const get_dishes = (page = 1, per_page = 10) => {        
   return async dispatch =>{
