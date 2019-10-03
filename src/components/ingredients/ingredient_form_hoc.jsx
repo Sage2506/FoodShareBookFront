@@ -16,6 +16,19 @@ export class IngredientFormHOC extends Component {
     };
   };
 
+  componentDidMount() {
+    let id = this.props.match.params.id;
+    if (id !== undefined){
+      this.props.getIngredient(id);
+    }
+  }
+  
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if ( nextProps.ingredient.id !== undefined && nextProps.ingredient.id !== prevState.ingredient.id ) {
+      return {...prevState, ingredient: nextProps.ingredient};
+    }
+  }
+
   onPreviewDrop = (acceptedFiles) => {
     const reader = new FileReader()
     reader.onloadend = ev => {
@@ -111,7 +124,11 @@ export class IngredientFormHOC extends Component {
       if (xhr.readyState === 4 && xhr.status === 200) {
         var response = JSON.parse(xhr.responseText);
         let imageData = response.version + ' ' + response.public_id + ' ' + response.format
-        this.props.create_ingredient({...this.state.ingredient, image : imageData})
+        if ( this.state.ingredient.id !== undefined || this.state.ingredient.id !== null ){
+          this.props.update_ingredient(this.state.ingredient.id, {...this.state.ingredient, image : imageData})
+        } else {
+          this.props.create_ingredient({...this.state.ingredient, image : imageData})
+        }
       }
     };
 
@@ -130,7 +147,7 @@ export class IngredientFormHOC extends Component {
       let { ingredient, validated } = this.state
       let { name, description, image, measures} = ingredient
       let { measuresCatalog } = this.props
-      
+
       return (
         <IngredientForm
         name={name}

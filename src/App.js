@@ -29,6 +29,7 @@ function App() {
           <Route exact path="/" component={DishesIndex}/>          
           <Route path="/dishes/new" component={DishForm}/>
           <Route path="/dishes/:id" component={DishShow}/>
+          <Route path="/ingredients/edit/:id" component={IngredientForm}/>
           <Route path="/ingredients/new" component={IngredientForm}/>
           <Route path="/ingredients/:id" component={IngredientShow}/>
           <Route path="/ingredients/" component={IngredientsIndex}/>

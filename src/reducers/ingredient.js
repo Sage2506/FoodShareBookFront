@@ -3,6 +3,7 @@ import {
   GET_INGREDIENT,
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
+  UPDATE_INGREDIENT,
 } from '../actions/ingredient';
 
 const initialIngredientState = {
@@ -28,6 +29,8 @@ export const ingredientReducer = (state = initialIngredientState, action) => {
       };
     case ADD_INGREDIENT:
       return { ...state, newIngredient: action.ingredient };
+    case UPDATE_INGREDIENT:
+      return {...state, newIngredient: action.ingredient };
     default:
       return state;
   }

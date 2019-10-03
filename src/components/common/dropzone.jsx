@@ -8,6 +8,7 @@ export class CustomDropzone extends Component {
       onPreviewDrop,
       image,
     } = this.props
+    
     return (
       <Paper>
         <Dropzone 
@@ -16,14 +17,14 @@ export class CustomDropzone extends Component {
         >
           {({getRootProps, getInputProps}) => (
             <section className="dropzone dz-clickable" >
-              { image === null &&
+              { (image === undefined || image === null || image === '') &&
                 <div {...getRootProps()} className="dz-message">
                   <i className="fa fa-cloud-upload" aria-hidden="true"></i>
                   <input {...getInputProps()} />
                   <p>Drag 'n' drop some images here, or click to select files</p>
                 </div>
               }
-              { image !== null &&
+              { image !== undefined && image !== null &&
                 <div {...getRootProps()} className="dz-message">
                   <Fragment>
                     <Image

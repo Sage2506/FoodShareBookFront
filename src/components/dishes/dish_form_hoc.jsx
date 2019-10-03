@@ -26,6 +26,10 @@ export class DishFormHOC extends Component {
     };
   }
 
+  componentDidMount() {
+    let id = this.props.match.params.id;    
+  }
+  
   onImageSelected = (image) => {
     this.setState({
       dish: {
@@ -45,6 +49,7 @@ export class DishFormHOC extends Component {
       valid_measures: this.props.measures.filter( measure => ingredient.measures.includes(measure.id))
     })
   }
+
   addNewIngredient = () => {
     this.setState({
       dish: {
@@ -60,6 +65,7 @@ export class DishFormHOC extends Component {
       }
     })
   }
+
   create_dish = () => {
     this.props.create_dish(this.state.dish);
   }
@@ -111,7 +117,7 @@ export class DishFormHOC extends Component {
 
   onNumericInputKeyDown = e => {
     console.log(e.keyCode);
-    console.log("rememble to handle 'e'")
+    console.log("remember to handle 'e'")
   }
 
   handleInputSubmit = e => {
@@ -146,7 +152,11 @@ export class DishFormHOC extends Component {
       if (xhr.readyState === 4 && xhr.status === 200) {
         var response = JSON.parse(xhr.responseText);
         let imageData = response.version + ' ' + response.public_id + ' ' + response.format
+        //if( this.state.dish.id === undefined || this.state.dish.id === null ) {
         this.props.create_dish({...this.state.dish, image : imageData})
+        //} else {
+          //this.props.
+        //}
         this.handleReset();
       }
     };

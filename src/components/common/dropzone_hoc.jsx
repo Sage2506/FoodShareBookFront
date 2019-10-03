@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
 import CustomDropzone from "./dropzone";
-
+import { buildImageSecureUrl } from '../lib/common';
 export class DropzoneHOC extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      image : null
-    }
-  }
 
   onPreviewDrop = (acceptedFiles) => {
     const reader = new FileReader()
@@ -21,7 +15,11 @@ export class DropzoneHOC extends Component {
   }
 
   render() {
-    let { image } =this.state;
+    let { image } = this.props;
+    if (image !== undefined && image !== null && image.includes(' ')){
+      image = buildImageSecureUrl(image);
+    } 
+    
     return (
       <CustomDropzone
         onPreviewDrop={this.onPreviewDrop}

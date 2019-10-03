@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table} from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import { default as DishTableRow } from './dish_table_row_hoc';
 export class DishTable extends Component {
   render() {

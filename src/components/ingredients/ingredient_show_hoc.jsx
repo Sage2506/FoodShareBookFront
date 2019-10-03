@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { IngredientShow } from "./ingredien_show";
-import { buildImageSecureUrl } from "../common/helpers";
+import { buildImageSecureUrl } from "../lib/common";
 export class IngredientShowHOC extends Component {
   componentDidMount() {
     this.props.getIngredient(this.props.match.params.id)
