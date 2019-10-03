@@ -36,11 +36,12 @@ DishTableRow.propTypes = {
 }
 
 DishTableRow.defaultProps = {
-  dish_name : "Nombre de platillo",
-  dish_image : "https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg",
-  dish_description : "Descripcion del platillo",
-  dish_recipe : "Receta del platillo",
-  dish_id : 2.0,
+  name : "Nombre de platillo",
+  image : "https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg",
+  description : "Descripcion del platillo",
+  recipe : "Receta del platillo",
+  ingredients : [],
+  id : 2.0,
 }
 
 export default DishTableRow;
