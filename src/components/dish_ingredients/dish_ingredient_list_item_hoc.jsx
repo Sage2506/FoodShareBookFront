@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { DishIngredientListItem } from "./dish_ingredient_list_item";
-
+import { buildImageSecureUrl } from '../lib/common';
 export class DishIngredientListItemHoc extends Component {
   render() {
     let {
@@ -19,7 +19,7 @@ export class DishIngredientListItemHoc extends Component {
     return (
       <DishIngredientListItem
         ingredient_name = {ingredient_name}
-        ingredient_image = {ingredient_image}
+        ingredient_image = {buildImageSecureUrl(ingredient_image)}
         ingredient_id = {ingredient_id}
         measure_id = {measure_id}
         quantity = {quantity}

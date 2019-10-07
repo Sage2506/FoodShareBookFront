@@ -27,9 +27,18 @@ export class DishFormHOC extends Component {
   }
 
   componentDidMount() {
-    let id = this.props.match.params.id;    
+    let id = this.props.match.params.id;
+    if ( id !== undefined ) {
+      this.props.getDish(id);
+    }
   }
-  
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if ( nextProps.dish.id !== undefined && nextProps.dish.id !== prevState.dish.id ) {
+      return {...prevState, dish: nextProps.dish};
+    }
+  }
+
   onImageSelected = (image) => {
     this.setState({
       dish: {
