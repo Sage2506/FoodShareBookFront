@@ -9,10 +9,12 @@ export class IngredientsIndex extends Component {
   }
   render() {
     let {ingredients, getIngredients, pagination } = this.props;
+    let { pageSize } = pagination    
     return (
       <div>
       <IngredientTable
         ingredients = {ingredients}
+        per_page = {pageSize}
       />
       <Pagination 
         pagination={pagination}

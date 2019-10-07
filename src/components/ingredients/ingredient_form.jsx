@@ -12,7 +12,8 @@ export const IngredientForm = props => {
       validated,
       handleInputChange,
       handleInputSubmit,
-      onImageSelected
+      onImageSelected,
+      goBack
     } = props
     return (
       <Form noValidate validated={validated} onSubmit={handleInputSubmit}>
@@ -69,6 +70,7 @@ export const IngredientForm = props => {
         <Button variant="primary" type="submit">
             Submit
           </Button>
+        <Button variant="danger" title="cancelar" onClick={goBack} >Cancel</Button>
       </Form>
     );
 }

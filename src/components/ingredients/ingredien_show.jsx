@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Image, ListGroup } from "react-bootstrap";
+import { Image, ListGroup, Button } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
 export class IngredientShow extends Component {
   render() {
     let {
-      name, description, measures, image
+      id, name, description, measures, image, goBack
     } = this.props
     return (
       <div>
@@ -16,6 +17,8 @@ export class IngredientShow extends Component {
             <p>{measure.name}</p>
             </ListGroup.Item>)}
         </ListGroup>
+        <LinkContainer to={'/ingredients/edit/'+id}><Button variant="info" title="Editar"><i className="far fa-edit"></i></Button></LinkContainer>
+        <Button title="Atrás" onClick={goBack} ><i className="fas fa-long-arrow-alt-left"></i></Button>
       </div>
     );
   }

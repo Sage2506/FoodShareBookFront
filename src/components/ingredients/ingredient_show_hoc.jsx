@@ -8,13 +8,14 @@ export class IngredientShowHOC extends Component {
   
   render() {
     let { name , description, measures, image } = this.props.ingredient;
-    let { measuresCatalog } = this.props
+    let { measuresCatalog, history } = this.props
     return (
       <IngredientShow
         name = { name }
         description = { description }
         measures = { measures !== undefined ? measuresCatalog.filter( measure => measures.includes(measure.id)) : [] }
         image = { buildImageSecureUrl(image) }
+        goBack = {history.goBack}
       />
     );
   }
