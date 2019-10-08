@@ -10,7 +10,7 @@ export class DishFormHOC extends Component {
         name: "",
         description:"",
         recipe: "",
-        image: "",
+        image: null,
         dish_ingredients: []
       },
       new_ingredient: {
@@ -36,6 +36,8 @@ export class DishFormHOC extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     if ( nextProps.dish.id !== undefined && nextProps.dish.id !== prevState.dish.id ) {
       return {...prevState, dish: nextProps.dish};
+    } else {
+      return prevState
     }
   }
 
@@ -182,6 +184,9 @@ export class DishFormHOC extends Component {
 
   render() {
     if(this.props.newDish.id === undefined ){
+
+      let {validated, new_ingredient, dish, valid_measures } = this.state
+      let {recipe, image, name, description, dish_ingredients} = dish
       return (
         <DishForm
           handleInputChange = {this.handleInputChange}
@@ -191,14 +196,14 @@ export class DishFormHOC extends Component {
           addNewIngredient = {this.addNewIngredient}
           selected_item = {this.ingredient_selected}
           handleInputSubmit = {this.handleInputSubmit}
-          validated = {this.state.validated}
-          measures = {this.state.valid_measures}
-          new_ingredient={this.state.new_ingredient}
-          name={this.state.dish.name}
-          description={this.state.dish.description}
-          recipe={this.state.dish.recipe}
-          image={this.state.dish.image}
-          dish_ingredients={this.state.dish.dish_ingredients}
+          validated = {validated}
+          measures = {valid_measures}
+          new_ingredient={new_ingredient}
+          name={name}
+          description={description}
+          recipe={recipe}
+          image={image}
+          dish_ingredients={dish_ingredients}
           onImageSelected={this.onImageSelected}
         />
       );

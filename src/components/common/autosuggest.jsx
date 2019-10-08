@@ -17,7 +17,7 @@ export class ReactAutosuggest extends Component {
       onSuggestionSelected, 
       inputProps,
     } = this.props
-    return (            
+    return (
       <Autosuggest 
         theme={defaultTheme}
         suggestions={suggestions}

@@ -21,6 +21,7 @@ export class DishForm extends Component {
       handleSelectChange,
       handleInputQuantityChange,
       onKeyDown,
+      image,
       onImageSelected
     } = this.props
 
@@ -52,6 +53,7 @@ export class DishForm extends Component {
           <Form.Label>Dish image</Form.Label>
           <Dropzone 
             onImageSelected={onImageSelected}
+            image = {image}
           />
         </Form.Group>
         <Form.Group as={Col} xl={8} xs={12} controlId="description" >
