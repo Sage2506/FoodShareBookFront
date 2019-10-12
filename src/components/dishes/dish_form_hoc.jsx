@@ -10,7 +10,7 @@ export class DishFormHOC extends Component {
         name: "",
         description:"",
         recipe: "",
-        image: "",
+        image: null,
         dish_ingredients: []
       },
       new_ingredient: {
@@ -18,7 +18,7 @@ export class DishFormHOC extends Component {
         ingredient_name: "",
         ingredient_image: "",
         quantity: '',
-        measure_id: -1,
+        measure_id: 0,
       },
       valid_measures: [],
       validated : false,
@@ -26,25 +26,57 @@ export class DishFormHOC extends Component {
     };
   }
 
-  ingredient_selected = ingredient => {
+  componentDidMount() {
+    let id = this.props.match.params.id;
+    if ( id !== undefined ) {
+      this.props.getDish(id);
+    }
+  }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if ( nextProps.dish.id !== undefined && nextProps.dish.id !== prevState.dish.id ) {
+      return {...prevState, dish: nextProps.dish};
+    } else {
+      return prevState
+    }
+  }
+
+  onImageSelected = (image) => {
+    this.setState({
+      dish: {
+        ...this.state.dish,
+        image
+      }
+    })
+  }
+
+  ingredient_selected = ingredient => {
     this.setState({
       new_ingredient: {
         ...this.state.new_ingredient,
         ingredient_id: ingredient.id,
         ingredient_name: ingredient.name
-      },      
+      },
       valid_measures: this.props.measures.filter( measure => ingredient.measures.includes(measure.id))
     })
   }
+
   addNewIngredient = () => {
     this.setState({
       dish: {
         ...this.state.dish,
         dish_ingredients: [...this.state.dish.dish_ingredients, this.state.new_ingredient]
+      },
+      new_ingredient : {
+        ingredient_id: 0,
+        ingredient_name: "",
+        ingredient_image: "",
+        quantity: '',
+        measure_id: -1,
       }
     })
   }
+
   create_dish = () => {
     this.props.create_dish(this.state.dish);
   }
@@ -62,9 +94,9 @@ export class DishFormHOC extends Component {
     this.setState({
       new_ingredient: {
         ...this.state.new_ingredient,
-        quantity: parseFloat(e.target.value)
+        quantity: e.target.value === '' ? '' : parseFloat(e.target.value)
       }
-    })
+    });
   }
 
   handleSelectChange = e => {
@@ -82,7 +114,7 @@ export class DishFormHOC extends Component {
         name: "",
         description:"",
         recipe: "",
-        image: "",
+        image: null,
         dish_ingredients: []
       }
     })
@@ -96,25 +128,65 @@ export class DishFormHOC extends Component {
 
   onNumericInputKeyDown = e => {
     console.log(e.keyCode);
-    console.log("rememble to handle 'e'")
+    console.log("remember to handle 'e'")
   }
 
   handleInputSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget
-    if(form.checkValidity() === false || this.state.dish.dish_ingredients.length < 2){
+    let { name, recipe, dish_ingredients, image} = this.state.dish
+    if(
+      form.checkValidity() === false || 
+      dish_ingredients.length < 2 ||
+      name === "" ||
+      recipe === "" ||
+      image === null
+      ){
       e.stopPropagation()
       this.setState({
         validated: false,
         setValidated: false
       })
     } else {
-      this.props.create_dish(this.state.dish)
-      this.handleReset();
+      this.uploadFile(image)
+      //this.props.create_dish(this.state.dish)
     }
   }
+
+  uploadFile = (image) => {
+    let url = `https://api.cloudinary.com/v1_1/dbo96sjb/upload`;
+    let xhr = new XMLHttpRequest();
+    let fd = new FormData();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+    xhr.onreadystatechange = (e) => {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        var response = JSON.parse(xhr.responseText);
+        let imageData = response.version + ' ' + response.public_id + ' ' + response.format
+        //if( this.state.dish.id === undefined || this.state.dish.id === null ) {
+        this.props.create_dish({...this.state.dish, image : imageData})
+        //} else {
+          //this.props.
+        //}
+        this.handleReset();
+      }
+    };
+
+    fd.append("tags", "browser_upload");
+    fd.append("upload_preset", "rfsb_images")
+    fd.append("api_key", "757447362712211");
+    fd.append("api_secret", "z_F0g_ccUUJG24DDJJjyNdjl0RM");
+    fd.append("folder","dishes");
+    fd.append("file", image);
+    xhr.send(fd);
+  }
+
+
   render() {
     if(this.props.newDish.id === undefined ){
+
+      let {validated, new_ingredient, dish, valid_measures } = this.state
+      let {recipe, image, name, description, dish_ingredients} = dish
       return (
         <DishForm
           handleInputChange = {this.handleInputChange}
@@ -124,14 +196,15 @@ export class DishFormHOC extends Component {
           addNewIngredient = {this.addNewIngredient}
           selected_item = {this.ingredient_selected}
           handleInputSubmit = {this.handleInputSubmit}
-          validated = {this.state.validated}
-          measures = {this.state.valid_measures}
-          new_ingredient={this.state.new_ingredient}
-          name={this.state.dish.name}
-          description={this.state.dish.description}
-          recipe={this.state.dish.recipe}
-          image={this.state.dish.image}
-          dish_ingredients={this.state.dish.dish_ingredients}
+          validated = {validated}
+          measures = {valid_measures}
+          new_ingredient={new_ingredient}
+          name={name}
+          description={description}
+          recipe={recipe}
+          image={image}
+          dish_ingredients={dish_ingredients}
+          onImageSelected={this.onImageSelected}
         />
       );
     } else {

@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { log_in } from "../../services/user_requests";
+import { logIn } from "../../services/user_requests";
 import { LoginHOC } from "../../components/users/login_hoc";
 
 const mapStateToProps = store => {
@@ -10,8 +10,8 @@ const mapStateToProps = store => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        log_in: (user, rememberMe) =>{       
-            dispatch(log_in(user, rememberMe))
+        logIn: (user, rememberMe) =>{       
+            dispatch(logIn(user, rememberMe))
         }
     }
 }

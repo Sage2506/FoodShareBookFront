@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { post_dish } from "../../services/dish_requests";
+import { post_dish , get_dish} from "../../services/dish_requests";
 import { DishFormHOC } from "../../components/dishes/dish_form_hoc";
 
 const mapStateToProps = store => {
@@ -10,10 +10,13 @@ const mapStateToProps = store => {
     }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = dispatch => { 
     return {
         create_dish: dish =>{       
             dispatch(post_dish(dish))
+        },
+        fetch_dish: id => {
+            dispatch(get_dish(id))
         }
     }
 }

@@ -3,15 +3,17 @@ import { DishTableRow } from "./dish_table_row";
 import { PropTypes } from 'prop-types';
 export class DishTabeRowHOC extends Component {
   render() {
+    let { position , dish } = this.props;
+    let { name, image, description, recipe, id, dish_ingredients } = dish
     return (
         <DishTableRow
-          position = {this.props.position}
-          dish_name = {this.props.dish.name}
-          dish_image = {this.props.dish.image}
-          dish_description = {this.props.dish.description}
-          dish_recipe = {this.props.dish.recipe}
-          dish_id = {this.props.dish.id}
-          dish_ingredients = {this.props.dish.dish_ingredients}
+          position = { position }
+          name = { name }
+          image = { image }
+          description = { description }
+          recipe = { recipe }
+          id = { id }
+          ingredients = { dish_ingredients }
         />
     );
   }
