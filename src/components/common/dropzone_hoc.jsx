@@ -21,7 +21,6 @@ export class DropzoneHOC extends Component {
     let canvas = document.createElement('canvas');
     let ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0);
-    debugger
     let MAX_WIDTH = 600;
     let MAX_HEIGHT = 450;
     let width = img.width;

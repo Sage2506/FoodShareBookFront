@@ -93,7 +93,17 @@ export class IngredientFormHOC extends Component {
         validated: false,
       })
     } else {
-      this.uploadFile(image);
+      if( image.includes(' ') ){
+        console.log("image already in cloudinary");
+        
+        if ( this.state.ingredient.id !== undefined && this.state.ingredient.id !== null ){
+          this.props.update_ingredient(this.state.ingredient.id,this.state.ingredient)
+        } else {
+          this.props.create_ingredient(this.state.ingredient)
+        }
+      } else {
+        this.uploadFile(image);
+      }
       //let imageData = uploadImage(image);
       //this.props.create_ingredient({...this.state.ingredient, image : imageData})
       /*let url = `https://api.cloudinary.com/v1_1/dbo96sjb/upload`;
