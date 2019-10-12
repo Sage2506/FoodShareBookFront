@@ -18,7 +18,7 @@ export class Layout extends Component {
 
   logout = () => {
     const cookies = new Cookies();
-    cookies.remove('Authorization');
+    cookies.remove('Authorization',  { path: '/' });
     this.props.user_logout();
   }
 
