@@ -3,7 +3,7 @@ import { IngredientTableRow } from "./ingredient_table_row";
 import { PropTypes } from 'prop-types';
 export class IngredientTableRowHOC extends Component {
   render() {
-    let {position, ingredient} = this.props
+    let {position, ingredient, handleOpen} = this.props
     let {name, description, id} = ingredient
     return (
         <IngredientTableRow
@@ -11,6 +11,7 @@ export class IngredientTableRowHOC extends Component {
           id = {id}
           name = {name}
           description = {description}
+          handleOpen = {handleOpen}
         />
     );
   }

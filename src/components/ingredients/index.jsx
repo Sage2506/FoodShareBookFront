@@ -7,14 +7,16 @@ export class IngredientsIndex extends Component {
     let { getIngredients, pagination  } = this.props;
     getIngredients(pagination.currentPage);
   }
+
   render() {
-    let {ingredients, getIngredients, pagination } = this.props;
+    let {ingredients, getIngredients, pagination, deleteIngredient } = this.props;
     let { pageSize } = pagination    
     return (
       <div>
       <IngredientTable
         ingredients = {ingredients}
         per_page = {pageSize}
+        deleteIngredient = {deleteIngredient}
       />
       <Pagination 
         pagination={pagination}

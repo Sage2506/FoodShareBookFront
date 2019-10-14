@@ -1,5 +1,5 @@
 export function buildImageSecureUrl (image) {
-  if ( image === undefined || image ===""){
+  if ( image === undefined || image === null || image ==="" ){
     return ''
   } else {
     let imageData = image.split(' ');

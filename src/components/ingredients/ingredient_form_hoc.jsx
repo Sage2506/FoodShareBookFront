@@ -93,7 +93,8 @@ export class IngredientFormHOC extends Component {
         validated: false,
       })
     } else {
-      if( image.includes(' ') ){
+      if( true ){
+        // TODO: remember to change this true to image.includes(' ')
         console.log("image already in cloudinary");
         
         if ( this.state.ingredient.id !== undefined && this.state.ingredient.id !== null ){
