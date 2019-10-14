@@ -68,11 +68,11 @@ export class DishFormHOC extends Component {
         dish_ingredients: [...this.state.dish.dish_ingredients, this.state.new_ingredient]
       },
       new_ingredient : {
-        ingredient_id: 0,
+        ingredient_id: -1,
         ingredient_name: "",
         ingredient_image: "",
         quantity: '',
-        measure_id: -1,
+        measure_id: 0,
       }
     })
   }
@@ -136,11 +136,11 @@ export class DishFormHOC extends Component {
     const form = e.currentTarget
     let { name, recipe, dish_ingredients, image} = this.state.dish
     if(
-      form.checkValidity() === false || 
-      dish_ingredients.length < 2 ||
-      name === "" ||
-      recipe === "" ||
-      image === null
+      form.checkValidity() === false 
+      || dish_ingredients.length < 2 
+      || name === "" 
+      || recipe === "" 
+      // || image === null // TODO: re enable this if you want to force image
       ){
       e.stopPropagation()
       this.setState({

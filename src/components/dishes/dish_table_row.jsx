@@ -7,7 +7,7 @@ export class DishTableRow extends Component {
   render() {  
     let { name, description, id, ingredients } = this.props
     return (
-      <LinkContainer to={'/dishes/'+id}>
+      
         <tr>
           <td>{id}</td>
           <td>{name}</td>
@@ -15,13 +15,14 @@ export class DishTableRow extends Component {
           <td>{ingredients.length}</td>
           <td>
             <ButtonToolbar>
-              <Button variant="primary" title="Detalles"><i className="fas fa-info-circle"></i></Button>
+              <LinkContainer to={'/dishes/'+id}>
+                <Button variant="primary" title="Detalles"><i className="fas fa-info-circle"></i></Button>
+              </LinkContainer>
               <Button variant="info" title="Editar"><i className="far fa-edit"></i></Button>
               <Button variant="danger" title="Borrar"><i className="far fa-trash-alt"></i></Button>
             </ButtonToolbar>
           </td>
         </tr>
-      </LinkContainer>
     );
   }
 }
