@@ -32,6 +32,7 @@ export class DishesIndex extends Component {
       <DishTable
         dishes = {dishes}
         per_page = {pagination.pageSize}
+        deleteDish = {this.props.deleteDish}
       />
       <Pagination
         pagination={pagination}

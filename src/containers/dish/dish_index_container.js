@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { get_dishes } from "../../services/dish_requests";
+import { get_dishes, delete_dish } from "../../services/dish_requests";
 import { clearError } from '../../actions/error';
 import DishesIndex from "../../components/dishes/index";
 
@@ -18,6 +18,9 @@ const mapDispatchToProps = dispatch => {
         },
         clearError: () => {
             dispatch(clearError())
+        },
+        deleteDish: (id) =>{
+            dispatch(delete_dish(id))
         }
     }
 }

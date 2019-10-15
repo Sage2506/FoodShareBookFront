@@ -5,7 +5,7 @@ import { Button , ButtonToolbar } from 'react-bootstrap';
 
 export class DishTableRow extends Component {
   render() {  
-    let { name, description, id, ingredients } = this.props
+    let { name, description, id, ingredients, handleOpen } = this.props
     return (
       
         <tr>
@@ -19,7 +19,7 @@ export class DishTableRow extends Component {
                 <Button variant="primary" title="Detalles"><i className="fas fa-info-circle"></i></Button>
               </LinkContainer>
               <Button variant="info" title="Editar"><i className="far fa-edit"></i></Button>
-              <Button variant="danger" title="Borrar"><i className="far fa-trash-alt"></i></Button>
+              <Button variant="danger" title="Borrar" onClick={() => handleOpen(id)}><i className="far fa-trash-alt"></i></Button>
             </ButtonToolbar>
           </td>
         </tr>
