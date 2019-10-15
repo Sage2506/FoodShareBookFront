@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Nav, NavItem, Container } from "react-bootstrap";
+import { Navbar, Nav, NavItem, Container, Modal, Button } from "react-bootstrap";
 import { IndexLinkContainer } from "react-router-bootstrap";
 import {Cookies} from 'react-cookie';
 import { default as Login } from "../containers/user/login_container";
@@ -30,9 +30,21 @@ export class Layout extends Component {
   }
 
   render() {
-    if ( this.props.authenticated ){
+    let {error, authenticated, clearError } = this.props
+    if ( authenticated ){
       return (
         <div>
+          <Modal show={error !== undefined && error !== null} onHide={clearError}>
+            <Modal.Header closeButton>
+              <Modal.Title>Error</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>{error}</Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={clearError}>
+                Accept
+              </Button>
+            </Modal.Footer>
+          </Modal>
           <header className="sticky-top" >
             <Navbar bg="primary" variant="dark" >
               <Nav className="mr-auto">

@@ -1,6 +1,6 @@
 import { api } from "./foodsharebook_api";
 import { getIngredient, getIngredients, postIngredient, putIngredient, destroyIngredient } from '../actions/ingredient';
-import { paginate } from '../components/lib/common';
+import { paginate, showError } from '../components/lib/common';
 
 export const get_ingredients = (page, per_page ) => {        
   return async dispatch => {
@@ -16,7 +16,7 @@ export const get_ingredients = (page, per_page ) => {
       dispatch(getIngredients(response.data, pagination))
     }
     catch(error) {
-      throw(error)
+      dispatch(showError(error))
     }
   }
 }
@@ -28,7 +28,7 @@ export const get_ingredients_search = (name, per_page) => {
       dispatch(getIngredients(response.data))
     })
     .catch(error => {
-      throw(error)
+      dispatch(showError(error))
     })
   }
 }
@@ -40,7 +40,7 @@ export const get_ingredient = (id) => {
       dispatch(getIngredient(response.data))
     })
     .catch(error => {
-      throw(error)
+      dispatch(showError(error))
     })
   }
 }
@@ -52,7 +52,7 @@ export const post_ingredient = ingredient => {
       dispatch(postIngredient(response.data))
     })
     .catch(error => {
-      throw(error)
+      dispatch(showError(error))
     })
   }
 }
@@ -64,7 +64,7 @@ export const put_ingredient = (id, ingredient ) => {
       dispatch(putIngredient(response.data))
     })
     .catch(error => {
-      throw(error)
+      dispatch(showError(error))
     })
   }
 }
@@ -75,7 +75,7 @@ export const destroy_ingredient = id => {
       dispatch(destroyIngredient(id))
     })
     .catch(error => {
-      throw(error)
+      dispatch(showError(error))
     })
   }
 }

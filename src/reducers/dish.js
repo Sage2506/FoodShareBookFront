@@ -17,8 +17,7 @@ export const dishReducer = ( state = initialDishState, action) => {
     case GET_DISH:
       return {...state, dish: action.dish, newDish: []}
     case DELETE_DISH:
-      const dishes = state.dishes.filter((dish =>
-      dish.id !== action.id))
+      const dishes = state.dishes.filter((dish => dish.id !== action.id))
       return {...state, dishes}
     case ADD_DISH:
       return {...state, newDish: action.dish}
