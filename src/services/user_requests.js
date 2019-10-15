@@ -11,6 +11,7 @@ export const logIn = (user, rememberMe) => {
           const cookies = new Cookies();
           cookies.set('Authorization', response.data.auth_token, { path: '/' , maxAge: 31536000});
         }
+        api.defaults.headers.common['Authorization'] = response.data.auth_token;
         dispatch(login())
       }
     }

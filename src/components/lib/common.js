@@ -1,3 +1,5 @@
+import { raiseError } from '../../actions/error';
+
 export function buildImageSecureUrl (image) {
   if ( image === undefined || image === null || image ==="" ){
     return ''
@@ -128,4 +130,31 @@ export function urlGetParam(param, link) {
     }
   }
   return result;
+}
+
+export const showError = (error) => {
+  let {response} = error;
+  let message = ''
+  if(response === undefined){
+    message = "Sin conexion a internet";
+  } else {
+    switch( response.status ){
+      case 404: message = "Ruta no encontrada";
+      break;
+      case 401: message = "Peticion no valida";
+      break;
+      case 409:
+      case 422:
+      case 500: message = response.data.message;
+      break;
+      default: message = "Error en la petición";
+    }
+  }
+  
+  if (response.status === 404){
+    message = "Ruta no encontrada";
+  } else if (response.status === 401){
+    message = "Peticion no valida"
+  }
+  return raiseError(message);
 }
