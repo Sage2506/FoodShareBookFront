@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import { DishIngredientListItem } from "./dish_ingredient_list_item";
 import { buildImageSecureUrl } from '../lib/common';
 export class DishIngredientListItemHoc extends Component {
@@ -29,4 +30,13 @@ export class DishIngredientListItemHoc extends Component {
   }
 }
 
-export default DishIngredientListItemHoc;
+const mapStateToProps = (store) => {
+  return{
+      measures: store.measureReducer.measures
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(DishIngredientListItemHoc)

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { get_ingredient } from "../../services/ingredient_requests";
 import { IngredientShow } from "./ingredien_show";
 import { buildImageSecureUrl } from "../lib/common";
 export class IngredientShowHOC extends Component {
@@ -22,4 +24,15 @@ export class IngredientShowHOC extends Component {
   }
 }
 
-export default IngredientShowHOC;
+const mapStateToProps = (store) => ({
+  ingredient: store.ingredientReducer.ingredient,
+  measuresCatalog: store.measureReducer.measures,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getIngredient: (ingredient) => {
+    dispatch(get_ingredient(ingredient));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(IngredientShowHOC);

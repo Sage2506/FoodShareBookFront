@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, Container, Modal, Button } from "react-bootstrap";
+import { connect } from "react-redux";
+import { get_measures } from "../services/measure_requests";
+import { login, logout } from "../actions/user";
+import { clearError } from '../actions/error';
 import { IndexLinkContainer } from "react-router-bootstrap";
 import {Cookies} from 'react-cookie';
-import { default as Login } from "../containers/user/login_container";
+import LoginHOC from "../components/users/login_hoc";
 import { api } from "../services/foodsharebook_api";
 
 export class Layout extends Component {
@@ -64,10 +68,38 @@ export class Layout extends Component {
       );
     } else {
       return(
-        <Login/>
+        <LoginHOC/>
       )
     }
   }
 }
 
-export default Layout;
+const mapStateToProps = store => {
+  return {
+    measures: store.measureReducer.measures,
+    authenticated: store.userReducer.authenticated,
+    error: store.errorReducer.error,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    get_measures: () => {
+      dispatch(get_measures())
+    },
+    user_login: () => {
+      dispatch(login());
+    },
+    user_logout: () => {
+      dispatch(logout())
+    },
+    clearError: () => {
+      dispatch(clearError())
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Layout)

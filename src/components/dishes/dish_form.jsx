@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Button, Col, FormGroup, ListGroup } from "react-bootstrap";
-import { default as Autosuggest } from "../../containers/common/autosuggest";
-import { default as DishIngredientListItem } from "../../containers/dish_ingredient/dish_ingredient_list_item_container";
+import { default as Autosuggest } from "../../components/common/autosuggest_hoc";
+import DishIngredientListItemHoc from "../../components/dish_ingredients/dish_ingredient_list_item_hoc";
 import { default as Dropzone } from "../common/dropzone_hoc";
 export class DishForm extends Component {
   
@@ -132,7 +132,7 @@ export class DishForm extends Component {
         </Form.Row>
         <ListGroup>
           {dish_ingredients.map( (dish_ingredient, index) =>
-            <ListGroup.Item key={index}> <DishIngredientListItem dish_ingredient={dish_ingredient} ></DishIngredientListItem> </ListGroup.Item>
+            <ListGroup.Item key={index}> <DishIngredientListItemHoc dish_ingredient={dish_ingredient} /></ListGroup.Item>
             )
           }
         </ListGroup>

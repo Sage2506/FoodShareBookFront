@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { DishForm } from "./dish_form";
 import { Redirect } from 'react-router-dom'
+import { connect } from 'react-redux';
+import { post_dish, get_dish } from '../../services/dish_requests';
 
 export class DishFormHOC extends Component {
   constructor(props) {
@@ -213,4 +215,26 @@ export class DishFormHOC extends Component {
   }
 }
 
-export default DishFormHOC;
+const mapStateToProps = store => {
+  return {
+      dish: store.dishReducer.dish,
+      newDish: store.dishReducer.newDish,
+      measures: store.measureReducer.measures
+  }
+}
+
+const mapDispatchToProps = dispatch => { 
+  return {
+      create_dish: dish =>{       
+          dispatch(post_dish(dish))
+      },
+      fetch_dish: id => {
+          dispatch(get_dish(id))
+      }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DishFormHOC)

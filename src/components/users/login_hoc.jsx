@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import { logIn } from "../../services/user_requests";
 import { Login } from "./login";
 
 export class LoginHOC extends Component {
@@ -73,4 +75,21 @@ export class LoginHOC extends Component {
   }
 }
 
-export default LoginHOC;
+const mapStateToProps = store => {
+  return {
+      authenticated: store.userReducer.authenticated,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+      logIn: (user, rememberMe) =>{       
+          dispatch(logIn(user, rememberMe))
+      }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginHOC)

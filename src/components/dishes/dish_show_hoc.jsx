@@ -1,4 +1,6 @@
  import React, { Component } from 'react';
+ import { connect } from "react-redux";
+import { get_dish } from "../../services/dish_requests";
  import { DishShow } from "./dish_show"; 
  import { buildImageSecureUrl } from "../lib/common";
  export class DishShowHOC extends Component {
@@ -30,5 +32,22 @@
    }
  }
  
- export default DishShowHOC;
+ const mapStateToProps = (store) => {
+  return{
+      dish: store.dishReducer.dish
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+      getDish: id => {
+          dispatch(get_dish(id))
+      }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DishShowHOC)
  

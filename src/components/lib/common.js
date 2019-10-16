@@ -150,11 +150,5 @@ export const showError = (error) => {
       default: message = "Error en la petición";
     }
   }
-  
-  if (response.status === 404){
-    message = "Ruta no encontrada";
-  } else if (response.status === 401){
-    message = "Peticion no valida"
-  }
   return raiseError(message);
 }

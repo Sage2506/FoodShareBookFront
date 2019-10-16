@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import { ListGroup, Image } from "react-bootstrap";
 //import { dishes } from "../mock_dishes";
 
-import {default as DishIngredientListItem} from '../../containers/dish_ingredient/dish_ingredient_list_item_container';
+import DishIngredientListItemHoc from '../../components/dish_ingredients/dish_ingredient_list_item_hoc';
 export class DishShow extends Component {
   render() {
     const {
@@ -21,7 +21,7 @@ export class DishShow extends Component {
         <h2>{description}</h2>
         <h2>{recipe}</h2>
         <ListGroup>
-          {ingredients.map( (dish_ingredient, index) => <DishIngredientListItem dish_ingredient={dish_ingredient} key={id+"_"+index} />)}
+          {ingredients.map( (dish_ingredient, index) => <DishIngredientListItemHoc dish_ingredient={dish_ingredient} key={id+"_"+index} />)}
         </ListGroup>
       </div>
     );
