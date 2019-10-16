@@ -1,7 +1,7 @@
  import React, { Component } from 'react';
  import { connect } from "react-redux";
 import { get_dish } from "../../services/dish_requests";
- import { DishShow } from "./dish_show"; 
+ import { DishShow } from "./show"; 
  import { buildImageSecureUrl } from "../lib/common";
  export class DishShowHOC extends Component {
   constructor(props) {

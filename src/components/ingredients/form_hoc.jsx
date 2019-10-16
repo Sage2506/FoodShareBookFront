@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { post_ingredient, get_ingredient, put_ingredient } from "../../services/ingredient_requests";
-import IngredientForm from './ingredient_form';
+import IngredientForm from './form';
 import { Redirect } from 'react-router-dom'
 
 export class IngredientFormHOC extends Component {

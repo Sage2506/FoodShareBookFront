@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { DishListItem } from "./dish_list_item";
+import { DishListItem } from "./list_item";
 import { PropTypes } from 'prop-types';
 export class DishListItemHOC extends Component {
   render() {

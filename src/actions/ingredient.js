@@ -32,7 +32,7 @@ export const putIngredient = ingredient => {
     ingredient: ingredient
   }
 }
-export const destroyIngredient = id => {
+export const deleteIngredient = id => {
   return {
     type : DELETE_INGREDIENT,
     id : id

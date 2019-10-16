@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { DishIngredientListItem } from "./dish_ingredient_list_item";
+import { DishIngredientListItem } from "./list_item";
 import { buildImageSecureUrl } from '../lib/common';
 export class DishIngredientListItemHoc extends Component {
   render() {

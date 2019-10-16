@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { DishTableRow } from "./dish_table_row";
+import { DishTableRow } from "./table_row";
 import { PropTypes } from 'prop-types';
 export class DishTabeRowHOC extends Component {
   render() {

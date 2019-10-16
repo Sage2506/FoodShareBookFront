@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Button, Col, FormGroup, ListGroup } from "react-bootstrap";
-import { default as Autosuggest } from "../../components/common/autosuggest_hoc";
-import DishIngredientListItemHoc from "../../components/dish_ingredients/dish_ingredient_list_item_hoc";
+import { default as Autosuggest } from "../common/autosuggest_hoc";
+import DishIngredientListItemHoc from "../dish_ingredients/list_item_hoc";
 import { default as Dropzone } from "../common/dropzone_hoc";
 export class DishForm extends Component {
   

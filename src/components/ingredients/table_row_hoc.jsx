@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { IngredientTableRow } from "./ingredient_table_row";
+import { IngredientTableRow } from "./table_row";
 import { PropTypes } from 'prop-types';
 export class IngredientTableRowHOC extends Component {
   render() {

@@ -4,7 +4,7 @@ import { get_dishes, delete_dish } from "../../services/dish_requests";
 import { clearError } from '../../actions/error';
 import { default as Pagination } from '../common/pagination';
 import { Modal, Button } from 'react-bootstrap';
-import { DishTable } from './dish_table';
+import { DishTable } from './table';
 import { FloatingActionButtonPlus } from '../common/floating_action_button';
 
 

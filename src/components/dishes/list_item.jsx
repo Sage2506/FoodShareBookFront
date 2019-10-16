@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-import {default as DishIngredientListItem} from '../dish_ingredients/dish_ingredient_list_item_hoc'
+import {default as DishIngredientListItem} from '../dish_ingredients/list_item_hoc'
 import { ListGroup, Image, Col } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 

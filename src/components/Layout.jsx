@@ -6,7 +6,7 @@ import { login, logout } from "../actions/user";
 import { clearError } from '../actions/error';
 import { IndexLinkContainer } from "react-router-bootstrap";
 import {Cookies} from 'react-cookie';
-import LoginHOC from "../components/users/login_hoc";
+import LoginHOC from "./users/login_hoc";
 import { api } from "../services/foodsharebook_api";
 
 export class Layout extends Component {

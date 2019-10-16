@@ -8,13 +8,13 @@ import { Provider } from "react-redux";
 
 import configureStore from './store';
 
-import Layout from "./components/Layout";
-import { PageNotFound } from "./components/PageNotFound";
+import Layout from "./components/layout";
+import { PageNotFound } from "./components/page_not_found";
 import DishesIndex from "./components/dishes";
-import DishShowHOC from "./components/dishes/dish_show_hoc";
-import DishFormHOC from "./components/dishes/dish_form_hoc";
-import IngredientFormHOC from './components/ingredients/ingredient_form_hoc'
-import IngredientShowHOC from "./components/ingredients/ingredient_show_hoc";
+import DishShowHOC from "./components/dishes/show_hoc";
+import DishFormHOC from "./components/dishes/form_hoc";
+import IngredientFormHOC from './components/ingredients/form_hoc'
+import IngredientShowHOC from "./components/ingredients/show_hoc";
 import IngredientsIndex from './components/ingredients';
 
 const store = configureStore();

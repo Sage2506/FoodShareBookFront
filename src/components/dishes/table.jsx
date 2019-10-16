@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Table, Modal, Button} from "react-bootstrap";
-import { default as DishTableRow } from './dish_table_row_hoc';
+import { default as DishTableRow } from './table_row_hoc';
 export class DishTable extends Component {
   constructor(props) {
     super(props);

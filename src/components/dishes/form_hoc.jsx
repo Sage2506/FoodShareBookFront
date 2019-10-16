@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { DishForm } from "./dish_form";
+import { DishForm } from "./form";
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { post_dish, get_dish } from '../../services/dish_requests';

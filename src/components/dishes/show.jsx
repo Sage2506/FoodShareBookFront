@@ -3,7 +3,7 @@ import { PropTypes } from 'prop-types';
 import { ListGroup, Image } from "react-bootstrap";
 //import { dishes } from "../mock_dishes";
 
-import DishIngredientListItemHoc from '../../components/dish_ingredients/dish_ingredient_list_item_hoc';
+import DishIngredientListItemHoc from '../dish_ingredients/list_item_hoc';
 export class DishShow extends Component {
   render() {
     const {

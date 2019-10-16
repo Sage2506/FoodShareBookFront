@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { get_ingredients, destroy_ingredient } from "../../services/ingredient_requests";
-import { IngredientTable } from './ingredient_table';
+import { IngredientTable } from './table';
 import { FloatingActionButtonPlus } from '../common/floating_action_button';
 import { default as Pagination } from '../common/pagination';
 export class IngredientsIndex extends Component {
