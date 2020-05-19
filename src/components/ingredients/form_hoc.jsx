@@ -24,7 +24,7 @@ export class IngredientFormHOC extends Component {
       this.props.getIngredient(id);
     }
   }
-  
+
   static getDerivedStateFromProps(nextProps, prevState) {
     if ( nextProps.ingredient.id !== undefined && nextProps.ingredient.id !== prevState.ingredient.id ) {
       return {...prevState, ingredient: nextProps.ingredient};
@@ -95,10 +95,10 @@ export class IngredientFormHOC extends Component {
         validated: false,
       })
     } else {
-      if( true ){
+      if( image.includes(' ') ){
         // TODO: remember to change this true to image.includes(' ')
         console.log("image already in cloudinary");
-        
+
         if ( this.state.ingredient.id !== undefined && this.state.ingredient.id !== null ){
           this.props.update_ingredient(this.state.ingredient.id,this.state.ingredient)
         } else {

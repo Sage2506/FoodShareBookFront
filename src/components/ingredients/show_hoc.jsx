@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { get_ingredient } from "../../services/ingredient_requests";
-import { IngredientShow } from "./ingredien_show";
+import { IngredientShow } from "./show";
 import { buildImageSecureUrl } from "../lib/common";
 export class IngredientShowHOC extends Component {
   componentDidMount() {
     this.props.getIngredient(this.props.match.params.id)
   }
-  
+
   render() {
     let { name , description, measures, image, id } = this.props.ingredient;
     let { measuresCatalog, history } = this.props

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Table, Modal, Button } from 'react-bootstrap';
-import { default as IngredientTableRow } from './ingredient_table_row_hoc';
+import { default as IngredientTableRow } from './table_row_hoc';
 
 export class IngredientTable extends Component {
   constructor(props) {
@@ -24,7 +24,7 @@ export class IngredientTable extends Component {
       id,
     })
   }
-  
+
   deleteIngredient = (id) => {
     this.props.deleteIngredient(id);
     this.handleClose();
@@ -49,7 +49,7 @@ export class IngredientTable extends Component {
           </tr>
         </thead>
         <tbody>
-        { ingredients.map( (ingredient, position) => 
+        { ingredients.map( (ingredient, position) =>
         <IngredientTableRow ingredient = {ingredient} position = {position} key = {ingredient.id} handleOpen={this.handleOpen}/>
           )}
         { empty_rows.map( (row, position) =>
