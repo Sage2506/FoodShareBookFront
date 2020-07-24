@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { post_ingredient, get_ingredient, put_ingredient } from "../../services/ingredient_requests";
 import IngredientForm from './form';
 import { Redirect } from 'react-router-dom'
+import { uploadImageToCloudinary } from '../../lib/common';
 
 export class IngredientFormHOC extends Component {
   constructor(props) {
@@ -95,65 +96,29 @@ export class IngredientFormHOC extends Component {
         validated: false,
       })
     } else {
-      if( image.includes(' ') ){
-        // TODO: remember to change this true to image.includes(' ')
-        console.log("image already in cloudinary");
-
-        if ( this.state.ingredient.id !== undefined && this.state.ingredient.id !== null ){
-          this.props.update_ingredient(this.state.ingredient.id,this.state.ingredient)
-        } else {
-          this.props.create_ingredient(this.state.ingredient)
-        }
-      } else {
-        this.uploadFile(image);
-      }
-      //let imageData = uploadImage(image);
-      //this.props.create_ingredient({...this.state.ingredient, image : imageData})
-      /*let url = `https://api.cloudinary.com/v1_1/dbo96sjb/upload`;
-      let fd = new FormData();
-      fd.append("tags", "browser_upload");
-      fd.append("upload_preset", "rfsb_images")
-      fd.append("api_key", "757447362712211");
-      fd.append("api_secret", "z_F0g_ccUUJG24DDJJjyNdjl0RM");
-      //fd.append("return_delete_token", true);
-      fd.append("folder","ingredients");
-      fd.append("file", image);
-      axios.post(url, fd)
-        .then( res => {
-          let imageData = res.data.version + ' ' + res.data.public_id + ' ' + res.data.format
-          this.props.create_ingredient({...this.state.ingredient, image : imageData})
+      //checking if there's any image needed to be uploade
+      if( image !== null && !image.includes(' ')){
+        //uploading image to cloudinary
+        uploadImageToCloudinary(image, 'ingredients', (this.state.ingredient.id === undefined || this.state.ingredient.id === null)? '': ingredient.id).then( response => {
+          const {version, public_id, format} = response.data
+          let imageData = version + ' ' + public_id + ' ' + format
+          ingredient = {...ingredient, image: imageData}
+          this.createOrUpdateIngredient(ingredient)
+        }).catch ( error => {
         })
-        .catch(function (err) {
-          console.error('err', err);
-        });*/
+      } else {
+        this.createOrUpdateIngredient(ingredient)
+      }
     }
   }
 
-  uploadFile = (image) => {
-    let url = `https://api.cloudinary.com/v1_1/dbo96sjb/upload`;
-    let xhr = new XMLHttpRequest();
-    let fd = new FormData();
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhr.onreadystatechange = (e) => {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        var response = JSON.parse(xhr.responseText);
-        let imageData = response.version + ' ' + response.public_id + ' ' + response.format
-        if ( this.state.ingredient.id !== undefined && this.state.ingredient.id !== null ){
-          this.props.update_ingredient(this.state.ingredient.id, {...this.state.ingredient, image : imageData})
-        } else {
-          this.props.create_ingredient({...this.state.ingredient, image : imageData})
-        }
-      }
-    };
-
-    fd.append("tags", "browser_upload");
-    fd.append("upload_preset", "rfsb_images")
-    fd.append("api_key", "757447362712211");
-    fd.append("api_secret", "z_F0g_ccUUJG24DDJJjyNdjl0RM");
-    fd.append("folder","ingredients");
-    fd.append("file", image);
-    xhr.send(fd);
+  createOrUpdateIngredient = (ingredient) => {
+    //check if going to create or update
+    if( this.state.ingredient.id === undefined || this.state.ingredient.id === null){
+      this.props.create_ingredient(ingredient)
+    } else {
+      this.props.update_ingredient(ingredient)
+    }
   }
 
   render() {

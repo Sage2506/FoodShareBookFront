@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import configureStore from './store';
 
 import Layout from "./components/layout";
-import { Routes } from './routes';
+import Routes from './routes';
 
 const store = configureStore();
 

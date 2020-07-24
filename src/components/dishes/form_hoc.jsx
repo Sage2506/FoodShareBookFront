@@ -3,6 +3,7 @@ import { DishForm } from "./form";
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { post_dish, get_dish } from '../../services/dish_requests';
+import { uploadImageToCloudinary } from '../../lib/common';
 
 export class DishFormHOC extends Component {
   constructor(props) {
@@ -83,7 +84,7 @@ export class DishFormHOC extends Component {
     this.props.create_dish(this.state.dish);
   }
 
-  handleInputChange = e => {   
+  handleInputChange = e => {
     this.setState({
       dish: {
         ...this.state.dish,
@@ -123,8 +124,8 @@ export class DishFormHOC extends Component {
   }
 
   onKeyDown = (event) => {
-    if (event.keyCode === 13) { 
-      event.preventDefault() 
+    if (event.keyCode === 13) {
+      event.preventDefault()
     }
   };
 
@@ -136,12 +137,14 @@ export class DishFormHOC extends Component {
   handleInputSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget
-    let { name, recipe, dish_ingredients, image} = this.state.dish
+    let { dish } = this.state
+    let { name, recipe, dish_ingredients, image} = dish
+    //verifying if fields complete
     if(
-      form.checkValidity() === false 
-      || dish_ingredients.length < 2 
-      || name === "" 
-      || recipe === "" 
+      form.checkValidity() === false
+      || dish_ingredients.length < 2
+      || name === ""
+      || recipe === ""
       // || image === null // TODO: re enable this if you want to force image
       ){
       e.stopPropagation()
@@ -150,8 +153,20 @@ export class DishFormHOC extends Component {
         setValidated: false
       })
     } else {
-      this.uploadFile(image)
+      //this.uploadFile(image)
+
       //this.props.create_dish(this.state.dish)
+      if( image !== null && !image.includes(' ')){
+        uploadImageToCloudinary(image, 'dishes', (this.state.dish.id === undefined || this.state.dish.id === null)? '': dish.id).then( response => {
+          const {version, public_id, format} = response.data
+          let imageData = version + ' ' + public_id + ' ' + format
+          dish = {...dish, image: imageData}
+          this.createOrUpdateDish(dish)
+        }).catch ( error => {
+        })
+      } else {
+        this.createOrUpdateDish(dish)
+      }
     }
   }
 
@@ -181,6 +196,10 @@ export class DishFormHOC extends Component {
     fd.append("folder","dishes");
     fd.append("file", image);
     xhr.send(fd);
+  }
+
+  createOrUpdateDish = (dish) => {
+    this.props.create_dish(dish)
   }
 
 
@@ -223,9 +242,9 @@ const mapStateToProps = store => {
   }
 }
 
-const mapDispatchToProps = dispatch => { 
+const mapDispatchToProps = dispatch => {
   return {
-      create_dish: dish =>{       
+      create_dish: dish =>{
           dispatch(post_dish(dish))
       },
       fetch_dish: id => {

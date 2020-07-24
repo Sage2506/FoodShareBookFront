@@ -8,16 +8,18 @@ import { IndexLinkContainer } from "react-router-bootstrap";
 import {Cookies} from 'react-cookie';
 import LoginHOC from "./users/login_hoc";
 import { api } from "../services/foodsharebook_api";
+import { getCurrentUserData } from '../services/user_requests';
 
 export class Layout extends Component {
 
   checkUserLogged = () => {
     const cookies = new Cookies();
-    let token = cookies.get('Authorization')      
+    let token = cookies.get('Authorization')
     if(typeof token !== 'undefined' && token !== null && token !== '' && token.length > 0) {
       api.defaults.headers.common['Authorization'] = token
       this.props.user_login();
-    } 
+      this.props.loadUserData();
+    }
   }
 
   logout = () => {
@@ -54,9 +56,11 @@ export class Layout extends Component {
               <Nav className="mr-auto">
                 <NavItem><IndexLinkContainer to="/"><Nav.Link ><p>Home</p></Nav.Link></IndexLinkContainer></NavItem>
                 <NavItem><IndexLinkContainer to="/ingredients"><Nav.Link><p>Ingredients</p></Nav.Link></IndexLinkContainer></NavItem>
+                <NavItem><IndexLinkContainer to="/users"><Nav.Link><p>Users</p></Nav.Link></IndexLinkContainer></NavItem>
+                <NavItem><IndexLinkContainer to="/roles"><Nav.Link><p>Roles</p></Nav.Link></IndexLinkContainer></NavItem>
                 <NavItem><Nav.Link onClick={this.logout} ><p>Logout</p></Nav.Link></NavItem>
               </Nav>
-            </Navbar>   
+            </Navbar>
           </header>
           <Container fluid>
             {this.props.children}
@@ -95,6 +99,9 @@ const mapDispatchToProps = dispatch => {
     },
     clearError: () => {
       dispatch(clearError())
+    },
+    loadUserData: () => {
+      dispatch(getCurrentUserData())
     }
   }
 }
