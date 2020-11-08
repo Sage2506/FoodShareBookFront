@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { IngredientTable } from './ingredient_table';
+import { connect } from 'react-redux';
+import { get_ingredients, destroy_ingredient } from "../../services/ingredient_requests";
+import { IngredientTable } from './table';
 import { FloatingActionButtonPlus } from '../common/floating_action_button';
 import { default as Pagination } from '../common/pagination';
 export class IngredientsIndex extends Component {
@@ -30,4 +32,18 @@ export class IngredientsIndex extends Component {
   }
 }
 
-export default IngredientsIndex;
+const mapStateToProps = (store) => ({
+  ingredients: store.ingredientReducer.ingredients,
+  pagination: store.ingredientReducer.pagination
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getIngredients: (page = 1, per_page = 10) => {
+    dispatch(get_ingredients(page, per_page));
+  },
+  deleteIngredient: (id) => {
+    dispatch(destroy_ingredient(id));
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(IngredientsIndex);

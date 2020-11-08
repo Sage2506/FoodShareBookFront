@@ -3,6 +3,7 @@ import { dishReducer } from "./dish";
 import { ingredientReducer } from "./ingredient";
 import { measureReducer } from "./measure";
 import { userReducer } from "./user";
+import { roleReducer } from "./role";
 import { errorReducer } from './error';
 
 export default combineReducers({
@@ -10,5 +11,6 @@ export default combineReducers({
     ingredientReducer,
     measureReducer,
     userReducer,
-    errorReducer,
+    roleReducer,
+    errorReducer
 })

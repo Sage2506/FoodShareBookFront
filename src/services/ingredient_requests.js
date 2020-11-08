@@ -1,5 +1,5 @@
 import { api } from "./foodsharebook_api";
-import { getIngredient, getIngredients, postIngredient, putIngredient, destroyIngredient } from '../actions/ingredient';
+import { getIngredient, getIngredients, postIngredient, putIngredient, deleteIngredient } from '../actions/ingredient';
 import { paginate, showError } from '../components/lib/common';
 
 export const get_ingredients = (page, per_page ) => {        
@@ -72,7 +72,7 @@ export const destroy_ingredient = id => {
   return dispatch => {
     return api.delete(`ingredients/${id}`)
     .then(response => {
-      dispatch(destroyIngredient(id))
+      dispatch(deleteIngredient(id))
     })
     .catch(error => {
       dispatch(showError(error))

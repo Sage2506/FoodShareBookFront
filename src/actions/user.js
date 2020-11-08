@@ -1,14 +1,32 @@
 export const LOG_IN = 'LOG_IN'
 export const LOG_OUT = 'LOG_OUT'
+export const GET_USERS = 'GET_USERS'
+export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 
-export const login = () => {
+export const login = ( user ) => {
   return {
-    type: LOG_IN
+    type: LOG_IN,
+    user
   }
 }
 
 export const logout = () => {
   return {
     type: LOG_OUT
+  }
+}
+
+export const setCurrentUser = ( user ) => {
+  return{
+    type: SET_CURRENT_USER,
+    user
+  }
+}
+
+export const getUsers = ( users, pagination = {pages: [], arrows : {}} ) => {
+  return {
+    type: GET_USERS,
+    users,
+    pagination
   }
 }
