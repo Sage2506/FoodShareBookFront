@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import RoleShow from './show';
 import { connect } from 'react-redux';
 import { getRole } from '../../services/role_requests';
-import { convertPermisionStringToList } from '../../lib/common';
+// import { convertPermisionStringToList } from '../../lib/common';
 
 export class RoleShowHOC extends Component {
 
@@ -13,8 +13,7 @@ export class RoleShowHOC extends Component {
 
   render() {
     const { role } = this.props
-    const { permissions } = role
-    permissions.forEach((permission,index) => convertPermisionStringToList(permission));
+
     return (
       <RoleShow
         role = { role }

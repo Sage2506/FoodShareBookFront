@@ -12,38 +12,48 @@ import UsersIndexHOC from './components/users/index_hoc'
 import RolesIndexHOC from './components/roles/index_hoc';
 import RoleShowHOC from './components/roles/show_hoc';
 import { connect } from 'react-redux';
-import { convertPermisionStringToList } from './lib/common';
+//import { convertPermisionStringToList } from './lib/common';
 
 export class Routes extends Component {
   render() {
-    const { current_user } = this.props
-    const { permissions } = current_user
-    let routes_list = []
-    if ( permissions.length !== 0){
-      const locations_permissions = permissions.find( permission => permission.type_name === 'Locations')
-      if( locations_permissions !== undefined){
-        convertPermisionStringToList( locations_permissions )
-        routes_list  = locations_permissions.list
-      }
-    }
-    const routes = new Map ([
-      [  1 , <Route exact path="/" component={DishesIndex}/>],
-      [  2 , <Route path="/dishes/new" component={DishFormHOC}/>],
-      [  3 , <Route path="/dishes/:id" component={DishShowHOC}/>],
-      [  4 , <Route path="/ingredients/edit/:id" component={IngredientFormHOC}/>],
-      [  5 , <Route path="/ingredients/new" component={IngredientFormHOC}/>],
-      [  6 , <Route path="/ingredients/:id" component={IngredientShowHOC}/>],
-      [  7 , <Route path="/ingredients/" component={IngredientsIndex}/>],
-      [  8 , <Route path="/users" component={UsersIndexHOC} />],
-      [  9 , <Route path="/roles/:id" component={RoleShowHOC } />],
-      [ 10 , <Route path="/roles" component={RolesIndexHOC} />]
-    ])
+    //const { current_user } = this.props
+    //const { permissions } = current_user
+    // let routes_list = []
+    // if ( permissions.length !== 0){
+    //   const locations_permissions = permissions.find( permission => permission.type_name === 'Locations')
+    //   if( locations_permissions !== undefined){
+    //     convertPermisionStringToList( locations_permissions )
+    //     routes_list  = locations_permissions.list
+    //   }
+    // }
+    // const routes = new Map ([
+    //   [  1 , <Route exact path="/" component={DishesIndex}/>],
+    //   [  2 , <Route path="/dishes/new" component={DishFormHOC}/>],
+    //   [  3 , <Route path="/dishes/:id" component={DishShowHOC}/>],
+    //   [  4 , <Route path="/ingredients/edit/:id" component={IngredientFormHOC}/>],
+    //   [  5 , <Route path="/ingredients/new" component={IngredientFormHOC}/>],
+    //   [  6 , <Route path="/ingredients/:id" component={IngredientShowHOC}/>],
+    //   [  7 , <Route path="/ingredients/" component={IngredientsIndex}/>],
+    //   [  8 , <Route path="/users" component={UsersIndexHOC} />],
+    //   [  9 , <Route path="/roles/:id" component={RoleShowHOC } />],
+    //   [ 10 , <Route path="/roles" component={RolesIndexHOC} />]
+    // ])
 
+    //<!--{ routes_list.map ( element => routes.get(element)  )}
     return (
       <Switch>
-        { routes_list.map ( element =>
-          routes.get(element)
-        )}
+
+
+          <Route exact path="/" component={DishesIndex}/>
+          <Route path="/dishes/new" component={DishFormHOC}/>
+          <Route path="/dishes/:id" component={DishShowHOC}/>
+          <Route path="/ingredients/edit/:id" component={IngredientFormHOC}/>
+          <Route path="/ingredients/new" component={IngredientFormHOC}/>
+          <Route path="/ingredients/:id" component={IngredientShowHOC}/>
+          <Route path="/ingredients/" component={IngredientsIndex}/>
+          <Route path="/users" component={UsersIndexHOC} />
+          <Route path="/roles/:id" component={RoleShowHOC } />
+          <Route path="/roles" component={RolesIndexHOC} />
           <Route path="*" component={PageNotFound}/>
       </Switch>
     );

@@ -3,17 +3,17 @@ import React, { Component } from 'react';
 export  class RoleShow extends Component {
   render() {
     const { role } = this.props
-    const {id, name, permissions} = role
+    const {name, permissions} = role
 
     return (
       <div>
         <h1>{name}</h1>
         <hr/>
+        <ul>
         {permissions.map( (permission) =>
-          <ul>
-            <li>{permission.type}</li>
-          </ul>
-        ) }
+            <li key = {permission.id} >{permission.type_name}</li>
+            ) }
+        </ul>
       </div>
     );
   }

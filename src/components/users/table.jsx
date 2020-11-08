@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Modal, Button } from 'react-bootstrap';
+import { Table} from 'react-bootstrap';
 import UserTableRowHOC from './table_row_hoc';
 
 export class UsersTable extends Component {
@@ -16,7 +16,7 @@ export class UsersTable extends Component {
         </thead>
         <tbody>
           { users.map( (user, position) =>
-            <UserTableRowHOC user={user} />
+            <UserTableRowHOC user={user} key={user.id}/>
           )}
           { empty_rows.map( (row, position) =>
           <tr key = {position}>
