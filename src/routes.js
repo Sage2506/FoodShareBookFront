@@ -3,14 +3,15 @@ import { Switch, Route } from "react-router-dom";
 
 import { PageNotFound } from "./components/page_not_found";
 import DishesIndex from "./components/dishes";
-import DishShowHOC from "./components/dishes/show_hoc";
 import DishFormHOC from "./components/dishes/form_hoc";
+import DishShowHOC from "./components/dishes/show_hoc";
 import IngredientFormHOC from './components/ingredients/form_hoc'
 import IngredientShowHOC from "./components/ingredients/show_hoc";
 import IngredientsIndex from './components/ingredients';
-import UsersIndexHOC from './components/users/index_hoc'
-import RolesIndexHOC from './components/roles/index_hoc';
 import RoleShowHOC from './components/roles/show_hoc';
+import RolesIndexHOC from './components/roles/index_hoc';
+import UsersIndexHOC from './components/users/index_hoc'
+import PermissionsIndexHOC from './components/permissions/index_hoc';
 import { connect } from 'react-redux';
 //import { convertPermisionStringToList } from './lib/common';
 
@@ -42,8 +43,6 @@ export class Routes extends Component {
     //<!--{ routes_list.map ( element => routes.get(element)  )}
     return (
       <Switch>
-
-
           <Route exact path="/" component={DishesIndex}/>
           <Route path="/dishes/new" component={DishFormHOC}/>
           <Route path="/dishes/:id" component={DishShowHOC}/>
@@ -54,6 +53,7 @@ export class Routes extends Component {
           <Route path="/users" component={UsersIndexHOC} />
           <Route path="/roles/:id" component={RoleShowHOC } />
           <Route path="/roles" component={RolesIndexHOC} />
+          <Route path="/permissions" component={PermissionsIndexHOC} />
           <Route path="*" component={PageNotFound}/>
       </Switch>
     );

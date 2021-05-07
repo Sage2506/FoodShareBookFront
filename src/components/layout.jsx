@@ -58,6 +58,7 @@ export class Layout extends Component {
                 <NavItem><IndexLinkContainer to="/ingredients"><Nav.Link><p>Ingredients</p></Nav.Link></IndexLinkContainer></NavItem>
                 <NavItem><IndexLinkContainer to="/users"><Nav.Link><p>Users</p></Nav.Link></IndexLinkContainer></NavItem>
                 <NavItem><IndexLinkContainer to="/roles"><Nav.Link><p>Roles</p></Nav.Link></IndexLinkContainer></NavItem>
+                <NavItem><IndexLinkContainer to="/Permissions"><Nav.Link><p>Permissions</p></Nav.Link></IndexLinkContainer></NavItem>
                 <NavItem><Nav.Link onClick={this.logout} ><p>Logout</p></Nav.Link></NavItem>
               </Nav>
             </Navbar>
