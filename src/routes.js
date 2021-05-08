@@ -53,6 +53,7 @@ export class Routes extends Component {
           <Route path="/users" component={UsersIndexHOC} />
           <Route path="/roles/:id" component={RoleShowHOC } />
           <Route path="/roles" component={RolesIndexHOC} />
+          <Route path="/permissions/new" component={PermissionsIndexHOC} />
           <Route path="/permissions" component={PermissionsIndexHOC} />
           <Route path="*" component={PageNotFound}/>
       </Switch>

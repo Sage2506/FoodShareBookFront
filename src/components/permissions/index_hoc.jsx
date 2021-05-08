@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import PermissionsIndex from '.';
 import { getAllPermissions } from '../../services/permissions_requests';
 
 export class PermissionsIndexHOC extends Component {
 
   componentDidMount() {
-    console.log(this.props.permissions);
-    //this.props.getPermissions(); TODO: create permission get routes
+
+    this.props.getPermissions();// TODO: create permission get routes
   }
 
   render() {
+    const { permissions } = this.props
     return(
-      <div>
-        New component PermissionsIndexHOC
-      </div>
+      <PermissionsIndex permissions = {permissions}></PermissionsIndex>
     );
   }
 }
@@ -27,4 +27,5 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch( getAllPermissions())
   }
 })
+
 export default connect(mapStateToProps, mapDispatchToProps)(PermissionsIndexHOC);

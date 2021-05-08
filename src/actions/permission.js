@@ -4,19 +4,19 @@ export const GET_PERMISSION = 'GET_PERMISSION';
 export const DELETE_PERMISSION = 'DELETE_PERMISSION';
 export const ADD_PERMISSION = 'ADD_PERMISSION';
 
-export const getPermissions = (Permissions) => ({
+export const getPermissions = (permissions) => ({
   type: GET_PERMISSIONS,
-  Permissions
+  permissions
 });
 
-export const getPermission = (Permission) => ({
+export const getPermission = (permission) => ({
   type: GET_PERMISSION,
-  Permission,
+  permission,
 });
 
-export const addPermission = (Permission) => ({
+export const addPermission = (permission) => ({
   type: ADD_PERMISSION,
-  Permission,
+  permission,
 });
 
 export const deletePermission = (id) => ({
