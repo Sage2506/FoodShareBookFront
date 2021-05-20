@@ -2,8 +2,18 @@ import { GET_PERMISSION, GET_PERMISSIONS, ADD_PERMISSION, DELETE_PERMISSION } fr
 
 const initialPermissionState = {
   permissions: [],
-  permission : {},
-  newPermission : {}
+  permission :  {
+    name: "",
+    description : "",
+    role_id: "-1" ,
+    permission_type_id : "-1"
+  },
+  newPermission : {
+    name: "",
+    description : "",
+    role_id: "-1" ,
+    permission_type_id : "-1"
+  }
 }
 
 export const  permissionReducer = ( state = initialPermissionState, action ) => {

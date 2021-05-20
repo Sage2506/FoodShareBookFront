@@ -12,6 +12,8 @@ import RoleShowHOC from './components/roles/show_hoc';
 import RolesIndexHOC from './components/roles/index_hoc';
 import UsersIndexHOC from './components/users/index_hoc'
 import PermissionsIndexHOC from './components/permissions/index_hoc';
+import PermissionsFormHOC from './components/permissions/form_hoc';
+import PermissionsShowHOC from './components/permissions/show_hoc';
 import { connect } from 'react-redux';
 //import { convertPermisionStringToList } from './lib/common';
 
@@ -53,7 +55,9 @@ export class Routes extends Component {
           <Route path="/users" component={UsersIndexHOC} />
           <Route path="/roles/:id" component={RoleShowHOC } />
           <Route path="/roles" component={RolesIndexHOC} />
-          <Route path="/permissions/new" component={PermissionsIndexHOC} />
+          <Route path="/permissions/edit/:id" component={PermissionsFormHOC} />
+          <Route path="/permissions/new" component={PermissionsFormHOC} />
+          <Route path="/permissions/:id" component={PermissionsShowHOC} />
           <Route path="/permissions" component={PermissionsIndexHOC} />
           <Route path="*" component={PageNotFound}/>
       </Switch>

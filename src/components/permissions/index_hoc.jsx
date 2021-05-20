@@ -2,12 +2,14 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import PermissionsIndex from '.';
 import { getAllPermissions } from '../../services/permissions_requests';
+import { getAllPermissionTypes } from '../../services/permissions_type_requests';
 
 export class PermissionsIndexHOC extends Component {
 
   componentDidMount() {
 
-    this.props.getPermissions();// TODO: create permission get routes
+    this.props.getPermissions();
+
   }
 
   render() {
