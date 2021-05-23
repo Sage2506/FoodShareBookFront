@@ -4,7 +4,7 @@ import { ButtonToolbar, Button } from 'react-bootstrap';
 
 export class PermissionsTableRow extends Component {
   render() {
-    const { permission } = this.props
+    const { permission , handleOpen } = this.props
     const { id, name, description } = permission
     return(
       <tr>

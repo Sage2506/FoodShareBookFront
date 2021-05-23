@@ -10,9 +10,9 @@ export class PermissionsShowHOC extends Component {
   }
 
   render() {
-    const { permission } = this.props
+    const { permission, history } = this.props
     return(
-      <PermissionShow permission={ permission } />
+      <PermissionShow permission={ permission }  goBack = { history.goBack }/>
     );
   }
 }

@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import PermissionsTableRow from './table_row';
 
 export class PermissionsTableRowHOC extends Component {
+
   render() {
-    const { permission } = this.props
+    const { permission, handleOpen } = this.props
     return(
-      <PermissionsTableRow permission = { permission }></PermissionsTableRow>
+      <PermissionsTableRow permission = { permission } handleOpen = {handleOpen} ></PermissionsTableRow>
     );
   }
 }
