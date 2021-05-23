@@ -37,3 +37,15 @@ export const postPermission = permission => {
     }
   }
 }
+
+export const updatePermission = (id, permission) => {
+  return async (dispatch) =>{
+    try {
+      const response = await api.put(`${Path}/${id}`, permission);
+      dispatch(addPermission(response.data));
+    }
+    catch (error) {
+      dispatch(showError(error))
+    }
+  }
+} ;

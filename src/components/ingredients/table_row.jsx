@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { LinkContainer } from "react-router-bootstrap";
 import { ButtonToolbar, Button } from 'react-bootstrap';
+
 export class IngredientTableRow extends Component {
-  render() {  
+  render() {
     let {id, name, description, handleOpen} = this.props
     return (
-      
+
         <tr>
           <td>{id}</td>
           <td>{name}</td>
@@ -18,7 +19,7 @@ export class IngredientTableRow extends Component {
             </ButtonToolbar>
           </td>
         </tr>
-      
+
     );
   }
 }

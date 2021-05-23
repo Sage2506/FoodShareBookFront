@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import { getPermissionById, postPermission } from '../../services/permissions_requests';
+import { getPermissionById, postPermission, updatePermission } from '../../services/permissions_requests';
 import { getAllPermissionTypes } from '../../services/permissions_type_requests';
 import { getRoles } from '../../services/role_requests';
 import PermissionsForm from './form';
@@ -60,13 +60,11 @@ export class PermissionsFormHOC extends Component {
         formSubmited : true
       })
     } else {
-      alert("Submited")
       if( this.props.permission.id !== undefined ){
-        console.log("to edit");
+        this.props.updatePermission(this.props.permission.id, permission);
       } else {
-        console.log("to create");
+        this.props.postPermission(permission)
       }
-      //this.props.postPermission(permission)
     }
   }
 
@@ -110,6 +108,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   postPermission: ( permission ) => {
     dispatch( postPermission(permission))
+  },
+  updatePermission: (id, permission) => {
+    dispatch( updatePermission(id, permission))
   }
 })
 

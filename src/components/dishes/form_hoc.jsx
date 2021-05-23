@@ -130,7 +130,6 @@ export class DishFormHOC extends Component {
   };
 
   onNumericInputKeyDown = e => {
-    console.log(e.keyCode);
     console.log("remember to handle 'e'")
   }
 

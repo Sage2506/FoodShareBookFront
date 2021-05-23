@@ -19,9 +19,9 @@ const initialPermissionState = {
 export const  permissionReducer = ( state = initialPermissionState, action ) => {
   switch (action.type) {
     case GET_PERMISSION:
-      return {...state, permission: action.permission, newPermission: {}};
+      return {...state, permission: action.permission, newPermission: initialPermissionState.newPermission};
     case GET_PERMISSIONS:
-      return {...state, permissions: action.permissions};
+      return {...state, permissions: action.permissions, permission: initialPermissionState.permission};
     case ADD_PERMISSION:
       return {...state, newPermission: action.permission};
     case DELETE_PERMISSION:
