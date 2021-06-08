@@ -36,7 +36,7 @@ export class Layout extends Component {
   }
 
   render() {
-    let {error, authenticated, clearError } = this.props
+    let {error, authenticated, clearError, currentUser } = this.props
     if ( authenticated ){
       return (
         <div>
@@ -56,9 +56,9 @@ export class Layout extends Component {
               <Nav className="mr-auto">
                 <NavItem><IndexLinkContainer to="/"><Nav.Link ><p>Home</p></Nav.Link></IndexLinkContainer></NavItem>
                 <NavItem><IndexLinkContainer to="/ingredients"><Nav.Link><p>Ingredients</p></Nav.Link></IndexLinkContainer></NavItem>
-                <NavItem><IndexLinkContainer to="/users"><Nav.Link><p>Users</p></Nav.Link></IndexLinkContainer></NavItem>
-                <NavItem><IndexLinkContainer to="/roles"><Nav.Link><p>Roles</p></Nav.Link></IndexLinkContainer></NavItem>
-                <NavItem><IndexLinkContainer to="/Permissions"><Nav.Link><p>Permissions</p></Nav.Link></IndexLinkContainer></NavItem>
+                { currentUser.id === 1 && <NavItem><IndexLinkContainer to="/users"><Nav.Link><p>Users</p></Nav.Link></IndexLinkContainer></NavItem>}
+                { currentUser.id === 1 && <NavItem><IndexLinkContainer to="/roles"><Nav.Link><p>Roles</p></Nav.Link></IndexLinkContainer></NavItem>}
+                { currentUser.id === 1 && <NavItem><IndexLinkContainer to="/Permissions"><Nav.Link><p>Permissions</p></Nav.Link></IndexLinkContainer></NavItem> }
                 <NavItem><Nav.Link onClick={this.logout} ><p>Logout</p></Nav.Link></NavItem>
               </Nav>
             </Navbar>
@@ -84,6 +84,7 @@ const mapStateToProps = store => {
     measures: store.measureReducer.measures,
     authenticated: store.userReducer.authenticated,
     error: store.errorReducer.error,
+    currentUser: store.userReducer.current_user,
   }
 }
 

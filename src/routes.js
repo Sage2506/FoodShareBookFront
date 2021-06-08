@@ -43,25 +43,41 @@ export class Routes extends Component {
     // ])
 
     //<!--{ routes_list.map ( element => routes.get(element)  )}
-    return (
-      <Switch>
-          <Route exact path="/" component={DishesIndex}/>
-          <Route path="/dishes/new" component={DishFormHOC}/>
-          <Route path="/dishes/:id" component={DishShowHOC}/>
-          <Route path="/ingredients/edit/:id" component={IngredientFormHOC}/>
-          <Route path="/ingredients/new" component={IngredientFormHOC}/>
-          <Route path="/ingredients/:id" component={IngredientShowHOC}/>
-          <Route path="/ingredients/" component={IngredientsIndex}/>
-          <Route path="/users" component={UsersIndexHOC} />
-          <Route path="/roles/:id" component={RoleShowHOC } />
-          <Route path="/roles" component={RolesIndexHOC} />
-          <Route path="/permissions/edit/:id" component={PermissionsFormHOC} />
-          <Route path="/permissions/new" component={PermissionsFormHOC} />
-          <Route path="/permissions/:id" component={PermissionsShowHOC} />
-          <Route path="/permissions" component={PermissionsIndexHOC} />
-          <Route path="*" component={PageNotFound}/>
-      </Switch>
-    );
+    if(this.props.current_user.id === 1 ){
+      return (
+        <Switch>
+            <Route exact path="/" component={DishesIndex}/>
+            <Route path="/dishes/new" component={DishFormHOC}/>
+            <Route path="/dishes/:id" component={DishShowHOC}/>
+            <Route path="/ingredients/edit/:id" component={IngredientFormHOC}/>
+            <Route path="/ingredients/new" component={IngredientFormHOC}/>
+            <Route path="/ingredients/:id" component={IngredientShowHOC}/>
+            <Route path="/ingredients/" component={IngredientsIndex}/>
+            <Route path="/users" component={UsersIndexHOC} />
+            <Route path="/roles/:id" component={RoleShowHOC } />
+            <Route path="/roles" component={RolesIndexHOC} />
+            <Route path="/permissions/edit/:id" component={PermissionsFormHOC} />
+            <Route path="/permissions/new" component={PermissionsFormHOC} />
+            <Route path="/permissions/:id" component={PermissionsShowHOC} />
+            <Route path="/permissions" component={PermissionsIndexHOC} />
+            <Route path="*" component={PageNotFound}/>
+        </Switch>
+      );
+    } else {
+      return (
+        <Switch>
+            <Route exact path="/" component={DishesIndex}/>
+            <Route path="/dishes/new" component={DishFormHOC}/>
+            <Route path="/dishes/:id" component={DishShowHOC}/>
+            <Route path="/ingredients/edit/:id" component={IngredientFormHOC}/>
+            <Route path="/ingredients/new" component={IngredientFormHOC}/>
+            <Route path="/ingredients/:id" component={IngredientShowHOC}/>
+            <Route path="/ingredients/" component={IngredientsIndex}/>
+            <Route path="*" component={PageNotFound}/>
+        </Switch>
+      );
+    }
+
   }
 }
 
