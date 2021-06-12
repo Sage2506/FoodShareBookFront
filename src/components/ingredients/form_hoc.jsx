@@ -117,7 +117,7 @@ export class IngredientFormHOC extends Component {
     if( this.state.ingredient.id === undefined || this.state.ingredient.id === null){
       this.props.create_ingredient(ingredient)
     } else {
-      this.props.update_ingredient(ingredient)
+      this.props.update_ingredient(this.state.ingredient.id, ingredient)
     }
   }
 
