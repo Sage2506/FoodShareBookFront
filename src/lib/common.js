@@ -50,8 +50,6 @@ export const uploadImageToCloudinary = (image, folder, public_id = '') =>{
 export const convertPermisionStringToList = ( permission ) => {
 
   if( permission.list !== undefined && permission.list !== null && permission.list !== '' && permission.list !== [] && permission.list.length > 0){
-    console.log("Convirtiendo: ");
-    console.log(permission.list);
     permission.list = permission.list.split(',').filter( id => id !== '' ).map( id => parseInt(id))
   } else {
     permission.list = []

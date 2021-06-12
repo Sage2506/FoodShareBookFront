@@ -90,7 +90,7 @@ export function paginate(totalItems, currentPage = 1 , pageSize = 10, maxPages =
       pages: pages,
       arrows : extractLinksPages(links)
   };
-  
+
   return result;
 }
 
@@ -124,7 +124,7 @@ export function urlGetParam(param, link) {
   if (startIndex > -1) {
     link = link.substring(startIndex + param.length +1 );
     let i = 0;
-    while(i < link.length && link[i] !== '&')	{
+    while(i < link.length && link[i] !== '&')  {
       result += link[i]
       i++;
     }
