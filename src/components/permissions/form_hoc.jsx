@@ -55,10 +55,11 @@ export class PermissionsFormHOC extends Component {
     e.preventDefault();
     const { permission } = this.state
     const { name, description, role_id, permission_type_id } = permission
-    if( name === "" || name.includes(" ") || description === "" || role_id === "-1" || permission_type_id === "-1" ){
+    if( name === "" || name.includes(" ") || description === "" || permission_type_id === "-1" ){
       this.setState({
         formSubmited : true
       })
+      console.log("form submited")
     } else {
       if( this.props.permission.id !== undefined ){
         this.props.updatePermission(this.props.permission.id, permission);
