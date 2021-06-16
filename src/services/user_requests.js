@@ -1,7 +1,9 @@
 import {Cookies} from 'react-cookie';
 import { api } from './foodsharebook_api';
-import { login, getUsers, setCurrentUser } from '../actions/user';
+import { login, getUsers, setCurrentUser, setUser } from '../actions/user';
 import { paginate, showError } from '../components/lib/common';
+
+const Path = 'users';
 
 export const logIn = (user, rememberMe) => {
   return async dispatch => {
@@ -34,7 +36,7 @@ export const logIn = (user, rememberMe) => {
 export const getCurrentUserData = () => {
   return async dispatch => {
     try {
-      const response = await api.get(`users/current_user_data`)
+      const response = await api.get(Path+`/current_user_data`)
       const { status, data } = response
       if( status === 200 ){
         dispatch(setCurrentUser(data))
@@ -48,7 +50,7 @@ export const getCurrentUserData = () => {
 export const getAllUsers = (page = 1, per_page = 10, name = '') => {
   return async dispatch => {
     try{
-      const response = await api.get(`users?page=${page}&per_page${per_page}`)
+      const response = await api.get(Path+`?page=${page}&per_page${per_page}`)
       const { headers , data } = response
       let pagination = paginate(
         headers['pagination-total'],
@@ -59,6 +61,19 @@ export const getAllUsers = (page = 1, per_page = 10, name = '') => {
 
       dispatch(getUsers(data, pagination))
     } catch(error){
+      dispatch(showError(error))
+    }
+  }
+}
+
+export const getUserDataById = id => {
+  return async dispatch => {
+    try {
+      const response = await api.get(Path+`/`+id)
+      const { data } = response
+      dispatch(setUser(data))
+    } catch ( error ) {
+      console.log(error);
       dispatch(showError(error))
     }
   }

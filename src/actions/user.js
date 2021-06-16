@@ -1,6 +1,7 @@
 export const LOG_IN = 'LOG_IN'
 export const LOG_OUT = 'LOG_OUT'
 export const GET_USERS = 'GET_USERS'
+export const SET_USER = 'SET_USER'
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 
 export const login = ( user ) => {
@@ -19,6 +20,13 @@ export const logout = () => {
 export const setCurrentUser = ( user ) => {
   return{
     type: SET_CURRENT_USER,
+    user
+  }
+}
+
+export const setUser = user => {
+  return {
+    type: SET_USER,
     user
   }
 }

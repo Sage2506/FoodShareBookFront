@@ -11,7 +11,7 @@ import IngredientsIndex from './components/ingredients';
 import RoleShowHOC from './components/roles/show_hoc';
 import RolesIndexHOC from './components/roles/index_hoc';
 import UsersIndexHOC from './components/users/index_hoc';
-import { UserFormHOC } from './components/users/form_hoc';
+import UserFormHOC from './components/users/form_hoc';
 import PermissionsIndexHOC from './components/permissions/index_hoc';
 import PermissionsFormHOC from './components/permissions/form_hoc';
 import PermissionsShowHOC from './components/permissions/show_hoc';
