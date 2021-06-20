@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { getUserDataById } from '../../services/user_requests';
+import { getAllPermissionTypes } from '../../services/permissions_type_requests';
 import { UserForm } from './form';
 import { getAllPermissions } from '../../services/permissions_requests';
 import UserPermissionForm from './user_permission_form';
@@ -13,23 +14,24 @@ export class UserPermissionFormHOC extends Component {
   }
 
   render() {
-    const { user, permissions } = this.props
-    const parsed_permissions = {}
+    const { user, permissions, permissionTypes } = this.props
+    const parsedPermissions = {}
     permissions.forEach( permission => {
-      if(!parsed_permissions[permission.permission_type_id]){
-        parsed_permissions[permission.permission_type_id] = [permission]
+      if(!parsedPermissions[permission.permission_type_id]){
+        parsedPermissions[permission.permission_type_id] = [permission]
       } else {
-        parsed_permissions[permission.permission_type_id].push(permission)
+        parsedPermissions[permission.permission_type_id].push(permission)
       }
     })
     return(
-      <UserPermissionForm user = {user} permissions = {permissions} />
+      <UserPermissionForm user = {user} permissions = {permissions} parsedPermissions = {parsedPermissions} permissionTypes = {permissionTypes}/>
     );
   }
 }
 
 const mapStateToProps = ( store ) => ({
-  permissions : store.permissionReducer.permissions
+  permissions : store.permissionReducer.permissions,
+  permissionTypes: store.permissionTypeReducer.permissionTypes
 })
 
 const mapDispatchToProps = (dispatch) => ({
