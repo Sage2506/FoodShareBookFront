@@ -10,7 +10,8 @@ import IngredientShowHOC from "./components/ingredients/show_hoc";
 import IngredientsIndex from './components/ingredients';
 import RoleShowHOC from './components/roles/show_hoc';
 import RolesIndexHOC from './components/roles/index_hoc';
-import UsersIndexHOC from './components/users/index_hoc'
+import UsersIndexHOC from './components/users/index_hoc';
+import UserFormHOC from './components/users/form_hoc';
 import PermissionsIndexHOC from './components/permissions/index_hoc';
 import PermissionsFormHOC from './components/permissions/form_hoc';
 import PermissionsShowHOC from './components/permissions/show_hoc';
@@ -53,6 +54,7 @@ export class Routes extends Component {
             <Route path="/ingredients/new" component={IngredientFormHOC}/>
             <Route path="/ingredients/:id" component={IngredientShowHOC}/>
             <Route path="/ingredients/" component={IngredientsIndex}/>
+            <Route path="/users/edit/:id" component={UserFormHOC} />
             <Route path="/users" component={UsersIndexHOC} />
             <Route path="/roles/:id" component={RoleShowHOC } />
             <Route path="/roles" component={RolesIndexHOC} />

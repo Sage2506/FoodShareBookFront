@@ -53,7 +53,7 @@ export class PermissionsForm extends Component {
             as="select"
             onChange={ handleInputChange }
             value={ role_id }
-            isInvalid = { formSubmited && permission_type_id === "-1" }
+            isInvalid = { formSubmited && role_id === "-1" }
           >
             <option value={-1}>Seleccionar tipo de Rol</option>
             { roles.map( (role) => <option key={`m_${role.id}`} value={role.id}>{role.name}</option> ) }

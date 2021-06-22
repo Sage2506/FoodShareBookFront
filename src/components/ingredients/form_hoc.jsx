@@ -21,7 +21,7 @@ export class IngredientFormHOC extends Component {
 
   componentDidMount() {
     let id = this.props.match.params.id;
-    if (id !== undefined){
+    if ( this.props.location.pathname.split('/')[2] === 'edit'){
       this.props.getIngredient(id);
     }
   }

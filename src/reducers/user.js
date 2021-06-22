@@ -1,4 +1,4 @@
-import { LOG_IN, LOG_OUT, GET_USERS, SET_CURRENT_USER } from "../actions/user";
+import { LOG_IN, LOG_OUT, GET_USERS, SET_CURRENT_USER, SET_USER } from "../actions/user";
 
 const initialUserState = {
     current_user: {
@@ -33,6 +33,11 @@ export const userReducer = ( state = initialUserState, action ) => {
           ...state,
           users: action.users,
           pagination: action.pagination
+        }
+      case SET_USER:
+        return {
+          ...state,
+          user: action.user
         }
       case SET_CURRENT_USER:
         return {
