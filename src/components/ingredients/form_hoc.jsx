@@ -90,7 +90,7 @@ export class IngredientFormHOC extends Component {
     const form = e.currentTarget
     let { ingredient } = this.state
     let { name , description, image, measures } = ingredient
-    if(form.checkValidity() === false || measures.length < 1 || image === null || name === "" || description === "" ){
+    if(form.checkValidity() === false || measures.length < 1 || name === "" || description === "" ){
       e.stopPropagation()
       this.setState({
         validated: false,
@@ -117,7 +117,7 @@ export class IngredientFormHOC extends Component {
     if( this.state.ingredient.id === undefined || this.state.ingredient.id === null){
       this.props.create_ingredient(ingredient)
     } else {
-      this.props.update_ingredient(ingredient)
+      this.props.update_ingredient(this.state.ingredient.id, ingredient)
     }
   }
 
