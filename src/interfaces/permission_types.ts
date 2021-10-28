@@ -7,7 +7,8 @@ interface IPermissionType {
 export interface IPermissions {
     id: number,
     name: string,
-    description: string
+    description: string,
+    permission_id: number
 }
 
 export default IPermissionType;

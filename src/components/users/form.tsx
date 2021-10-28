@@ -1,18 +1,18 @@
 import React, {Component} from 'react';
-import IUser from '../../interfaces/users,';
+import IUser from '../../interfaces/users';
 import UserPermissionFormHOC from '../permissions/user_permission_form_hoc';
 
 
-export class UserForm extends Component<{user : IUser}>{
+export class UserForm extends Component<{user : IUser , getUser : Function, getUserPermissions: Function}>{
   componentDidMount() {
   }
 
   render() {
-    const { user } = this.props
+    const { user, getUser, getUserPermissions } = this.props
     return(
       <div>
         New component UserForm { user.email }
-        <UserPermissionFormHOC userPermissions = {user.permissions}/>
+        <UserPermissionFormHOC userPermissions = {user.permissions} userId = {user.id} getUser={getUser} getUserPermissions={getUserPermissions}/>
       </div>
     );
   }

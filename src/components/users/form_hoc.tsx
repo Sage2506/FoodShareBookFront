@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import IUser from '../../interfaces/users,';
+import IUser from '../../interfaces/users';
 import { getUserDataById, getUserPermissionsById } from '../../services/user_requests';
 import { UserForm } from './form';
 
@@ -28,9 +28,9 @@ export class UserFormHOC extends Component<UserFormProps> {
   }
 
   render() {
-    const { user } = this.props
+    const { user, getUser, getUserPermissions } = this.props
     return(
-      <UserForm user = {user} />
+      <UserForm user = {user} getUser = {getUser} getUserPermissions = {getUserPermissions}/>
     );
   }
 }
