@@ -1,6 +1,7 @@
 import { api } from './foodsharebook_api';
 import { showError } from '../components/lib/common';
 import { addPermission, getPermission, getPermissions } from '../actions/permission';
+import { put_ingredient } from './ingredient_requests';
 
 const Path = 'permissions'
 export const getAllPermissions = (page = 1, per_page = 10, name = "" ) => {
@@ -48,4 +49,8 @@ export const updatePermission = (id, permission) => {
       dispatch(showError(error))
     }
   }
-} ;
+}
+
+export const deletePermission = ( permissionId : number) => {
+  return api.delete(Path+`/`+permissionId);
+}

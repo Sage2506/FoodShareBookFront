@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PermissionsTable from './table';
+import {deletePermission} from '../../services/permissions_requests'
 export class PermissionsTableHOC extends Component {
 
   constructor(props) {
@@ -24,8 +25,14 @@ export class PermissionsTableHOC extends Component {
     })
   }
 
-  deletePermission = id => {
+  deletePermission =( id :number )=> {
     console.log(id);
+    const promises = []
+    promises.push(deletePermission(id))
+    Promise.all(promises).then( response => {
+      this.setState({ deleteShow : false, deleteId : -1 })
+      this.props.getPermissions();
+    })
   }
 
   componentDidMount() {

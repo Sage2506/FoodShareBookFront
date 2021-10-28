@@ -13,9 +13,9 @@ export class PermissionsIndexHOC extends Component {
   }
 
   render() {
-    const { permissions } = this.props
+    const { permissions, getPermissions } = this.props
     return(
-      <PermissionsIndex permissions = {permissions}></PermissionsIndex>
+      <PermissionsIndex permissions = {permissions} getPermissions = { getPermissions }></PermissionsIndex>
     );
   }
 }

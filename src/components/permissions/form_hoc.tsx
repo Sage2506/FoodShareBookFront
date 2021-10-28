@@ -14,7 +14,6 @@ export class PermissionsFormHOC extends Component {
       permission : {
         name: "",
         description : "",
-        role_id: "-1" ,
         permission_type_id : "-1"
       },
       formSubmited : false

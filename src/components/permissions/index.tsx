@@ -6,10 +6,10 @@ export class PermissionsIndex  extends Component {
   componentDidMount(){
   }
   render() {
-    const { permissions } = this.props
+    const { permissions , getPermissions} = this.props
     return(
       <div>
-      <PermissionsTableHOC permissions = { permissions }></PermissionsTableHOC>
+      <PermissionsTableHOC permissions = { permissions } getPermissions = {getPermissions}></PermissionsTableHOC>
       <FloatingActionButtonPlus
         link = '/permissions/new'
       />
