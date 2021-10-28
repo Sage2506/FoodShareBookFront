@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
+import IUser from '../../interfaces/users,';
 import UserPermissionFormHOC from '../permissions/user_permission_form_hoc';
 
-export class UserForm extends Component {
+
+export class UserForm extends Component<{user : IUser}>{
   componentDidMount() {
   }
 
@@ -10,7 +12,7 @@ export class UserForm extends Component {
     return(
       <div>
         New component UserForm { user.email }
-        <UserPermissionFormHOC user = { user }/>
+        <UserPermissionFormHOC userPermissions = {user.permissions}/>
       </div>
     );
   }

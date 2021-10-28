@@ -3,6 +3,7 @@ export const LOG_OUT = 'LOG_OUT'
 export const GET_USERS = 'GET_USERS'
 export const SET_USER = 'SET_USER'
 export const SET_CURRENT_USER = 'SET_CURRENT_USER'
+export const SET_USER_PERMISSIONS = 'SET_USER_PERMISSIONS'
 
 export const login = ( user ) => {
   return {
@@ -36,5 +37,12 @@ export const getUsers = ( users, pagination = {pages: [], arrows : {}} ) => {
     type: GET_USERS,
     users,
     pagination
+  }
+}
+
+export const setUserPermissions = permissions => {
+  return {
+    type: SET_USER_PERMISSIONS,
+    permissions
   }
 }

@@ -1,12 +1,12 @@
 import {Cookies} from 'react-cookie';
 import { api } from './foodsharebook_api';
-import { login, getUsers, setCurrentUser, setUser, logout } from '../actions/user';
+import { login, getUsers, setCurrentUser, setUser, logout, setUserPermissions } from '../actions/user';
 import { paginate, showError } from '../components/lib/common';
 
 const Path = 'users';
 
-export const logIn = (user, rememberMe) => {
-  return async dispatch => {
+export const logIn = (user: any, rememberMe : any) => {
+  return async ( dispatch: any ) => {
     try {
       let response = await api.post(`users/login`, user);
       if(response.status === 200 ){
@@ -22,9 +22,9 @@ export const logIn = (user, rememberMe) => {
         } else {
           dispatch(showError("Error de correo o contraseña"))
         }
-        dispatch(login())
+          dispatch(login())
       } else {
-        dispatch(showError("Error de correo o contraseña"))
+         dispatch(showError("Error de correo o contraseña"))
       }
     }
     catch (error) {
@@ -34,7 +34,7 @@ export const logIn = (user, rememberMe) => {
 }
 
 export const getCurrentUserData = () => {
-  return async dispatch => {
+  return async ( dispatch: any ) => {
     try {
       const response = await api.get(Path+`/current_user_data`)
       const { status, data } = response
@@ -50,7 +50,7 @@ export const getCurrentUserData = () => {
 }
 
 export const getAllUsers = (page = 1, per_page = 10, name = '') => {
-  return async dispatch => {
+  return async ( dispatch: any ) => {
     try{
       const response = await api.get(Path+`?page=${page}&per_page${per_page}`)
       const { headers , data } = response
@@ -69,12 +69,25 @@ export const getAllUsers = (page = 1, per_page = 10, name = '') => {
 }
 
 export const getUserDataById = id => {
-  return async dispatch => {
+  return async ( dispatch: any ) => {
     try {
       const response = await api.get(Path+`/`+id)
       const { data } = response
       dispatch(setUser(data))
     } catch ( error ) {
+      console.log(error);
+      dispatch(showError(error))
+    }
+  }
+}
+
+export const getUserPermissionsById = id => {
+  return async ( dispatch: any ) => {
+    try {
+      const response = await api.get(Path+`/`+id+`/permissions`)
+      const { data } = response
+      dispatch(setUserPermissions(data))
+    } catch ( error ){
       console.log(error);
       dispatch(showError(error))
     }

@@ -5,7 +5,7 @@ import { getPermissionTypes } from '../actions/permission_type';
 const Path = "permission_types"
 
 export const getAllPermissionTypes = () => {
-  return async dispatch => {
+  return async (dispatch : any) => {
     try {
       const response = await api.get(Path)
       const { headers, data } = response
