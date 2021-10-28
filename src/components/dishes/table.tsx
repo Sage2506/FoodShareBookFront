@@ -1,8 +1,26 @@
 import React, { Component } from 'react';
 import { Table, Modal, Button} from "react-bootstrap";
+import { IDish } from '../../interfaces/dishes';
 import { default as DishTableRow } from './table_row_hoc';
-export class DishTable extends Component {
-  constructor(props) {
+
+interface IProps {
+  dishes :IDish[],
+  per_page: string,
+  deleteDish: Function,
+  permissions : {
+    create?  : boolean,
+    delete? : boolean,
+    edit? : boolean
+  }
+}
+
+interface IState {
+  deleteShow: boolean,
+  id: number
+}
+
+export class DishTable extends Component<IProps, IState> {
+  constructor(props : any) {
     super(props);
     this.state = {
       deleteShow: false,
@@ -17,27 +35,27 @@ export class DishTable extends Component {
     })
   }
 
-  handleOpen = (id) => {
+  handleOpen = (id: number) => {
     this.setState({
       deleteShow: true,
       id,
     })
   }
-  
-  deleteDish = (id) => {
+
+  deleteDish = (id: number) => {
     this.props.deleteDish(id);
     this.handleClose();
   }
 
   render() {
-    let { dishes , per_page} = this.props;
+    let { dishes , per_page, permissions} = this.props;
     let { deleteShow, id } = this.state;
-    per_page = per_page === undefined ? 10: parseInt(per_page)
+    per_page = per_page === undefined ? '10': per_page
     var empty_rows = []
     for(let i = 0; i < parseInt(per_page) - dishes.length; i++){
       empty_rows.push(i);
     }
-    
+
     return (
       <div>
         <Table>
@@ -51,8 +69,8 @@ export class DishTable extends Component {
             </tr>
           </thead>
           <tbody>
-          { dishes.map( (dish, position) => 
-          <DishTableRow dish = {dish} position = {position} key = {dish.id} handleOpen={this.handleOpen}/>
+          { dishes.map( (dish, position) =>
+          <DishTableRow dish = {dish} position = {position} key = {dish.id} handleOpen={this.handleOpen} permissions={permissions}/>
             )}
           { empty_rows.map( (row, position) =>
             <tr key = {position}>

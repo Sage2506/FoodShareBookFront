@@ -75,7 +75,6 @@ export const getUserDataById = id => {
       const { data } = response
       dispatch(setUser(data))
     } catch ( error ) {
-      console.log(error);
       dispatch(showError(error))
     }
   }
@@ -88,7 +87,6 @@ export const getUserPermissionsById = id => {
       const { data } = response
       dispatch(setUserPermissions(data))
     } catch ( error ){
-      console.log(error);
       dispatch(showError(error))
     }
   }

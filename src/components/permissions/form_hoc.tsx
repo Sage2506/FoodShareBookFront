@@ -58,7 +58,6 @@ export class PermissionsFormHOC extends Component {
       this.setState({
         formSubmited : true
       })
-      console.log("form submited")
     } else {
       if( this.props.permission.id !== undefined ){
         this.props.updatePermission(this.props.permission.id, permission);

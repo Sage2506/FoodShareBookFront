@@ -1,5 +1,5 @@
-import { LOG_IN, LOG_OUT, GET_USERS, SET_CURRENT_USER, SET_USER, SET_USER_PERMISSIONS } from "../actions/user";
-import IUser from "../interfaces/users,";
+import { LOG_IN, LOG_OUT, GET_USERS, SET_CURRENT_USER, SET_USER, SET_USER_PERMISSIONS, SET_CURRENT_USER_PERMISSIONS } from "../actions/user";
+import IUser from "../interfaces/users";
 
 interface IUserState {
   current_user : IUser,
@@ -70,6 +70,14 @@ export const userReducer = ( state = initialUserState, action: any ) => {
             permissions : action.permissions
           }
         }
+      case SET_CURRENT_USER_PERMISSIONS:
+      return {
+        ...state,
+        current_user : {
+          ...state.current_user,
+          permissions : action.permissions
+        }
+      }
       default:
         return state;
   }

@@ -26,7 +26,6 @@ export class PermissionsTableHOC extends Component {
   }
 
   deletePermission =( id :number )=> {
-    console.log(id);
     const promises = []
     promises.push(deletePermission(id))
     Promise.all(promises).then( response => {

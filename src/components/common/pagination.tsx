@@ -1,27 +1,34 @@
 import React, { Component } from 'react';
 import { Pagination } from "react-bootstrap";
-export class CustomPagination extends Component {
+import { IPagination } from '../../interfaces/common';
+
+interface IProps {
+  pagination: IPagination,
+  paginationRequest : Function
+}
+
+export class CustomPagination extends Component<IProps> {
   render() {
     let {paginationRequest, pagination} = this.props;
     let { pages, arrows, currentPage } = pagination;
     let { prev, next, first, last, } = arrows;
     return (
       <Pagination size="lg">
-        { first  && 
+        { first  &&
           <Pagination.Item
             onClick = { () => paginationRequest(first)}
           >
             <i className="fas fa-angle-double-left"></i>
           </Pagination.Item>
         }
-        { prev && 
+        { prev &&
           <Pagination.Item
             onClick = { () => paginationRequest(prev)}
           >
             <i className="fas fa-angle-left"></i>
           </Pagination.Item>
         }
-        {pages.map( page => 
+        {pages.map( page =>
           <Pagination.Item
             key = {page}
             active={parseInt(currentPage) === page}
@@ -30,14 +37,14 @@ export class CustomPagination extends Component {
             {page}
           </Pagination.Item>
         )}
-        { next && 
+        { next &&
           <Pagination.Item
             onClick = { () => paginationRequest(next)}
           >
             <i className="fas fa-angle-right"></i>
           </Pagination.Item>
         }
-        { last && 
+        { last &&
           <Pagination.Item
             onClick = { () => paginationRequest(last)}
           >
