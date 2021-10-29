@@ -33,6 +33,7 @@ export class DishFormHOC extends Component {
     let id = this.props.match.params.id;
     if ( id !== undefined ) {
       this.props.getDish(id);
+      this.props.fetch_dish(id);
     }
   }
 
