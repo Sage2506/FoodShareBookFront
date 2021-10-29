@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { IngredientTableRow } from "./table_row";
-import { PropTypes } from 'prop-types';
-export class IngredientTableRowHOC extends Component {
+import { IIngredients } from '../../interfaces/ingredients';
+interface IProps {
+  ingredient : IIngredients,
+  handleOpen : Function
+}
+export class IngredientTableRowHOC extends Component<IProps> {
   render() {
-    let {position, ingredient, handleOpen} = this.props
+    let { ingredient, handleOpen} = this.props
     let {name, description, id} = ingredient
     return (
         <IngredientTableRow
-          position = {position}
           id = {id}
           name = {name}
           description = {description}
@@ -17,8 +20,5 @@ export class IngredientTableRowHOC extends Component {
   }
 }
 
-IngredientTableRowHOC.propTypes = {
-  position : PropTypes.number.isRequired,
-}
 
 export default IngredientTableRowHOC;

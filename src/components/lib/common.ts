@@ -1,4 +1,5 @@
 import { raiseError } from '../../actions/error';
+import { IPermissions } from '../../interfaces/permission_types';
 
 export function buildImageSecureUrl (image) {
   if ( image === undefined || image === null || image ==="" ){
@@ -99,6 +100,16 @@ function extractPageNumber(link){
   let greater_than_index = link.indexOf('&per_page')
   let page = link.substring(page_index+5,greater_than_index);
   return page;
+}
+
+export function mapPermissions(permissions : IPermissions[]){
+  let newPermissions : {
+    [key: string] : boolean
+  } = {}
+  permissions.forEach((permission : IPermissions )=> {
+    newPermissions[permission.name] = true
+  })
+  return newPermissions;
 }
 
 function extractLinkRef(link) {

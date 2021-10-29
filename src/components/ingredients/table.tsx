@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
 import { Table, Modal, Button } from 'react-bootstrap';
+import { IIngredients } from '../../interfaces/ingredients';
 import { default as IngredientTableRow } from './table_row_hoc';
 
-export class IngredientTable extends Component {
-  constructor(props) {
+interface IProps {
+  ingredients : IIngredients[],
+  deleteIngredient: Function,
+  per_page : string
+}
+
+interface IState {
+  deleteShow: boolean,
+  id: number
+}
+
+export class IngredientTable extends Component<IProps,IState> {
+  constructor(props:any) {
     super(props);
     this.state = {
       deleteShow: false,
@@ -18,14 +30,14 @@ export class IngredientTable extends Component {
     })
   }
 
-  handleOpen = (id) => {
+  handleOpen = (id : number) => {
     this.setState({
       deleteShow: true,
       id,
     })
   }
 
-  deleteIngredient = (id) => {
+  deleteIngredient = (id : number) => {
     this.props.deleteIngredient(id);
     this.handleClose();
   }
@@ -49,8 +61,8 @@ export class IngredientTable extends Component {
           </tr>
         </thead>
         <tbody>
-        { ingredients.map( (ingredient, position) =>
-        <IngredientTableRow ingredient = {ingredient} position = {position} key = {ingredient.id} handleOpen={this.handleOpen}/>
+        { ingredients.map( (ingredient) =>
+        <IngredientTableRow ingredient = {ingredient} key = {ingredient.id} handleOpen={this.handleOpen}/>
           )}
         { empty_rows.map( (row, position) =>
           <tr key = {position}>

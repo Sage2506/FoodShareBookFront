@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { get_dishes, delete_dish } from "../../services/dish_requests";
 import { clearError } from '../../actions/error';
 import { default as Pagination } from '../common/pagination';
+import { mapPermissions } from '../lib/common'
 import { Modal, Button } from 'react-bootstrap';
 import { DishTable } from './table';
 import { FloatingActionButtonPlus } from '../common/floating_action_button';
@@ -45,7 +46,6 @@ export class DishesIndex extends Component< IProps, IState> {
     let { getDishes, pagination, getCurrentUserPermissionsByType, current_user  } = this.props;
     getDishes(pagination.currentPage);
     getCurrentUserPermissionsByType();
-    console.log('componentdidmount')
     if(current_user.permissions !== undefined && current_user.permissions.length > 0) this.updateStatePermissions()
   }
 
@@ -71,6 +71,7 @@ export class DishesIndex extends Component< IProps, IState> {
     })
     console.log('newPermissions', newPermissions)
     this.setState({ permissions : newPermissions})
+    this.setState({permissions : mapPermissions(this.props.current_user.permissions)})
   }
 
   handleClose = () => {

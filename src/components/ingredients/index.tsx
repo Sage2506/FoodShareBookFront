@@ -4,7 +4,17 @@ import { get_ingredients, destroy_ingredient } from "../../services/ingredient_r
 import { IngredientTable } from './table';
 import { FloatingActionButtonPlus } from '../common/floating_action_button';
 import { default as Pagination } from '../common/pagination';
-export class IngredientsIndex extends Component {
+import { IPagination } from '../../interfaces/common';
+import { IIngredients } from '../../interfaces/ingredients';
+import { getCurrentUserPermissionByType } from '../../services/permissions_type_requests';
+
+interface IProps {
+  getIngredients: Function,
+  deleteIngredient: Function,
+  pagination: IPagination,
+  ingredients : IIngredients[]
+}
+export class IngredientsIndex extends Component<IProps> {
   componentDidMount() {
     let { getIngredients, pagination  } = this.props;
     getIngredients(pagination.currentPage);
@@ -12,7 +22,7 @@ export class IngredientsIndex extends Component {
 
   render() {
     let {ingredients, getIngredients, pagination, deleteIngredient } = this.props;
-    let { pageSize } = pagination    
+    let { pageSize } = pagination
     return (
       <div>
       <IngredientTable
@@ -20,7 +30,7 @@ export class IngredientsIndex extends Component {
         per_page = {pageSize}
         deleteIngredient = {deleteIngredient}
       />
-      <Pagination 
+      <Pagination
         pagination={pagination}
         paginationRequest={getIngredients}
       />
@@ -32,17 +42,20 @@ export class IngredientsIndex extends Component {
   }
 }
 
-const mapStateToProps = (store) => ({
+const mapStateToProps = (store : any) => ({
   ingredients: store.ingredientReducer.ingredients,
   pagination: store.ingredientReducer.pagination
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: Function) => ({
   getIngredients: (page = 1, per_page = 10) => {
     dispatch(get_ingredients(page, per_page));
   },
-  deleteIngredient: (id) => {
+  deleteIngredient: (id: number) => {
     dispatch(destroy_ingredient(id));
+  },
+  getCurrentUserPermissionsByType: () => {
+    dispatch(getCurrentUserPermissionByType(1))
   }
 });
 
