@@ -1,7 +1,8 @@
 import { raiseError } from '../../actions/error';
+import { IPagination } from '../../interfaces/common';
 import { IPermissions } from '../../interfaces/permission_types';
 
-export function buildImageSecureUrl (image) {
+export function buildImageSecureUrl (image : string) {
   if ( image === undefined || image === null || image ==="" ){
     return ''
   } else {
@@ -11,7 +12,7 @@ export function buildImageSecureUrl (image) {
   }
 }
 
-export async function uploadImage(image) {
+export async function uploadImage(image : string) {
   let url = `https://api.cloudinary.com/v1_1/dbo96sjb/upload`;
   let xhr = new XMLHttpRequest();
   let fd = new FormData();
@@ -36,8 +37,8 @@ export async function uploadImage(image) {
   xhr.send(fd);
 }
 
-export function paginate(totalItems, currentPage = 1 , pageSize = 10, maxPages = 10, links){
-  let result = {}
+export function paginate(totalItems : number, currentPage: number = 1 , pageSize : number = 10, maxPages : number = 10, links: string){
+  let result : IPagination;
   let totalPages = Math.ceil(totalItems / pageSize);
   // ensure current page isn't out of range
   if (currentPage < 1) {
@@ -46,8 +47,8 @@ export function paginate(totalItems, currentPage = 1 , pageSize = 10, maxPages =
       currentPage = totalPages;
   }
 
-  let startPage;
-  let endPage;
+  let startPage : number;
+  let endPage : number;
   if (totalPages <= maxPages) {
       // total pages less than max so show all pages
       startPage = 1;
@@ -80,22 +81,22 @@ export function paginate(totalItems, currentPage = 1 , pageSize = 10, maxPages =
 
   // return object with all pager properties required by the view
   result = {
-      totalItems: totalItems,
+      arrows : extractLinksPages(links),
       currentPage: currentPage,
-      pageSize: pageSize,
-      totalPages: totalPages,
-      startPage: startPage,
-      endPage: endPage,
-      startIndex: startIndex,
       endIndex: endIndex,
+      endPage: endPage,
       pages: pages,
-      arrows : extractLinksPages(links)
+      pageSize: pageSize,
+      startIndex: startIndex,
+      startPage: startPage,
+      totalItems: totalItems,
+      totalPages: totalPages,
   };
 
   return result;
 }
 
-function extractPageNumber(link){
+function extractPageNumber(link : string){
   let page_index = link.indexOf('page=');
   let greater_than_index = link.indexOf('&per_page')
   let page = link.substring(page_index+5,greater_than_index);
@@ -112,23 +113,22 @@ export function mapPermissions(permissions : IPermissions[]){
   return newPermissions;
 }
 
-function extractLinkRef(link) {
+function extractLinkRef(link : string) {
   let page_index = link.indexOf('rel="');
   let greater_than_index = link.length - 1
   let page = link.substring(page_index+5,greater_than_index);
   return page;
 }
 
-export function extractLinksPages(links = ''){
-  let pages = {};
-
-  links = links.split(',');
-  links.forEach(link => {
+export function extractLinksPages(links : string = ''){
+  let pages : { [key : string] : string } = {};
+  const linksArray : string[] = links.split(',');
+  linksArray.forEach(link => {
     pages[extractLinkRef(link)] = extractPageNumber(link)
   });
   return pages;
 }
-
+/*
 export function urlGetParam(param, link) {
   let result = '';
   let startIndex = link.indexOf(param)
@@ -142,8 +142,8 @@ export function urlGetParam(param, link) {
   }
   return result;
 }
-
-export const showError = (error) => {
+ */
+export const showError = (error : any) => {
   let {response} = error;
   let message = ''
   if(response === undefined){

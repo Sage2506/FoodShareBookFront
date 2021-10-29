@@ -16,7 +16,7 @@ const initialIngredientState = {
   }
 };
 
-export const ingredientReducer = (state = initialIngredientState, action) => {
+export const ingredientReducer = (state = initialIngredientState, action : any ) => {
   switch (action.type) {
     case GET_INGREDIENTS:
       return { ...state, ingredients: action.ingredients, pagination: action.pagination , ingredient:[] };

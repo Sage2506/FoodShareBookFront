@@ -1,27 +1,29 @@
 import { api } from "./foodsharebook_api";
 import { getDish, getDishes, postDish, deleteDish } from "../actions/dish";
 import { paginate, showError } from '../components/lib/common';
+import { IDish } from "../interfaces/dishes";
 
 export const get_dishes = (page = 1, per_page = 10) => {
-  return async dispatch =>{
+  return async ( dispatch : Function) =>{
     try {
       const response = await api.get(`dishes?page=${page}&per_page=${per_page}`);
-      let pagination = paginate(
-        response.headers['pagination-total'],
-        response.headers['pagination-page'],
-        response.headers['pagination-per-page'],
+      const { headers , data } = response
+      const pagination = paginate(
+        parseInt(headers['pagination-total']),
+        parseInt(headers['pagination-page']),
+        parseInt(headers['pagination-per-page']),
         undefined,
-        response.headers['link']);
-      dispatch(getDishes(response.data, pagination));
+        headers['link']);
+      dispatch(getDishes(data, pagination));
     }
     catch (error) {
       dispatch(showError(error))
     }
-  } 
+  }
 }
 
-export const get_dish = (id) => {
-  return async dispatch =>{
+export const get_dish = ( id : number ) => {
+  return async ( dispatch : Function) =>{
     try {
       const response = await api.get(`dishes/${id}`);
       dispatch(getDish(response.data));
@@ -31,8 +33,8 @@ export const get_dish = (id) => {
     }
   }
 }
-export const post_dish = dish => {        
-  return async (dispatch) =>{
+export const post_dish = (dish : IDish) => {
+  return async (dispatch : Function) => {
     try {
       const response = await api.post(`dishes`, dish);
       dispatch(postDish(response.data));
@@ -42,8 +44,8 @@ export const post_dish = dish => {
     }
   }
 }
-export const delete_dish = id => {        
-  return async (dispatch) =>{
+export const delete_dish = ( id : number ) => {
+  return async (dispatch : Function) => {
     try {
       await api.delete(`dishes/${id}`);
       dispatch(deleteDish(id));

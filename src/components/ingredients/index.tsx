@@ -14,7 +14,17 @@ interface IProps {
   pagination: IPagination,
   ingredients : IIngredients[]
 }
+
+interface IState {
+  permissions : { [key: string] : boolean }
+}
 export class IngredientsIndex extends Component<IProps> {
+  constructor(props : any){
+    super(props)
+    this.state = {
+      permissions : {}
+    }
+  }
   componentDidMount() {
     let { getIngredients, pagination  } = this.props;
     getIngredients(pagination.currentPage);
@@ -55,7 +65,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
     dispatch(destroy_ingredient(id));
   },
   getCurrentUserPermissionsByType: () => {
-    dispatch(getCurrentUserPermissionByType(1))
+    dispatch(getCurrentUserPermissionByType(2))
   }
 });
 

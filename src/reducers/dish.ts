@@ -1,16 +1,21 @@
 
 import { GET_DISH, GET_DISHES, DELETE_DISH, ADD_DISH } from "../actions/dish";
+import { IPagination } from "../interfaces/common";
+import { IDish } from "../interfaces/dishes";
 
-const initialDishState = {
+const initialDishState : {
+  dishes: IDish[],
+  dish?: IDish,
+  newDish?: IDish,
+  pagination?: IPagination
+} = {
   dishes: [],
-  dish: {},
-  newDish: {},
   pagination: {
-    pages: [], 
+    pages: [],
     arrows: {},
   }
 }
-export const dishReducer = ( state = initialDishState, action) => {
+export const dishReducer = ( state = initialDishState, action : any ) => {
   switch (action.type) {
     case GET_DISHES:
       return {...state, dishes: action.dishes, pagination: action.pagination, dish:[]};

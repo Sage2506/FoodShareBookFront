@@ -54,10 +54,10 @@ export const getAllUsers = (page = 1, per_page = 10, name = '') => {
     try{
       const response = await api.get(Path+`?page=${page}&per_page${per_page}`)
       const { headers , data } = response
-      let pagination = paginate(
-        headers['pagination-total'],
-        headers['pagination-page'],
-        headers['pagination-per-page'],
+      const pagination = paginate(
+        parseInt(headers['pagination-total']),
+        parseInt(headers['pagination-page']),
+        parseInt(headers['pagination-per-page']),
         undefined,
         headers['link']);
 
@@ -68,7 +68,7 @@ export const getAllUsers = (page = 1, per_page = 10, name = '') => {
   }
 }
 
-export const getUserDataById = id => {
+export const getUserDataById = ( id : number ) => {
   return async ( dispatch: any ) => {
     try {
       const response = await api.get(Path+`/`+id)
@@ -80,7 +80,7 @@ export const getUserDataById = id => {
   }
 }
 
-export const getUserPermissionsById = id => {
+export const getUserPermissionsById = ( id : number ) => {
   return async ( dispatch: any ) => {
     try {
       const response = await api.get(Path+`/`+id+`/permissions`)

@@ -4,7 +4,7 @@ import { showError } from "../components/lib/common";
 import { convertPermisionStringToList } from "../lib/common";
 
 export const getRoles = () => {
-  return async dispatch => {
+  return async (dispatch : Function) => {
     try {
       const response = await api.get(`roles`);
       const { status, data} = response
@@ -20,7 +20,7 @@ export const getRoles = () => {
 }
 
 export const getRole = ( id ) => {
-  return async dispatch => {
+  return async (dispatch : Function) => {
     try {
       const response = await api.get(`roles/${id}`);
       const { status, data} = response

@@ -62,15 +62,6 @@ export class DishesIndex extends Component< IProps, IState> {
   }
 
   updateStatePermissions = () =>{
-
-    let newPermissions : {
-      [key: string] : boolean
-    } = {}
-    this.props.current_user.permissions.forEach((permission : {id: number, name: string, description: string} )=> {
-      newPermissions[permission.name] = true
-    })
-    console.log('newPermissions', newPermissions)
-    this.setState({ permissions : newPermissions})
     this.setState({permissions : mapPermissions(this.props.current_user.permissions)})
   }
 

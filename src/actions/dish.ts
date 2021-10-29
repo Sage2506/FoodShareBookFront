@@ -1,26 +1,29 @@
+import { IPagination } from "../interfaces/common";
+import { IDish } from "../interfaces/dishes";
+
 // Action Types
 export const GET_DISHES = 'GET_DISHES';
 export const DELETE_DISH = 'DELETE_DISH';
 export const GET_DISH = 'GET_DISH';
 export const ADD_DISH = 'ADD_DISH';
 // Action Creators
-export const getDishes = (dishes, pagination) => ({
+export const getDishes = (dishes : IDish[], pagination : IPagination) => ({
   type: GET_DISHES,
   dishes,
   pagination,
 });
 
-export const deleteDish = (id) => ({
+export const deleteDish = ( id : number ) => ({
   type: DELETE_DISH,
   id,
 });
 
-export const getDish = (dish) => ({
+export const getDish = (dish : IDish) => ({
   type: GET_DISH,
   dish,
 });
 
-export const postDish = (dish) => ({
+export const postDish = (dish : IDish) => ({
   type: ADD_DISH,
   dish,
 });

@@ -5,7 +5,7 @@ import { default as DishTableRow } from './table_row_hoc';
 
 interface IProps {
   dishes :IDish[],
-  per_page: string,
+  per_page: number,
   deleteDish: Function,
   permissions : {
     create?  : boolean,
@@ -50,9 +50,9 @@ export class DishTable extends Component<IProps, IState> {
   render() {
     let { dishes , per_page, permissions} = this.props;
     let { deleteShow, id } = this.state;
-    per_page = per_page === undefined ? '10': per_page
+    per_page = per_page === undefined ? 10: per_page
     var empty_rows = []
-    for(let i = 0; i < parseInt(per_page) - dishes.length; i++){
+    for(let i = 0; i < per_page - dishes.length; i++){
       empty_rows.push(i);
     }
 

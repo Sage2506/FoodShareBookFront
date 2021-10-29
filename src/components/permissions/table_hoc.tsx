@@ -18,7 +18,7 @@ export class PermissionsTableHOC extends Component {
     })
   }
 
-  handleOpen = id => {
+  handleOpen = ( id : number ) => {
     this.setState({
       deleteShow: true,
       id
