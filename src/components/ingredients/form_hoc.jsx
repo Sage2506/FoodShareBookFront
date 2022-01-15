@@ -7,25 +7,25 @@ import { uploadImageToCloudinary } from '../../lib/common';
 import { any } from 'prop-types';
 import { ingredientObject } from '../../models';
 
-export class IngredientFormHOC extends Component<any,any>{
-  constructor(props: any) {
+export class IngredientFormHOC extends Component {
+  constructor(props) {
     super(props);
     this.state = {
-      ingredient : ingredientObject,
+      ingredient: ingredientObject,
       validated: false
     };
   };
 
   componentDidMount() {
     let id = this.props.match.params.id;
-    if ( this.props.location.pathname.split('/')[2] === 'edit'){
+    if (this.props.location.pathname.split('/')[2] === 'edit') {
       this.props.getIngredient(id);
     }
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if ( nextProps.ingredient.id !== undefined && nextProps.ingredient.id !== prevState.ingredient.id ) {
-      return {...prevState, ingredient: nextProps.ingredient};
+    if (nextProps.ingredient.id !== undefined && nextProps.ingredient.id !== prevState.ingredient.id) {
+      return { ...prevState, ingredient: nextProps.ingredient };
     } else {
       return prevState
     }
@@ -35,9 +35,9 @@ export class IngredientFormHOC extends Component<any,any>{
     const reader = new FileReader()
     reader.onloadend = ev => {
       this.setState({
-        ingredient : {
+        ingredient: {
           ...this.state.ingredient,
-          image : reader.result
+          image: reader.result
         }
       })
     }
@@ -46,7 +46,7 @@ export class IngredientFormHOC extends Component<any,any>{
 
   onImageSelected = (image) => {
     this.setState({
-      ingredient : {
+      ingredient: {
         ...this.state.ingredient,
         image
       }
@@ -54,21 +54,22 @@ export class IngredientFormHOC extends Component<any,any>{
   }
 
   handleInputChange = e => {
-    if ( e.target.type === 'checkbox'){
-      if(e.target.checked){
+    if (e.target.type === 'checkbox') {
+      if (e.target.checked) {
         this.setState({
-          ingredient : {
+          ingredient: {
             ...this.state.ingredient,
-            measures:[
-            ...this.state.ingredient.measures,
-            parseInt(e.target.value)
-          ]}
+            measures: [
+              ...this.state.ingredient.measures,
+              parseInt(e.target.value)
+            ]
+          }
         })
       } else {
         this.setState({
           ingredient: {
             ...this.state.ingredient,
-            measures: this.state.ingredient.measures.filter( measure => measure !== parseInt(e.target.value))
+            measures: this.state.ingredient.measures.filter(measure => measure !== parseInt(e.target.value))
           }
         })
       }
@@ -76,7 +77,7 @@ export class IngredientFormHOC extends Component<any,any>{
       this.setState({
         ingredient: {
           ...this.state.ingredient,
-          [e.target.id] : e.target.value
+          [e.target.id]: e.target.value
         }
       })
     }
@@ -86,20 +87,20 @@ export class IngredientFormHOC extends Component<any,any>{
     e.preventDefault();
     const form = e.currentTarget
     let { ingredient } = this.state
-    let { name , description, image, measures } = ingredient
-    if(form.checkValidity() === false || measures.length < 1 || name === "" || description === "" ){ //TODO: validate
+    let { name, description, image, measures } = ingredient
+    if (form.checkValidity() === false || measures.length < 1 || name === "" || description === "") { //TODO: validate
       e.stopPropagation()
 
     } else {
       //checking if there's any image needed to be uploade
-      if( image !== null && !image.includes(' ')){
+      if (image !== null && !image.includes(' ')) {
         //uploading image to cloudinary
-        uploadImageToCloudinary(image, 'ingredients', (this.state.ingredient.id === undefined || this.state.ingredient.id === null)? '': ingredient.id).then( response => {
-          const {version, public_id, format} = response.data
+        uploadImageToCloudinary(image, 'ingredients', (this.state.ingredient.id === undefined || this.state.ingredient.id === null) ? '' : ingredient.id).then(response => {
+          const { version, public_id, format } = response.data
           let imageData = version + ' ' + public_id + ' ' + format
-          ingredient = {...ingredient, image: imageData}
+          ingredient = { ...ingredient, image: imageData }
           this.createOrUpdateIngredient(ingredient)
-        }).catch ( error => {
+        }).catch(error => {
         })
       } else {
         this.createOrUpdateIngredient(ingredient)
@@ -112,7 +113,7 @@ export class IngredientFormHOC extends Component<any,any>{
 
   createOrUpdateIngredient = (ingredient) => {
     //check if going to create or update
-    if( this.state.ingredient.id === undefined || this.state.ingredient.id === null){
+    if (this.state.ingredient.id === undefined || this.state.ingredient.id === null) {
       this.props.create_ingredient(ingredient)
     } else {
       this.props.update_ingredient(this.state.ingredient.id, ingredient)
@@ -120,29 +121,29 @@ export class IngredientFormHOC extends Component<any,any>{
   }
 
   render() {
-    if ( this.props.newIngredient.id === undefined ) {
+    if (this.props.newIngredient.id === undefined) {
 
       let { ingredient, validated } = this.state
-      let { name, description, image, measures} = ingredient
+      let { name, description, image, measures } = ingredient
       let { measuresCatalog, history } = this.props
 
       return (
         <IngredientForm
-        name={name}
-        description={description}
-        image={image}
-        measures={measures}
-        measuresCatalog={measuresCatalog}
-        onPreviewDrop = {this.onPreviewDrop}
-        handleInputChange={this.handleInputChange}
-        handleInputSubmit={this.handleInputSubmit}
-        validated={validated}
-        onImageSelected={this.onImageSelected}
-        goBack={history.goBack}
+          name={name}
+          description={description}
+          image={image}
+          measures={measures}
+          measuresCatalog={measuresCatalog}
+          onPreviewDrop={this.onPreviewDrop}
+          handleInputChange={this.handleInputChange}
+          handleInputSubmit={this.handleInputSubmit}
+          validated={validated}
+          onImageSelected={this.onImageSelected}
+          goBack={history.goBack}
         />
-        );
+      );
     } else {
-      return <Redirect to={'/ingredients/'+this.props.newIngredient.id} />
+      return <Redirect to={'/ingredients/' + this.props.newIngredient.id} />
     }
   }
 }
@@ -160,7 +161,7 @@ const mapDispatchToProps = (dispatch) => ({
   getIngredient: (id) => {
     dispatch(get_ingredient(id));
   },
-  update_ingredient: (id, ingredient) =>{
+  update_ingredient: (id, ingredient) => {
     dispatch(put_ingredient(id, ingredient));
   }
 });

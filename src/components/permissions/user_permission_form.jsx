@@ -2,18 +2,8 @@ import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import IPermissionType, { IPermissions } from '../../interfaces/permission_types';
 
-interface IUserPermissionForm {
-  loading: boolean,
-  permissionTypes: IPermissionType[],
-  userPermissions: IPermissions[],
-  permissionsToRemove: number[],
-  permissionsToAdd: number[],
-  handleChecboxClick: Function,
-  handlePermissionsSubmit: Function
-}
-
-export class UserPermissionForm extends Component<IUserPermissionForm> {
-  handleCheckboxChance = (e: any) => {
+export class UserPermissionForm extends Component {
+  handleCheckboxChance = e => {
   }
 
   render() {

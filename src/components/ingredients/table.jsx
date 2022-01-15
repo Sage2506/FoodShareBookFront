@@ -3,19 +3,8 @@ import { Table, Modal, Button } from 'react-bootstrap';
 import { IIngredients } from '../../interfaces/ingredients';
 import { default as IngredientTableRow } from './table_row_hoc';
 
-interface IProps {
-  ingredients : IIngredients[],
-  deleteIngredient: Function,
-  per_page : number
-}
-
-interface IState {
-  deleteShow: boolean,
-  id: number
-}
-
-export class IngredientTable extends Component<IProps,IState> {
-  constructor(props:any) {
+export class IngredientTable extends Component {
+  constructor(props) {
     super(props);
     this.state = {
       deleteShow: false,
@@ -30,14 +19,14 @@ export class IngredientTable extends Component<IProps,IState> {
     })
   }
 
-  handleOpen = (id : number) => {
+  handleOpen = (id) => {
     this.setState({
       deleteShow: true,
       id,
     })
   }
 
-  deleteIngredient = (id : number) => {
+  deleteIngredient = (id) => {
     this.props.deleteIngredient(id);
     this.handleClose();
   }

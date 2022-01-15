@@ -8,60 +8,50 @@ import { IPagination } from '../../interfaces/common';
 import { IIngredients } from '../../interfaces/ingredients';
 import { getCurrentUserPermissionByType } from '../../services/permissions_type_requests';
 
-interface IProps {
-  getIngredients: Function,
-  deleteIngredient: Function,
-  pagination: IPagination,
-  ingredients : IIngredients[]
-}
-
-interface IState {
-  permissions : { [key: string] : boolean }
-}
-export class IngredientsIndex extends Component<IProps> {
-  constructor(props : any){
+export class IngredientsIndex extends Component {
+  constructor(props) {
     super(props)
     this.state = {
-      permissions : {}
+      permissions: {}
     }
   }
   componentDidMount() {
-    let { getIngredients, pagination  } = this.props;
+    let { getIngredients, pagination } = this.props;
     getIngredients(pagination.currentPage);
   }
 
   render() {
-    let {ingredients, getIngredients, pagination, deleteIngredient } = this.props;
+    let { ingredients, getIngredients, pagination, deleteIngredient } = this.props;
     let { pageSize } = pagination
     return (
       <div>
-      <IngredientTable
-        ingredients = {ingredients}
-        per_page = {pageSize}
-        deleteIngredient = {deleteIngredient}
-      />
-      <Pagination
-        pagination={pagination}
-        paginationRequest={getIngredients}
-      />
-      <FloatingActionButtonPlus
-        link= '/ingredients/new'
-      />
+        <IngredientTable
+          ingredients={ingredients}
+          per_page={pageSize}
+          deleteIngredient={deleteIngredient}
+        />
+        <Pagination
+          pagination={pagination}
+          paginationRequest={getIngredients}
+        />
+        <FloatingActionButtonPlus
+          link='/ingredients/new'
+        />
       </div>
     );
   }
 }
 
-const mapStateToProps = (store : any) => ({
+const mapStateToProps = (store) => ({
   ingredients: store.ingredientReducer.ingredients,
   pagination: store.ingredientReducer.pagination
 });
 
-const mapDispatchToProps = (dispatch: Function) => ({
+const mapDispatchToProps = (dispatch) => ({
   getIngredients: (page = 1, per_page = 10) => {
     dispatch(get_ingredients(page, per_page));
   },
-  deleteIngredient: (id: number) => {
+  deleteIngredient: (id) => {
     dispatch(destroy_ingredient(id));
   },
   getCurrentUserPermissionsByType: () => {

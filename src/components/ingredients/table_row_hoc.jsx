@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import { IngredientTableRow } from "./table_row";
 import { IIngredients } from '../../interfaces/ingredients';
-interface IProps {
-  ingredient : IIngredients,
-  handleOpen : Function
-}
-export class IngredientTableRowHOC extends Component<IProps> {
+export class IngredientTableRowHOC extends Component {
   render() {
     let { ingredient, handleOpen} = this.props
     let {name, description, id} = ingredient

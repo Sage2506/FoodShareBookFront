@@ -2,14 +2,7 @@ import React, { Component } from 'react';
 import { LinkContainer } from "react-router-bootstrap";
 import { ButtonToolbar, Button } from 'react-bootstrap';
 
-interface IProps {
-  id : number,
-  name : string,
-  description : string,
-  handleOpen : Function
-}
-
-export class IngredientTableRow extends Component <IProps> {
+export class IngredientTableRow extends Component {
   render() {
     let {id, name, description, handleOpen} = this.props
     return (

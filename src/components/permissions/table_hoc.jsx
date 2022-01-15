@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PermissionsTable from './table';
-import {deletePermission} from '../../services/permissions_requests'
+import { deletePermission } from '../../services/permissions_requests'
 export class PermissionsTableHOC extends Component {
 
   constructor(props) {
@@ -12,24 +12,24 @@ export class PermissionsTableHOC extends Component {
   }
 
   handleClose = () => {
-    this.setState ( {
+    this.setState({
       deleteShow: false,
       id: -1,
     })
   }
 
-  handleOpen = ( id : number ) => {
+  handleOpen = id => {
     this.setState({
       deleteShow: true,
       id
     })
   }
 
-  deletePermission =( id :number )=> {
+  deletePermission = id => {
     const promises = []
     promises.push(deletePermission(id))
-    Promise.all(promises).then( response => {
-      this.setState({ deleteShow : false, deleteId : -1 })
+    Promise.all(promises).then(response => {
+      this.setState({ deleteShow: false, deleteId: -1 })
       this.props.getPermissions();
     })
   }
@@ -40,9 +40,9 @@ export class PermissionsTableHOC extends Component {
   render() {
     const { deleteShow, id } = this.state
     const { permissions } = this.props
-    return(
+    return (
       <div>
-        <PermissionsTable permissions = { permissions } handleOpen = { this.handleOpen } deleteShow = { deleteShow } deleteId = { id } handleClose = { this.handleClose } deletePermission = {this.deletePermission}/>
+        <PermissionsTable permissions={permissions} handleOpen={this.handleOpen} deleteShow={deleteShow} deleteId={id} handleClose={this.handleClose} deletePermission={this.deletePermission} />
       </div>
     );
   }

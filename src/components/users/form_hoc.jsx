@@ -1,24 +1,9 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import IUser from '../../interfaces/users';
 import { getUserDataById, getUserPermissionsById } from '../../services/user_requests';
 import { UserForm } from './form';
 
-interface UserFormProps {
-  location : {
-    pathname : string
-  },
-  match:{
-    params:{
-      id: number
-    }
-  },
-  user : IUser,
-  getUser: Function,
-  getUserPermissions: Function
-}
-
-export class UserFormHOC extends Component<UserFormProps> {
+export class UserFormHOC extends Component {
 
   componentDidMount() {
     if ( this.props.location.pathname.split('/')[2] === 'edit'){
@@ -35,15 +20,15 @@ export class UserFormHOC extends Component<UserFormProps> {
   }
 }
 
-const mapStateToProps = ( store : any ) => ({
+const mapStateToProps = store => ({
   user : store.userReducer.user
 })
 
-const mapDispatchToProps = (dispatch : any) => ({
-  getUser: (id : number) => {
+const mapDispatchToProps = dispatch => ({
+  getUser: id  => {
     dispatch( getUserDataById(id))
   },
-  getUserPermissions: (id: number) => {
+  getUserPermissions: id => {
     dispatch ( getUserPermissionsById(id))
   }
 })

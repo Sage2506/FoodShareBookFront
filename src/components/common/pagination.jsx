@@ -2,12 +2,8 @@ import React, { Component } from 'react';
 import { Pagination } from "react-bootstrap";
 import { IPagination } from '../../interfaces/common';
 
-interface IProps {
-  pagination: IPagination,
-  paginationRequest : Function
-}
 
-export class CustomPagination extends Component<IProps> {
+export class CustomPagination extends Component {
   render() {
     let {paginationRequest, pagination} = this.props;
     let { pages, arrows, currentPage } = pagination;

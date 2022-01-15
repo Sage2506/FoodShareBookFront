@@ -6,24 +6,10 @@ import UserPermissionForm from './user_permission_form';
 import IPermissionType, {IPermissions} from '../../interfaces/permission_types';
 import { addUserPermission, deleteUserPermission } from '../../services/user_permissions';
 
-interface IUserPermissionForm {
-  userId : number,
-  permissionTypes : IPermissionType[],
-  userPermissions : IPermissions[],
-  getPermissionTypes : Function,
-  getUser : Function,
-  getUserPermissions : Function
-}
 
-interface IState {
-  permissionsToRemove: number[],
-  permissionsToAdd: number[],
-  loading : boolean
-}
+export class UserPermissionFormHOC extends Component {
 
-export class UserPermissionFormHOC extends Component<IUserPermissionForm, IState> {
-
-  constructor(props: any) {
+  constructor(props) {
     super(props)
     this.state = {
       permissionsToRemove: [],
@@ -38,17 +24,17 @@ export class UserPermissionFormHOC extends Component<IUserPermissionForm, IState
     //this.props.getPermissions();
   }
 
-  userHasPermissionWithId = (permissionId: number) => {
+  userHasPermissionWithId = permissionId => {
     let flag = false
     let found =this.props.userPermissions.find(user_permission => user_permission.permission_id === permissionId)
     if(found !== undefined) { flag = true }
   }
 
-  getUserPermissionFromPermissionId = (permissionId: number) =>{
+  getUserPermissionFromPermissionId = permissionId =>{
     let found = this.props.userPermissions.find(user_permission => user_permission.permission_id === permissionId)
   }
 
-  handleChecboxClick = (e: any) => {
+  handleChecboxClick = e => {
     const permissionId = parseInt(e.target.id)
     if (e.target.checked) {
       const { permissionsToRemove } = this.state
@@ -75,9 +61,9 @@ export class UserPermissionFormHOC extends Component<IUserPermissionForm, IState
     }
   }
 
-  handlePermissionsSubmit = (e:any, permissionsToAdd : number[] = [], permissionsToRemove : number[] = []) =>{
+  handlePermissionsSubmit = (e, permissionsToAdd = [], permissionsToRemove = []) =>{
     e.preventDefault()
-    const promises : any[] = []
+    const promises = []
     permissionsToAdd.forEach( permission => promises.push(addUserPermission(this.props.userId, permission)))
     permissionsToRemove.forEach( permission => {
       const userPermission = this.props.userPermissions.find( userPermission => userPermission.permission_id === permission)
@@ -111,11 +97,11 @@ export class UserPermissionFormHOC extends Component<IUserPermissionForm, IState
   }
 }
 
-const mapStateToProps = ( store : any ) => ({
+const mapStateToProps = store  => ({
   permissionTypes: store.permissionTypeReducer.permissionTypes
 })
 
-const mapDispatchToProps = (dispatch: any) => ({
+const mapDispatchToProps = dispatch=> ({
   getPermissionTypes: () => {
     dispatch( getAllPermissionTypes())
   }
