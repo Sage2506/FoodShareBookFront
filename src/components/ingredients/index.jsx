@@ -7,6 +7,7 @@ import { default as Pagination } from '../common/pagination';
 import { IPagination } from '../../interfaces/common';
 import { IIngredients } from '../../interfaces/ingredients';
 import { getCurrentUserPermissionByType } from '../../services/permissions_type_requests';
+import { mapPermissions } from '../lib/common';
 
 export class IngredientsIndex extends Component {
   constructor(props) {
@@ -16,12 +17,31 @@ export class IngredientsIndex extends Component {
     }
   }
   componentDidMount() {
-    let { getIngredients, pagination } = this.props;
+    let { getIngredients, pagination, currentUser } = this.props;
     getIngredients(pagination.currentPage);
+    this.props.getCurrentUserPermissionsByType();
+    if(currentUser.permissions !== undefined && currentUser.permissions.length > 0) this.updateStatePermissions()
+  }
+
+  componentDidUpdate(prevProps , prevState , snapshot){
+    if(this.props.currentUser.permissions &&  this.props.currentUser.permissions.length > 0 ){
+      if(prevProps.currentUser.permissions === undefined){
+        this.updateStatePermissions()
+      } else if( prevProps.currentUser.permissions.length < 1){
+        this.updateStatePermissions()
+      } else if( this.props.currentUser.permissions[0].id !== prevProps.currentUser.permissions[0].id){
+        this.updateStatePermissions()
+      }
+    }
+  }
+
+  updateStatePermissions = () =>{
+    this.setState({permissions : mapPermissions(this.props.currentUser.permissions)})
   }
 
   render() {
-    let { ingredients, getIngredients, pagination, deleteIngredient } = this.props;
+    let { ingredients, getIngredients, pagination, deleteIngredient, currentUser } = this.props;
+    const {permissions} = this.state
     let { pageSize } = pagination
     return (
       <div>
@@ -29,14 +49,16 @@ export class IngredientsIndex extends Component {
           ingredients={ingredients}
           per_page={pageSize}
           deleteIngredient={deleteIngredient}
+          currentUserId = {currentUser.id}
+          currentUserRoleId = {currentUser.role_id}
         />
         <Pagination
           pagination={pagination}
           paginationRequest={getIngredients}
         />
-        <FloatingActionButtonPlus
+        { permissions.create && <FloatingActionButtonPlus
           link='/ingredients/new'
-        />
+        />}
       </div>
     );
   }
@@ -44,7 +66,8 @@ export class IngredientsIndex extends Component {
 
 const mapStateToProps = (store) => ({
   ingredients: store.ingredientReducer.ingredients,
-  pagination: store.ingredientReducer.pagination
+  pagination: store.ingredientReducer.pagination,
+  currentUser : store.userReducer.current_user
 });
 
 const mapDispatchToProps = (dispatch) => ({
