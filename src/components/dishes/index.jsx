@@ -65,6 +65,8 @@ export class DishesIndex extends Component {
         per_page = {pagination.pageSize}
         deleteDish = {this.props.deleteDish}
         permissions = {permissions }
+        currentUserId = {current_user.id}
+        currentUserRoleId = { current_user.role_id}
       />
       <Pagination
         pagination={pagination}

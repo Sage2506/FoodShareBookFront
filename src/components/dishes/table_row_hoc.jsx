@@ -1,19 +1,9 @@
 import React, { Component } from 'react';
 import { DishTableRow } from "./table_row";
-import { IDish } from '../../interfaces/dishes';
-interface IProps {
-  dish : IDish,
-  position: number,
-  handleOpen: Function,
-  permissions : {
-    create?  : boolean,
-    delete? : boolean,
-    edit? : boolean
-  }
-}
-export class DishTabeRowHOC extends Component<IProps> {
+
+export class DishTabeRowHOC extends Component {
   render() {
-    let { position , dish, handleOpen, permissions } = this.props;
+    let { position , dish, handleOpen, permissions, currentUserId, currentUserRoleId } = this.props;
     let { name, image, description, recipe, id, dish_ingredients } = dish
     return (
         <DishTableRow
@@ -26,6 +16,8 @@ export class DishTabeRowHOC extends Component<IProps> {
           ingredients = { dish_ingredients }
           handleOpen = {handleOpen}
           permissions={permissions}
+          currentUserId={currentUserId}
+          currentUserRoleId={currentUserRoleId}
         />
     );
   }
