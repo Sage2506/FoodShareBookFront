@@ -13,20 +13,21 @@ export class PermissionsIndexHOC extends Component {
   }
 
   render() {
-    const { permissions, getPermissions } = this.props
+    const { permissions, getPermissions, pagination  } = this.props
     return(
-      <PermissionsIndex permissions = {permissions} getPermissions = { getPermissions }></PermissionsIndex>
+      <PermissionsIndex permissions = {permissions} getPermissions = { getPermissions } pagination = {pagination }></PermissionsIndex>
     );
   }
 }
 
 const mapStateToProps = ( store ) => ({
-  permissions : store.permissionReducer.permissions
+  permissions : store.permissionReducer.permissions,
+  pagination : store.permissionReducer.pagination
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getPermissions: () => {
-    dispatch( getAllPermissions())
+  getPermissions: (page = 1, per_page = 10) => {
+    dispatch( getAllPermissions(page, per_page))
   }
 })
 

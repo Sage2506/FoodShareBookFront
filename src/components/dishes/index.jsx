@@ -11,26 +11,8 @@ import IUser from '../../interfaces/users';
 import { getCurrentUserPermissionByType } from '../../services/permissions_type_requests';
 import { IPagination } from '../../interfaces/common';
 
-interface IProps {
-  pagination: IPagination,
-  getDishes: Function,
-  deleteDish: Function,
-  getCurrentUserPermissionsByType: Function,
-  dishes: any[],
-  current_user : IUser
-}
-
-interface IState {
-  show: boolean,
-  permissions : {
-    create?  : boolean,
-    delete? : boolean,
-    edit? : boolean
-  }
-}
-
-export class DishesIndex extends Component< IProps, IState> {
-  constructor(props: any){
+export class DishesIndex extends Component {
+  constructor(props){
     super(props)
     this.state = {
       show: false,
@@ -49,7 +31,7 @@ export class DishesIndex extends Component< IProps, IState> {
     if(current_user.permissions !== undefined && current_user.permissions.length > 0) this.updateStatePermissions()
   }
 
-  componentDidUpdate(prevProps : IProps, prevState : IState, snapshot: any){
+  componentDidUpdate(prevProps , prevState , snapshot){
     if(this.props.current_user.permissions &&  this.props.current_user.permissions.length > 0 ){
       if(prevProps.current_user.permissions === undefined){
         this.updateStatePermissions()
@@ -74,7 +56,7 @@ export class DishesIndex extends Component< IProps, IState> {
   render() {
     let { pagination , getDishes, dishes, current_user } = this.props;
     let {show, permissions } = this.state;
-    let newPermissions : any = {}
+    let newPermissions = {}
 
     return (
       <div>
@@ -112,7 +94,7 @@ export class DishesIndex extends Component< IProps, IState> {
   }
 }
 
-const mapStateToProps = (store : any) => {
+const mapStateToProps = (store ) => {
   return{
       dishes: store.dishReducer.dishes,
       pagination: store.dishReducer.pagination,
@@ -120,7 +102,7 @@ const mapStateToProps = (store : any) => {
   }
 }
 
-const mapDispatchToProps = (dispatch : Function) => {
+const mapDispatchToProps = (dispatch ) => {
   return {
       getDishes: (page = 1, per_page = 10) => {
           dispatch(get_dishes(page, per_page))
@@ -128,7 +110,7 @@ const mapDispatchToProps = (dispatch : Function) => {
       clearError: () => {
           dispatch(clearError())
       },
-      deleteDish: (id : number) =>{
+      deleteDish: (id ) =>{
           dispatch(delete_dish(id))
       },
       getCurrentUserPermissionsByType: () => {

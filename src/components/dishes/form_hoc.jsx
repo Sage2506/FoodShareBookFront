@@ -27,13 +27,20 @@ export class DishFormHOC extends Component {
     }
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
+  /* static getDerivedStateFromProps(nextProps, prevState) {
     if ( !!nextProps.dish && nextProps.dish.id !== undefined && nextProps.dish.id !== prevState.dish.id ) {
       return {...prevState, dish: nextProps.dish};
     } else {
       return prevState
     }
+  } */
+
+  componentDidUpdate(prevProps, prevState) {
+    if( !prevProps.dish && this.props.dish ){
+      this.setState({ dish: this.props.dish})
+    }
   }
+
 
   onImageSelected = (image) => {
     this.setState({

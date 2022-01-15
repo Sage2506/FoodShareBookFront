@@ -1,5 +1,5 @@
 export interface IPagination {
-  arrows?: any
+  arrows?: any,
   currentPage?: number,
   endIndex?: number,
   endPage?: number,
