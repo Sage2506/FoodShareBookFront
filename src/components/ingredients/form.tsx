@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Button, Col } from "react-bootstrap";
 import { default as Dropzone } from "../common/dropzone_hoc";
 
-export const IngredientForm = props => {  
+export const IngredientForm = props => {
     let {
       name,
       image,
@@ -27,42 +27,40 @@ export const IngredientForm = props => {
         <Form.Group as={Col} xl={8} xs={12} controlId="name" >
           <Form.Label>Ingredient name</Form.Label>
           <Form.Control
-            type="text" 
+            type="text"
             value={name }
-            placeholder="Describe an ingredient name" 
+            placeholder="Describe an ingredient name"
             onChange={handleInputChange}
-            isValid={name !== ""}/>
+            required
+             />
             <Form.Control.Feedback type="invalid">
-              Please choose a username.
+              Please write a dish name.
             </Form.Control.Feedback>
             <Form.Text className="text-muted">
               Set a fancy name
             </Form.Text>
-          </Form.Group> 
+          </Form.Group>
           <Form.Group as={Col} xl={8} xs={12} controlId="description" >
           <Form.Label>description</Form.Label>
-          <Form.Control 
-            as="textarea" 
+          <Form.Control
+            as="textarea"
             value={description }
-            placeholder="write a Ingredient description" 
+            placeholder="write a Ingredient description"
             onChange={handleInputChange}
-            isValid={description !== ""}/>
+            required/>
           <Form.Control.Feedback type="invalid">
-            Please choose a username.
+            Please write a recipe.
           </Form.Control.Feedback>
-          <Form.Text className="text-muted">
-            Give it a description
-          </Form.Text>
         </Form.Group>
         <Form.Group as={Col} controlId="formBasicCheckbox">
           <Form.Label>Measures</Form.Label>
-          {measuresCatalog.map( measure => 
-            <Form.Check 
-              key={'measure_id_'+measure.id} 
-              type="checkbox" 
-              value={measure.id} 
-              label={measure.name} 
-              onChange={handleInputChange} 
+          {measuresCatalog.map( measure =>
+            <Form.Check
+              key={'measure_id_'+measure.id}
+              type="checkbox"
+              value={measure.id}
+              label={measure.name}
+              onChange={handleInputChange}
               checked={measures.includes(measure.id)}
             />
           )}

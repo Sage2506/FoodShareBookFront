@@ -4,17 +4,14 @@ import { post_ingredient, get_ingredient, put_ingredient } from "../../services/
 import IngredientForm from './form';
 import { Redirect } from 'react-router-dom'
 import { uploadImageToCloudinary } from '../../lib/common';
+import { any } from 'prop-types';
+import { ingredientObject } from '../../models';
 
-export class IngredientFormHOC extends Component {
-  constructor(props) {
+export class IngredientFormHOC extends Component<any,any>{
+  constructor(props: any) {
     super(props);
     this.state = {
-      ingredient : {
-        name : "",
-        description: "",
-        image : null,
-        measures : []
-      },
+      ingredient : ingredientObject,
       validated: false
     };
   };
@@ -90,11 +87,9 @@ export class IngredientFormHOC extends Component {
     const form = e.currentTarget
     let { ingredient } = this.state
     let { name , description, image, measures } = ingredient
-    if(form.checkValidity() === false || measures.length < 1 || name === "" || description === "" ){
+    if(form.checkValidity() === false || measures.length < 1 || name === "" || description === "" ){ //TODO: validate
       e.stopPropagation()
-      this.setState({
-        validated: false,
-      })
+
     } else {
       //checking if there's any image needed to be uploade
       if( image !== null && !image.includes(' ')){
@@ -110,6 +105,9 @@ export class IngredientFormHOC extends Component {
         this.createOrUpdateIngredient(ingredient)
       }
     }
+    this.setState({
+      validated: true,
+    })
   }
 
   createOrUpdateIngredient = (ingredient) => {

@@ -4,25 +4,24 @@ import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { post_dish, get_dish } from '../../services/dish_requests';
 import { uploadImageToCloudinary } from '../../lib/common';
+import { dishObject, ingredientObject } from '../../models';
+import { IDish } from '../../interfaces/dishes';
+import { IIngredients } from '../../interfaces/ingredients';
 
-export class DishFormHOC extends Component {
-  constructor(props) {
+interface IState {
+  dish : IDish;
+  new_ingredient: IIngredients;
+  valid_measures: [];
+  validated: boolean;
+  setValidated: boolean;
+}
+
+export class DishFormHOC extends Component<any, IState> {
+  constructor(props: any) {
     super(props);
     this.state = {
-      dish: {
-        name: "",
-        description:"",
-        recipe: "",
-        image: null,
-        dish_ingredients: []
-      },
-      new_ingredient: {
-        ingredient_id: -1,
-        ingredient_name: "",
-        ingredient_image: "",
-        quantity: '',
-        measure_id: 0,
-      },
+      dish: dishObject,
+      new_ingredient: ingredientObject,
       valid_measures: [],
       validated : false,
       setValidated : false

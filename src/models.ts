@@ -1,8 +1,20 @@
-export const dishObject = {
+import { IDish } from "./interfaces/dishes";
+import { IIngredients } from "./interfaces/ingredients";
+
+export const dishObject : IDish = {
     name: "",
     image: "",
     description: "",
     recipe: "",
-    id: "",
+    id: 0,
+    user_id: 0,
     dish_ingredients : []
+}
+
+export const ingredientObject : IIngredients = {
+    id: 0,
+    name: "",
+    description: "",
+    image: "",
+    measures: []
 }
