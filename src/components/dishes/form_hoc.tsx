@@ -37,7 +37,7 @@ export class DishFormHOC extends Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if ( nextProps.dish.id !== undefined && nextProps.dish.id !== prevState.dish.id ) {
+    if ( !!nextProps.dish && nextProps.dish.id !== undefined && nextProps.dish.id !== prevState.dish.id ) {
       return {...prevState, dish: nextProps.dish};
     } else {
       return prevState
@@ -202,7 +202,7 @@ export class DishFormHOC extends Component {
 
 
   render() {
-    if(this.props.newDish.id === undefined ){
+    if(!this.props.newDish ||  this.props.newDish.id === undefined ){
 
       let {validated, new_ingredient, dish, valid_measures } = this.state
       let {recipe, image, name, description, dish_ingredients} = dish
