@@ -4,8 +4,8 @@ import { get_dish } from "../../services/dish_requests";
  import { DishShow } from "./show";
  import { buildImageSecureUrl } from "../lib/common";
 import { dishObject } from '../../models';
- export class DishShowHOC extends Component {
-  constructor(props) {
+ export class DishShowHOC extends Component<any, any> {
+  constructor(props: any) {
     super(props);
     this.state = {
       dish: []
@@ -33,15 +33,15 @@ import { dishObject } from '../../models';
    }
  }
 
- const mapStateToProps = (store) => {
+ const mapStateToProps = (store:any) => {
   return{
       dish: store.dishReducer.dish
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch :any ) => {
   return {
-      getDish: id => {
+      getDish: (id : number) => {
           dispatch(get_dish(id))
       }
   }

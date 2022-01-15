@@ -1,3 +1,5 @@
+import { IIngredients } from "./ingredients";
+
 export interface DishIngredient {
     ingredient_id: number;
     ingredient_name: string;
@@ -12,7 +14,8 @@ export interface IDish {
     description: string;
     recipe: string;
     image?: any;
-    dish_ingredients: DishIngredient[];
-    user_id: number;
+    dish_ingredients?: DishIngredient[];
+    ingredients?: IIngredients[];
+    user_id?: number;
 }
 

@@ -8,16 +8,8 @@ import { dishObject, ingredientObject } from '../../models';
 import { IDish } from '../../interfaces/dishes';
 import { IIngredients } from '../../interfaces/ingredients';
 
-interface IState {
-  dish : IDish;
-  new_ingredient: IIngredients;
-  valid_measures: [];
-  validated: boolean;
-  setValidated: boolean;
-}
-
-export class DishFormHOC extends Component<any, IState> {
-  constructor(props: any) {
+export class DishFormHOC extends Component {
+  constructor(props) {
     super(props);
     this.state = {
       dish: dishObject,
@@ -52,14 +44,14 @@ export class DishFormHOC extends Component<any, IState> {
     })
   }
 
-  ingredient_selected = ingredient => {
+  ingredient_selected = (ingredient) => {
     this.setState({
       new_ingredient: {
         ...this.state.new_ingredient,
         ingredient_id: ingredient.id,
         ingredient_name: ingredient.name
       },
-      valid_measures: this.props.measures.filter( measure => ingredient.measures.includes(measure.id))
+      valid_measures: this.props.measures.filter( (measure) => ingredient.measures.includes(measure.id))
     })
   }
 
