@@ -8,6 +8,7 @@ import { IPagination } from '../../interfaces/common';
 import { IIngredients } from '../../interfaces/ingredients';
 import { getCurrentUserPermissionByType } from '../../services/permissions_type_requests';
 import { mapPermissions } from '../lib/common';
+import { updatePermissions } from '../../lib/common';
 
 export class IngredientsIndex extends Component {
   constructor(props) {
@@ -20,23 +21,19 @@ export class IngredientsIndex extends Component {
     let { getIngredients, pagination, currentUser } = this.props;
     getIngredients(pagination.currentPage);
     this.props.getCurrentUserPermissionsByType();
-    if(currentUser.permissions !== undefined && currentUser.permissions.length > 0) this.updateStatePermissions()
   }
 
   componentDidUpdate(prevProps , prevState , snapshot){
-    if(this.props.currentUser.permissions &&  this.props.currentUser.permissions.length > 0 ){
-      if(prevProps.currentUser.permissions === undefined){
-        this.updateStatePermissions()
-      } else if( prevProps.currentUser.permissions.length < 1){
-        this.updateStatePermissions()
-      } else if( this.props.currentUser.permissions[0].id !== prevProps.currentUser.permissions[0].id){
-        this.updateStatePermissions()
-      }
+    console.log("current user data: ", this.props.currentUser)
+    const { permissions: prevPermissions} = prevProps.currentUser
+    const {permissions : newPermissions} = this.props.currentUser
+    //update when they have different sizes
+    //update when both have something and first's id's are diff
+    if ( prevPermissions.length !== newPermissions.length || (prevPermissions.length !== 0 && prevPermissions[0].id !== newPermissions[0].id) ){
+      console.log("actualizando permisos")
+      updatePermissions(this)
     }
-  }
 
-  updateStatePermissions = () =>{
-    this.setState({permissions : mapPermissions(this.props.currentUser.permissions)})
   }
 
   render() {

@@ -10,6 +10,7 @@ import { FloatingActionButtonPlus } from '../common/floating_action_button';
 import IUser from '../../interfaces/users';
 import { getCurrentUserPermissionByType } from '../../services/permissions_type_requests';
 import { IPagination } from '../../interfaces/common';
+import { updatePermissions } from '../../lib/common';
 
 export class DishesIndex extends Component {
   constructor(props){
@@ -25,26 +26,20 @@ export class DishesIndex extends Component {
   }
 
   componentDidMount() {
-    let { getDishes, pagination, getCurrentUserPermissionsByType, current_user  } = this.props;
+    let { getDishes, pagination, getCurrentUserPermissionsByType, currentUser  } = this.props;
     getDishes(pagination.currentPage);
     getCurrentUserPermissionsByType();
-    if(current_user.permissions !== undefined && current_user.permissions.length > 0) this.updateStatePermissions()
   }
 
   componentDidUpdate(prevProps , prevState , snapshot){
-    if(this.props.current_user.permissions &&  this.props.current_user.permissions.length > 0 ){
-      if(prevProps.current_user.permissions === undefined){
-        this.updateStatePermissions()
-      } else if( prevProps.current_user.permissions.length < 1){
-        this.updateStatePermissions()
-      } else if( this.props.current_user.permissions[0].id !== prevProps.current_user.permissions[0].id){
-        this.updateStatePermissions()
-      }
+    const { permissions: prevPermissions} = prevProps.currentUser
+    const {permissions : newPermissions} = this.props.currentUser
+    //update when they have different sizes
+    //update when both have something and first's id's are diff
+    if ( prevPermissions.length !== newPermissions.length || (prevPermissions.length !== 0 && prevPermissions[0].id !== newPermissions[0].id) ){
+      console.log("actualizando permisos")
+      updatePermissions(this)
     }
-  }
-
-  updateStatePermissions = () =>{
-    this.setState({permissions : mapPermissions(this.props.current_user.permissions)})
   }
 
   handleClose = () => {
@@ -54,7 +49,7 @@ export class DishesIndex extends Component {
   }
 
   render() {
-    let { pagination , getDishes, dishes, current_user } = this.props;
+    let { pagination , getDishes, dishes, currentUser } = this.props;
     let {show, permissions } = this.state;
     let newPermissions = {}
 
@@ -65,8 +60,8 @@ export class DishesIndex extends Component {
         per_page = {pagination.pageSize}
         deleteDish = {this.props.deleteDish}
         permissions = {permissions }
-        currentUserId = {current_user.id}
-        currentUserRoleId = { current_user.role_id}
+        currentUserId = {currentUser.id}
+        currentUserRoleId = { currentUser.role_id}
       />
       <Pagination
         pagination={pagination}
@@ -100,7 +95,7 @@ const mapStateToProps = (store ) => {
   return{
       dishes: store.dishReducer.dishes,
       pagination: store.dishReducer.pagination,
-      current_user: store.userReducer.current_user
+      currentUser: store.userReducer.current_user
   }
 }
 

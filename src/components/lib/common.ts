@@ -103,16 +103,6 @@ function extractPageNumber(link : string){
   return page;
 }
 
-export function mapPermissions(permissions : IPermissions[]){
-  let newPermissions : {
-    [key: string] : boolean
-  } = {}
-  permissions.forEach((permission : IPermissions )=> {
-    newPermissions[permission.name] = true
-  })
-  return newPermissions;
-}
-
 function extractLinkRef(link : string) {
   let page_index = link.indexOf('rel="');
   let greater_than_index = link.length - 1

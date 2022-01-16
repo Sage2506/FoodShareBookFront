@@ -1,4 +1,5 @@
 import axios from "axios";
+import { IPermissions } from "../interfaces/permission_types";
 
 export const uploadImageToCloudinaryNotWorking = (image: any, folder: string, public_id: string = '') => {
   let url = `https://api.cloudinary.com/v1_1/dbo96sjb/upload`;
@@ -55,4 +56,18 @@ export const convertPermisionStringToList = (permission: any) => {
   } else {
     permission.list = []
   }
+}
+
+export const updatePermissions = (that : any) => {
+  that.setState({permissions : mapPermissions(that.props.currentUser.permissions)})
+}
+
+function mapPermissions(permissions : IPermissions[]){
+  let newPermissions : {
+    [key: string] : boolean
+  } = {}
+  permissions.forEach((permission : IPermissions )=> {
+    newPermissions[permission.name] = true
+  })
+  return newPermissions;
 }

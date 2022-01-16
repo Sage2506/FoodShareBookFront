@@ -60,7 +60,7 @@ export const userReducer = ( state = initialUserState, action: any ) => {
       case SET_CURRENT_USER:
         return {
           ...state,
-          current_user: action.user
+          current_user: {...action.user, permissions: []}
         }
       case SET_USER_PERMISSIONS:
         return {
