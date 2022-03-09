@@ -12,7 +12,7 @@ export const dishObject : IDish = {
 }
 
 export const ingredientObject : IIngredients = {
-    id: 0,
+    id: undefined,
     name: "",
     description: "",
     image: "",

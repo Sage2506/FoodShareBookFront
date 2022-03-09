@@ -33,14 +33,13 @@ export const uploadImageToCloudinaryNotWorking = (image: any, folder: string, pu
 }
 
 export const uploadImageToCloudinary = (image: any, folder: string, public_id = '') => {
-  const parameters = {
+  const parameters : any = {
     tags: "browser_upload",
     upload_preset: "rfsb_images",
     api_key: "757447362712211",
     api_secret: "z_F0g_ccUUJG24DDJJjyNdjl0RM",
     folder: folder,
     file: image,
-    public_id : ""
   }
   if (public_id !== '') {
     parameters['public_id'] = public_id

@@ -93,7 +93,7 @@ export class IngredientFormHOC extends Component {
 
     } else {
       //checking if there's any image needed to be uploade
-      if (image !== null && !image.includes(' ')) {
+      if (image !== null && image.length > 0 && !image.includes(' ')) {
         //uploading image to cloudinary
         uploadImageToCloudinary(image, 'ingredients', (this.state.ingredient.id === undefined || this.state.ingredient.id === null) ? '' : ingredient.id).then(response => {
           const { version, public_id, format } = response.data
@@ -114,8 +114,10 @@ export class IngredientFormHOC extends Component {
   createOrUpdateIngredient = (ingredient) => {
     //check if going to create or update
     if (this.state.ingredient.id === undefined || this.state.ingredient.id === null) {
+      console.log(" create ingredient ")
       this.props.create_ingredient(ingredient)
     } else {
+      console.log(" update ingredient ")
       this.props.update_ingredient(this.state.ingredient.id, ingredient)
     }
   }

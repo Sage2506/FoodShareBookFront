@@ -24,13 +24,11 @@ export class IngredientsIndex extends Component {
   }
 
   componentDidUpdate(prevProps , prevState , snapshot){
-    console.log("current user data: ", this.props.currentUser)
     const { permissions: prevPermissions} = prevProps.currentUser
     const {permissions : newPermissions} = this.props.currentUser
     //update when they have different sizes
     //update when both have something and first's id's are diff
     if ( prevPermissions.length !== newPermissions.length || (prevPermissions.length !== 0 && prevPermissions[0].id !== newPermissions[0].id) ){
-      console.log("actualizando permisos")
       updatePermissions(this)
     }
 
@@ -43,6 +41,7 @@ export class IngredientsIndex extends Component {
     return (
       <div>
         <IngredientTable
+          permissions ={permissions}
           ingredients={ingredients}
           per_page={pageSize}
           deleteIngredient={deleteIngredient}

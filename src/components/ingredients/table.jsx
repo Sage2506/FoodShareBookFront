@@ -32,7 +32,7 @@ export class IngredientTable extends Component {
   }
 
   render() {
-    let { ingredients, per_page } = this.props;
+    let { ingredients, per_page, permissions, currentUserId, currentUserRoleId } = this.props;
     let { deleteShow, id } = this.state;
     var empty_rows = []
     for(let i = 0; i < per_page - ingredients.length; i++){
@@ -51,7 +51,7 @@ export class IngredientTable extends Component {
         </thead>
         <tbody>
         { ingredients.map( (ingredient) =>
-        <IngredientTableRow ingredient = {ingredient} key = {ingredient.id} handleOpen={this.handleOpen}/>
+          <IngredientTableRow ingredient = {ingredient} key = {ingredient.id} handleOpen={this.handleOpen} permissions ={permissions} currentUserId = {currentUserId} currentUserRoleId = {currentUserRoleId}/>
           )}
         { empty_rows.map( (row, position) =>
           <tr key = {position}>

@@ -37,7 +37,6 @@ export class DishesIndex extends Component {
     //update when they have different sizes
     //update when both have something and first's id's are diff
     if ( prevPermissions.length !== newPermissions.length || (prevPermissions.length !== 0 && prevPermissions[0].id !== newPermissions[0].id) ){
-      console.log("actualizando permisos")
       updatePermissions(this)
     }
   }
