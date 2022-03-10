@@ -4,7 +4,7 @@ import { paginate, showError } from '../components/lib/common';
 import { IDish } from "../interfaces/dishes";
 
 export const get_dishes = (page = 1, per_page = 10) => {
-  return async ( dispatch : Function) =>{
+  return async ( dispatch) =>{
     try {
       const response = await api.get(`dishes?page=${page}&per_page=${per_page}`);
       const { headers , data } = response
@@ -22,8 +22,8 @@ export const get_dishes = (page = 1, per_page = 10) => {
   }
 }
 
-export const get_dish = ( id : number ) => {
-  return async ( dispatch : Function) =>{
+export const get_dish = ( id ) => {
+  return async ( dispatch) =>{
     try {
       const response = await api.get(`dishes/${id}`);
       dispatch(getDish(response.data));
@@ -33,8 +33,8 @@ export const get_dish = ( id : number ) => {
     }
   }
 }
-export const post_dish = (dish : IDish) => {
-  return async (dispatch : Function) => {
+export const post_dish = (dish ) => {
+  return async (dispatch) => {
     try {
       const response = await api.post(`dishes`, dish);
       dispatch(postDish(response.data));
@@ -44,8 +44,8 @@ export const post_dish = (dish : IDish) => {
     }
   }
 }
-export const delete_dish = ( id : number ) => {
-  return async (dispatch : Function) => {
+export const delete_dish = ( id ) => {
+  return async (dispatch) => {
     try {
       await api.delete(`dishes/${id}`);
       dispatch(deleteDish(id));

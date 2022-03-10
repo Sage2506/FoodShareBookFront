@@ -57,6 +57,7 @@ export class Layout extends Component {
                 <NavItem><IndexLinkContainer to="/"><Nav.Link ><p>Home</p></Nav.Link></IndexLinkContainer></NavItem>
                 <NavItem><IndexLinkContainer to="/"><Nav.Link ><p>Dishes</p></Nav.Link></IndexLinkContainer></NavItem>
                 <NavItem><IndexLinkContainer to="/ingredients"><Nav.Link><p>Ingredients</p></Nav.Link></IndexLinkContainer></NavItem>
+                { currentUser.role_id === 1 && <NavItem><IndexLinkContainer to="/measures"><Nav.Link><p>Measures</p></Nav.Link></IndexLinkContainer></NavItem>}
                 { currentUser.role_id === 1 && <NavItem><IndexLinkContainer to="/users"><Nav.Link><p>Users</p></Nav.Link></IndexLinkContainer></NavItem>}
                 { currentUser.role_id === 1 && <NavItem><IndexLinkContainer to="/roles"><Nav.Link><p>Roles</p></Nav.Link></IndexLinkContainer></NavItem>}
                 { currentUser.role_id === 1 && <NavItem><IndexLinkContainer to="/Permissions"><Nav.Link><p>Permissions</p></Nav.Link></IndexLinkContainer></NavItem> }

@@ -1,15 +1,12 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from "react-redux";
 import { get_dishes, delete_dish } from "../../services/dish_requests";
 import { clearError } from '../../actions/error';
 import { default as Pagination } from '../common/pagination';
-import { mapPermissions } from '../lib/common'
 import { Modal, Button } from 'react-bootstrap';
 import { DishTable } from './table';
 import { FloatingActionButtonPlus } from '../common/floating_action_button';
-import IUser from '../../interfaces/users';
 import { getCurrentUserPermissionByType } from '../../services/permissions_type_requests';
-import { IPagination } from '../../interfaces/common';
 import { updatePermissions } from '../../lib/common';
 
 export class DishesIndex extends Component {

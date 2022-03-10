@@ -6,7 +6,7 @@ import { IPermissions } from '../interfaces/permission_types';
 
 const Path = 'permissions'
 export const getAllPermissions = (page = 1, per_page = 10, name = "" ) => {
-  return async (dispatch : Function) => {
+  return async (dispatch ) => {
     try{
       const response = await api.get(`${Path}?page=${page}&per_page=${per_page}`)
       const { headers, data } = response
@@ -23,8 +23,8 @@ export const getAllPermissions = (page = 1, per_page = 10, name = "" ) => {
   }
 }
 
-export const getPermissionById = ( id : number ) => {
-  return async (dispatch : Function) => {
+export const getPermissionById = ( id  ) => {
+  return async (dispatch ) => {
     try {
       const response = await api.get(`${Path}/${id}`)
       dispatch(getPermission(response.data))
@@ -34,8 +34,8 @@ export const getPermissionById = ( id : number ) => {
   }
 }
 
-export const postPermission = (permission : IPermissions) => {
-  return async (dispatch : Function) => {
+export const postPermission = (permission ) => {
+  return async (dispatch ) => {
     try {
       const response = await api.post(Path, permission);
       dispatch(addPermission(response.data));
@@ -46,8 +46,8 @@ export const postPermission = (permission : IPermissions) => {
   }
 }
 
-export const updatePermission = (id : number, permission : IPermissions) => {
-  return async (dispatch : Function) => {
+export const updatePermission = (id , permission ) => {
+  return async (dispatch ) => {
     try {
       const response = await api.put(`${Path}/${id}`, permission);
       dispatch(addPermission(response.data));
@@ -58,6 +58,6 @@ export const updatePermission = (id : number, permission : IPermissions) => {
   }
 }
 
-export const deletePermission = ( permissionId : number) => {
+export const deletePermission = ( permissionId ) => {
   return api.delete(Path+`/`+permissionId);
 }

@@ -16,6 +16,7 @@ import PermissionsIndexHOC from './components/permissions/index_hoc';
 import PermissionsFormHOC from './components/permissions/form_hoc';
 import PermissionsShowHOC from './components/permissions/show_hoc';
 import { connect } from 'react-redux';
+import MeasuresIndexHOC from './components/measures/index_hoc';
 //import { convertPermisionStringToList } from './lib/common';
 
 export class Routes extends Component {
@@ -24,21 +25,22 @@ export class Routes extends Component {
       return (
         <Switch>
             <Route exact path="/" component={DishesIndex}/>
+            <Route path="/dishes/:id" component={DishShowHOC}/>
             <Route path="/dishes/edit/:id" component={DishFormHOC}/>
             <Route path="/dishes/new" component={DishFormHOC}/>
-            <Route path="/dishes/:id" component={DishShowHOC}/>
-            <Route path="/ingredients/edit/:id" component={IngredientFormHOC}/>
-            <Route path="/ingredients/new" component={IngredientFormHOC}/>
             <Route path="/ingredients/:id" component={IngredientShowHOC}/>
             <Route path="/ingredients/" component={IngredientsIndex}/>
-            <Route path="/users/edit/:id" component={UserFormHOC} />
-            <Route path="/users" component={UsersIndexHOC} />
-            <Route path="/roles/:id" component={RoleShowHOC } />
-            <Route path="/roles" component={RolesIndexHOC} />
+            <Route path="/ingredients/edit/:id" component={IngredientFormHOC}/>
+            <Route path="/ingredients/new" component={IngredientFormHOC}/>
+            <Route path="/measures" component={MeasuresIndexHOC} />
+            <Route path="/permissions" component={PermissionsIndexHOC} />
+            <Route path="/permissions/:id" component={PermissionsShowHOC} />
             <Route path="/permissions/edit/:id" component={PermissionsFormHOC} />
             <Route path="/permissions/new" component={PermissionsFormHOC} />
-            <Route path="/permissions/:id" component={PermissionsShowHOC} />
-            <Route path="/permissions" component={PermissionsIndexHOC} />
+            <Route path="/roles" component={RolesIndexHOC} />
+            <Route path="/roles/:id" component={RoleShowHOC } />
+            <Route path="/users" component={UsersIndexHOC} />
+            <Route path="/users/edit/:id" component={UserFormHOC} />
             <Route path="*" component={PageNotFound}/>
         </Switch>
       );
