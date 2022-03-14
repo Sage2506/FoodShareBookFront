@@ -9,7 +9,7 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 export const SET_USER_PERMISSIONS = 'SET_USER_PERMISSIONS'
 export const SET_CURRENT_USER_PERMISSIONS = 'SET_CURRENT_USER_PERMISSIONS'
 
-export const login = ( user : IUser ) => {
+export const login = ( user  ) => {
   return {
     type: LOG_IN,
     user
@@ -22,36 +22,36 @@ export const logout = () => {
   }
 }
 
-export const setCurrentUser = ( user:IUser ) => {
+export const setCurrentUser = ( user ) => {
   return{
     type: SET_CURRENT_USER,
     user
   }
 }
 
-export const setUser = (user :IUser) => {
+export const setUser = (data) => {
   return {
     type: SET_USER,
-    user
+    user: data
   }
 }
 
-export const getUsers = ( users :IUser[], pagination = {pages: [], arrows : {}} ) => {
+export const getUsers = (data, pagination) => {
   return {
     type: GET_USERS,
-    users,
+    users: data,
     pagination
   }
 }
 
-export const setUserPermissions = (permissions : IPermissions) => {
+export const setUserPermissions = permissions => {
   return {
     type: SET_USER_PERMISSIONS,
     permissions
   }
 }
 
-export const setCurrentUserPermissions = (permissions : IPermissions) => {
+export const setCurrentUserPermissions = (permissions ) => {
   return {
     type: SET_CURRENT_USER_PERMISSIONS,
     permissions

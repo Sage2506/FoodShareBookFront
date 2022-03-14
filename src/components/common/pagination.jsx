@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import  { Component } from 'react';
 import { Pagination } from "react-bootstrap";
-import { IPagination } from '../../interfaces/common';
 
 
 export class CustomPagination extends Component {

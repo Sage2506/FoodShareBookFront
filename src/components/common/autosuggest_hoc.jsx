@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from "react-redux";
 import { get_ingredients_search } from "../../services/ingredient_requests";
 import { ListGroup } from "react-bootstrap";
 import ReactAutosuggest from "./autosuggest";
+import { getAndSendAction } from '../../services/common_requests';
+import { getIngredients } from '../../actions/ingredient';
 
 export class ReactAutosuggestHOC extends Component {
   constructor(props) {
@@ -49,7 +51,7 @@ export class ReactAutosuggestHOC extends Component {
   }
 
   onSuggestionsFetchRequested = ({ value }) => {  
-    this.props.get_items(value.trim())
+    this.props.get_items({'q[name_cont]': value.trim()})
   };
 
   onSuggestionsClearRequested = () => {
@@ -87,10 +89,16 @@ const mapStateToProps = store => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    get_items: (name, per_page = 10) => {
-      dispatch(get_ingredients_search(name, per_page))
+    get_items: params => {
+      dispatch( getAndSendAction({
+        path:'ingredients',
+        action:getIngredients,
+        params : {
+          per_page: 10,
+          ...params
+        }
+      }))},
     }
-  }
 }
 
 export default connect(

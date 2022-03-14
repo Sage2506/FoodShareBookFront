@@ -9,6 +9,8 @@ import { IIngredients } from '../../interfaces/ingredients';
 import { getCurrentUserPermissionByType } from '../../services/permissions_type_requests';
 import { mapPermissions } from '../lib/common';
 import { updatePermissions } from '../../lib/common';
+import { getIngredients } from '../../actions/ingredient';
+import { getAndSendAction } from '../../services/common_requests';
 
 export class IngredientsIndex extends Component {
   constructor(props) {
@@ -67,8 +69,12 @@ const mapStateToProps = (store) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getIngredients: (page = 1, per_page = 10) => {
-    dispatch(get_ingredients(page, per_page));
+  getIngredients: (params) =>{
+    dispatch( getAndSendAction ({
+        path:"ingredients", 
+        action: getIngredients , 
+        params : { page : 1, per_page : 10, ...params} 
+      }))
   },
   deleteIngredient: (id) => {
     dispatch(destroy_ingredient(id));

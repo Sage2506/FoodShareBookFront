@@ -3,17 +3,6 @@ import { getDish, getDishes, postDish, deleteDish } from "../actions/dish";
 import { paginate, showError } from '../components/lib/common';
 import { IDish } from "../interfaces/dishes";
 
-export const get_dish = ( id ) => {
-  return async ( dispatch) =>{
-    try {
-      const response = await api.get(`dishes/${id}`);
-      dispatch(getDish(response.data));
-    }
-    catch (error) {
-      dispatch(showError(error))
-    }
-  }
-}
 export const post_dish = (dish ) => {
   return async (dispatch) => {
     try {

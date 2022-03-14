@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import  {Component} from 'react';
 import { connect } from 'react-redux';
 import PermissionsIndex from '.';
-import { getAllPermissions } from '../../services/permissions_requests';
-import { getAllPermissionTypes } from '../../services/permissions_type_requests';
+import { getPermissions } from '../../actions/permission';
+import { getAndSendAction } from '../../services/common_requests';
 
 export class PermissionsIndexHOC extends Component {
 
@@ -26,8 +26,12 @@ const mapStateToProps = ( store ) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getPermissions: (page = 1, per_page = 10) => {
-    dispatch( getAllPermissions(page, per_page))
+  getPermissions: (params) => {
+    dispatch( getAndSendAction({
+      path:`permissions`,
+      action: getPermissions,
+      params: { page : 1, per_page : 10, ...params}
+    }))
   }
 })
 

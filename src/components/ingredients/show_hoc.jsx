@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { get_ingredient } from "../../services/ingredient_requests";
 import { IngredientShow } from "./show";
 import { buildImageSecureUrl } from "../lib/common";
+import { getIngredient } from '../../actions/ingredient';
+import { getAndSendAction } from '../../services/common_requests';
 export class IngredientShowHOC extends Component {
   componentDidMount() {
     this.props.getIngredient(this.props.match.params.id)
@@ -30,8 +32,11 @@ const mapStateToProps = (store) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getIngredient: (ingredient) => {
-    dispatch(get_ingredient(ingredient));
+  getIngredient: (id) => {
+    dispatch ( getAndSendAction({
+      path:`ingredients/${id}`,
+      action: getIngredient,
+    }))
   },
 });
 

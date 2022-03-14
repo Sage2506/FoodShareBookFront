@@ -26,24 +26,24 @@ export class Routes extends Component {
       return (
         <Switch>
             <Route exact path="/" component={DishesIndex}/>
-            <Route path="/dishes/edit/:id" component={DishesIndex}/>
+            <Route path="/dishes/edit/:id" component={DishFormHOC}/>
             <Route path="/dishes/new" component={DishFormHOC}/>
             <Route path="/dishes/:id" component={DishShowHOC}/>
             <Route path="/dishes" component={DishesIndex}/>
-            <Route path="/ingredients/" component={IngredientsIndex}/>
             <Route path="/ingredients/edit/:id" component={IngredientFormHOC}/>
             <Route path="/ingredients/new" component={IngredientFormHOC}/>
             <Route path="/ingredients/:id" component={IngredientShowHOC}/>
+            <Route path="/ingredients/" component={IngredientsIndex}/>
             <Route path="/measures/:id" component={MeasuresShowHOC} />
             <Route path="/measures" component={MeasuresIndexHOC} />
-            <Route path="/permissions" component={PermissionsIndexHOC} />
             <Route path="/permissions/edit/:id" component={PermissionsFormHOC} />
             <Route path="/permissions/new" component={PermissionsFormHOC} />
             <Route path="/permissions/:id" component={PermissionsShowHOC} />
-            <Route path="/roles" component={RolesIndexHOC} />
+            <Route path="/permissions" component={PermissionsIndexHOC} />
             <Route path="/roles/:id" component={RoleShowHOC } />
-            <Route path="/users" component={UsersIndexHOC} />
+            <Route path="/roles" component={RolesIndexHOC} />
             <Route path="/users/edit/:id" component={UserFormHOC} />
+            <Route path="/users" component={UsersIndexHOC} />
             <Route path="*" component={PageNotFound}/>
         </Switch>
       );

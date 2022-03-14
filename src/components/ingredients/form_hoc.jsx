@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import  { Component } from 'react';
 import { connect } from 'react-redux';
-import { post_ingredient, get_ingredient, put_ingredient } from "../../services/ingredient_requests";
+import { post_ingredient, put_ingredient } from "../../services/ingredient_requests";
 import IngredientForm from './form';
 import { Redirect } from 'react-router-dom'
 import { uploadImageToCloudinary } from '../../lib/common';
-import { any } from 'prop-types';
 import { ingredientObject } from '../../models';
+import { getAndSendAction } from '../../services/common_requests';
+import { getIngredient } from '../../actions/ingredient';
 
 export class IngredientFormHOC extends Component {
   constructor(props) {
@@ -161,7 +162,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(post_ingredient(ingredient));
   },
   getIngredient: (id) => {
-    dispatch(get_ingredient(id));
+    dispatch ( getAndSendAction({
+      path:`ingredients/${id}`,
+      action: getIngredient,
+    }))
   },
   update_ingredient: (id, ingredient) => {
     dispatch(put_ingredient(id, ingredient));

@@ -1,12 +1,12 @@
 import {Cookies} from 'react-cookie';
 import { api } from './foodsharebook_api';
-import { login, getUsers, setCurrentUser, setUser, logout, setUserPermissions } from '../actions/user';
+import { login, setCurrentUser, setUser, logout, setUserPermissions } from '../actions/user';
 import { paginate, showError } from '../components/lib/common';
 
 const Path = 'users';
 
-export const logIn = (user: any, rememberMe : any) => {
-  return async ( dispatch: any ) => {
+export const logIn = (user, rememberMe ) => {
+  return async ( dispatch ) => {
     try {
       let response = await api.post(`users/login`, user);
       if(response.status === 200 ){
@@ -29,65 +29,6 @@ export const logIn = (user: any, rememberMe : any) => {
     }
     catch (error) {
       throw (error)
-    }
-  }
-}
-
-export const getCurrentUserData = () => {
-  return async ( dispatch: any ) => {
-    try {
-      const response = await api.get(Path+`/current_user_data`)
-      const { status, data } = response
-      if( status === 200 && data !== null ){
-        dispatch(setCurrentUser(data))
-      } else {
-        dispatch(logout())
-      }
-    }catch (error) {
-      dispatch(showError(error))
-    }
-  }
-}
-
-export const getAllUsers = (page = 1, per_page = 10, name = '') => {
-  return async ( dispatch: any ) => {
-    try{
-      const response = await api.get(Path+`?page=${page}&per_page${per_page}`)
-      const { headers , data } = response
-      const pagination = paginate(
-        parseInt(headers['pagination-total']),
-        parseInt(headers['pagination-page']),
-        parseInt(headers['pagination-per-page']),
-        undefined,
-        headers['link']);
-
-      dispatch(getUsers(data, pagination))
-    } catch(error){
-      dispatch(showError(error))
-    }
-  }
-}
-
-export const getUserDataById = ( id : number ) => {
-  return async ( dispatch: any ) => {
-    try {
-      const response = await api.get(Path+`/`+id)
-      const { data } = response
-      dispatch(setUser(data))
-    } catch ( error ) {
-      dispatch(showError(error))
-    }
-  }
-}
-
-export const getUserPermissionsById = ( id : number ) => {
-  return async ( dispatch: any ) => {
-    try {
-      const response = await api.get(Path+`/`+id+`/permissions`)
-      const { data } = response
-      dispatch(setUserPermissions(data))
-    } catch ( error ){
-      dispatch(showError(error))
     }
   }
 }

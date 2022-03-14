@@ -7,6 +7,8 @@ import { uploadImageToCloudinary } from '../../lib/common';
 import { dishObject, ingredientObject } from '../../models';
 import { IDish } from '../../interfaces/dishes';
 import { IIngredients } from '../../interfaces/ingredients';
+import { getAndSendAction } from '../../services/common_requests';
+import { getDish } from '../../actions/dish';
 
 export class DishFormHOC extends Component {
   constructor(props) {
@@ -244,7 +246,10 @@ const mapDispatchToProps = dispatch => {
           dispatch(post_dish(dish))
       },
       fetch_dish: id => {
-          dispatch(get_dish(id))
+        dispatch( getAndSendAction ({
+          path : `dishes/${id}`,
+          action : getDish
+        }) )
       }
   }
 }

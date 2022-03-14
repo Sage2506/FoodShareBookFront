@@ -96,16 +96,14 @@ export function paginate(totalItems, currentPage = 1 , pageSize = 10, maxPages =
   return result;
 }
 
-export function paginateHeaders(headers){
-  console.log("headers", headers)
-  return paginate(
+export const paginateHeaders = headers => 
+  paginate(
   parseInt(headers['pagination-total']),
   parseInt(headers['pagination-page']),
   parseInt(headers['pagination-per-page']),
   undefined,
   headers['link']
 );
-}    
 
 
 function extractPageNumber(link ){

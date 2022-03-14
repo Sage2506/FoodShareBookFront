@@ -9,9 +9,9 @@ export const deleteDish = ( id  ) => ({
   id,
 });
 
-export const getDish = response => ({
+export const getDish = data => ({
   type: GET_DISH,
-  dish: response.data,
+  dish: data,
 });
 
 export const postDish = (dish ) => ({
@@ -19,8 +19,7 @@ export const postDish = (dish ) => ({
   dish,
 });
 
-export const setDishesAndPagination = args => {
-  const { data , pagination } = args
+export const setDishesAndPagination = (data, pagination) => {
   return {
     type: GET_DISHES,
     dishes: data,
