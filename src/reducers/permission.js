@@ -13,19 +13,21 @@ const initialPermissionState = {
     description : "",
     role_id: "-1" ,
     permission_type_id : "-1"
+  },
+  pagination: {
+    pages:[],
+    arrows: {}
   }
 }
 
-export const  permissionReducer = ( state = initialPermissionState, action ) => {
+export const  permissionReducer = ( state = initialPermissionState, action : any ) => {
   switch (action.type) {
     case GET_PERMISSION:
       return {...state, permission: action.permission, newPermission: initialPermissionState.newPermission};
     case GET_PERMISSIONS:
-      return {...state, permissions: action.permissions, permission: initialPermissionState.permission};
+      return {...state, permissions: action.permissions, permission: initialPermissionState.permission, pagination: action.pagination};
     case ADD_PERMISSION:
       return {...state, newPermission: action.permission};
-    case DELETE_PERMISSION:
-      return {...state, dishes : state.dishes.filter(( dish => dish.id !== action.id))}
     default:
       return state;
   }

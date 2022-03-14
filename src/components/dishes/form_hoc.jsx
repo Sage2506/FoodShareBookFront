@@ -4,25 +4,18 @@ import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { post_dish, get_dish } from '../../services/dish_requests';
 import { uploadImageToCloudinary } from '../../lib/common';
+import { dishObject, ingredientObject } from '../../models';
+import { IDish } from '../../interfaces/dishes';
+import { IIngredients } from '../../interfaces/ingredients';
+import { getAndSendAction } from '../../services/common_requests';
+import { getDish } from '../../actions/dish';
 
 export class DishFormHOC extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dish: {
-        name: "",
-        description:"",
-        recipe: "",
-        image: null,
-        dish_ingredients: []
-      },
-      new_ingredient: {
-        ingredient_id: -1,
-        ingredient_name: "",
-        ingredient_image: "",
-        quantity: '',
-        measure_id: 0,
-      },
+      dish: dishObject,
+      new_ingredient: ingredientObject,
       valid_measures: [],
       validated : false,
       setValidated : false
@@ -32,17 +25,24 @@ export class DishFormHOC extends Component {
   componentDidMount() {
     let id = this.props.match.params.id;
     if ( id !== undefined ) {
-      this.props.getDish(id);
+      this.props.fetch_dish(id);
     }
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if ( nextProps.dish.id !== undefined && nextProps.dish.id !== prevState.dish.id ) {
+  /* static getDerivedStateFromProps(nextProps, prevState) {
+    if ( !!nextProps.dish && nextProps.dish.id !== undefined && nextProps.dish.id !== prevState.dish.id ) {
       return {...prevState, dish: nextProps.dish};
     } else {
       return prevState
     }
+  } */
+
+  componentDidUpdate(prevProps, prevState) {
+    if( !prevProps.dish && this.props.dish ){
+      this.setState({ dish: this.props.dish})
+    }
   }
+
 
   onImageSelected = (image) => {
     this.setState({
@@ -53,14 +53,14 @@ export class DishFormHOC extends Component {
     })
   }
 
-  ingredient_selected = ingredient => {
+  ingredient_selected = (ingredient) => {
     this.setState({
       new_ingredient: {
         ...this.state.new_ingredient,
         ingredient_id: ingredient.id,
         ingredient_name: ingredient.name
       },
-      valid_measures: this.props.measures.filter( measure => ingredient.measures.includes(measure.id))
+      valid_measures: this.props.measures.filter( (measure) => ingredient.measures.includes(measure.id))
     })
   }
 
@@ -130,7 +130,6 @@ export class DishFormHOC extends Component {
   };
 
   onNumericInputKeyDown = e => {
-    console.log("remember to handle 'e'")
   }
 
   handleInputSubmit = e => {
@@ -203,7 +202,7 @@ export class DishFormHOC extends Component {
 
 
   render() {
-    if(this.props.newDish.id === undefined ){
+    if(!this.props.newDish ||  this.props.newDish.id === undefined ){
 
       let {validated, new_ingredient, dish, valid_measures } = this.state
       let {recipe, image, name, description, dish_ingredients} = dish
@@ -247,7 +246,10 @@ const mapDispatchToProps = dispatch => {
           dispatch(post_dish(dish))
       },
       fetch_dish: id => {
-          dispatch(get_dish(id))
+        dispatch( getAndSendAction ({
+          path : `dishes/${id}`,
+          action : getDish
+        }) )
       }
   }
 }

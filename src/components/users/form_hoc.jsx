@@ -1,31 +1,42 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { getUserDataById } from '../../services/user_requests';
+import { setUser, setUserPermissions } from '../../actions/user';
+import { getAndSendAction } from '../../services/common_requests';
 import { UserForm } from './form';
 
 export class UserFormHOC extends Component {
 
   componentDidMount() {
     if ( this.props.location.pathname.split('/')[2] === 'edit'){
-      this.props.getUser(this.props.match.params.id)
+      this.props.getUser(this.props.match.params.id);
+      this.props.getUserPermissions(this.props.match.params.id);
     }
   }
 
   render() {
-    const { user } = this.props
+    const { user, getUser, getUserPermissions } = this.props
     return(
-      <UserForm user = {user} />
+      <UserForm user = {user} getUser = {getUser} getUserPermissions = {getUserPermissions}/>
     );
   }
 }
 
-const mapStateToProps = ( store ) => ({
+const mapStateToProps = store => ({
   user : store.userReducer.user
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  getUser: id => {
-    dispatch( getUserDataById(id))
+const mapDispatchToProps = dispatch => ({
+  getUser: id  => {
+    dispatch( getAndSendAction ({
+      path:`users/${id}`,
+      action: setUser
+    }))
+  },
+  getUserPermissions: id => {
+    dispatch( getAndSendAction ({
+      path:`users/${id}/permissions`,
+      action: setUserPermissions
+    }))
   }
 })
 

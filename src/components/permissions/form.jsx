@@ -6,7 +6,7 @@ export class PermissionsForm extends Component {
 
   render() {
     const { permission, formSubmited, roles, permissionTypes, handleInputChange, handleSubmit } = this.props
-    const { name, description, permission_type_id, role_id } = permission
+    const { name, description, permission_type_id } = permission
     return(
       < Form onSubmit = { handleSubmit } >
         <Form.Group controlId = "name">
@@ -16,7 +16,7 @@ export class PermissionsForm extends Component {
           <Form.Control
             type = "text"
             value = { name }
-            placeholder = "Enter permission name."
+            placeholder = "Enter permission key name."
             onChange = {handleInputChange}
             isInvalid = { formSubmited && (name === "" || name.includes(" "))}/>
             <Form.Control.Feedback type = "invalid">
@@ -46,17 +46,6 @@ export class PermissionsForm extends Component {
           >
             <option value={-1} >Seleccionar tipo de permiso</option>
             { permissionTypes.map( (permissionType) => <option key={`m_${permissionType.id}`} value={permissionType.id}>{permissionType.name}</option> ) }
-          </Form.Control>
-        </Form.Group>
-        <Form.Group controlId = "role_id">
-        <Form.Control
-            as="select"
-            onChange={ handleInputChange }
-            value={ role_id }
-            isInvalid = { formSubmited && role_id === "-1" }
-          >
-            <option value={-1}>Seleccionar tipo de Rol</option>
-            { roles.map( (role) => <option key={`m_${role.id}`} value={role.id}>{role.name}</option> ) }
           </Form.Control>
         </Form.Group>
         <Form.Group>

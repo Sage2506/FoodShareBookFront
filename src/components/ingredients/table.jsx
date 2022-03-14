@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Table, Modal, Button } from 'react-bootstrap';
+import { IIngredients } from '../../interfaces/ingredients';
 import { default as IngredientTableRow } from './table_row_hoc';
 
 export class IngredientTable extends Component {
@@ -31,10 +32,10 @@ export class IngredientTable extends Component {
   }
 
   render() {
-    let { ingredients, per_page } = this.props;
+    let { ingredients, per_page, permissions, currentUserId, currentUserRoleId } = this.props;
     let { deleteShow, id } = this.state;
     var empty_rows = []
-    for(let i = 0; i < parseInt(per_page) - ingredients.length; i++){
+    for(let i = 0; i < per_page - ingredients.length; i++){
       empty_rows.push(i);
     }
     return (
@@ -49,8 +50,8 @@ export class IngredientTable extends Component {
           </tr>
         </thead>
         <tbody>
-        { ingredients.map( (ingredient, position) =>
-        <IngredientTableRow ingredient = {ingredient} position = {position} key = {ingredient.id} handleOpen={this.handleOpen}/>
+        { ingredients.map( (ingredient) =>
+          <IngredientTableRow ingredient = {ingredient} key = {ingredient.id} handleOpen={this.handleOpen} permissions ={permissions} currentUserId = {currentUserId} currentUserRoleId = {currentUserRoleId}/>
           )}
         { empty_rows.map( (row, position) =>
           <tr key = {position}>

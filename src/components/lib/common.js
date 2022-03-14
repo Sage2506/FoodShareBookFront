@@ -1,6 +1,8 @@
 import { raiseError } from '../../actions/error';
+import { IPagination } from '../../interfaces/common';
+import { IPermissions } from '../../interfaces/permission_types';
 
-export function buildImageSecureUrl (image) {
+export function buildImageSecureUrl (image ) {
   if ( image === undefined || image === null || image ==="" ){
     return ''
   } else {
@@ -10,7 +12,7 @@ export function buildImageSecureUrl (image) {
   }
 }
 
-export async function uploadImage(image) {
+export async function uploadImage(image ) {
   let url = `https://api.cloudinary.com/v1_1/dbo96sjb/upload`;
   let xhr = new XMLHttpRequest();
   let fd = new FormData();
@@ -36,7 +38,7 @@ export async function uploadImage(image) {
 }
 
 export function paginate(totalItems, currentPage = 1 , pageSize = 10, maxPages = 10, links){
-  let result = {}
+  let result;
   let totalPages = Math.ceil(totalItems / pageSize);
   // ensure current page isn't out of range
   if (currentPage < 1) {
@@ -79,45 +81,54 @@ export function paginate(totalItems, currentPage = 1 , pageSize = 10, maxPages =
 
   // return object with all pager properties required by the view
   result = {
-      totalItems: totalItems,
+      arrows : extractLinksPages(links),
       currentPage: currentPage,
-      pageSize: pageSize,
-      totalPages: totalPages,
-      startPage: startPage,
-      endPage: endPage,
-      startIndex: startIndex,
       endIndex: endIndex,
+      endPage: endPage,
       pages: pages,
-      arrows : extractLinksPages(links)
+      pageSize: pageSize,
+      startIndex: startIndex,
+      startPage: startPage,
+      totalItems: totalItems,
+      totalPages: totalPages,
   };
 
   return result;
 }
 
-function extractPageNumber(link){
+export const paginateHeaders = headers => 
+  paginate(
+  parseInt(headers['pagination-total']),
+  parseInt(headers['pagination-page']),
+  parseInt(headers['pagination-per-page']),
+  undefined,
+  headers['link']
+);
+
+
+function extractPageNumber(link ){
   let page_index = link.indexOf('page=');
   let greater_than_index = link.indexOf('&per_page')
   let page = link.substring(page_index+5,greater_than_index);
   return page;
 }
 
-function extractLinkRef(link) {
+function extractLinkRef(link ) {
   let page_index = link.indexOf('rel="');
   let greater_than_index = link.length - 1
   let page = link.substring(page_index+5,greater_than_index);
   return page;
 }
 
-export function extractLinksPages(links = ''){
-  let pages = {};
-
-  links = links.split(',');
-  links.forEach(link => {
+export function extractLinksPages(links  = ''){
+  let pages  = {};
+  const linksArray= links.split(',');
+  linksArray.forEach(link => {
     pages[extractLinkRef(link)] = extractPageNumber(link)
   });
   return pages;
 }
-
+/*
 export function urlGetParam(param, link) {
   let result = '';
   let startIndex = link.indexOf(param)
@@ -131,12 +142,14 @@ export function urlGetParam(param, link) {
   }
   return result;
 }
-
+ */
 export const showError = (error) => {
   let {response} = error;
   let message = ''
-  if(response === undefined){
-    message = "Sin conexion a internet";
+  if(typeof error === 'string'){
+    message = error
+  } else if(response === undefined){
+    message = error.toString();
   } else {
     switch( response.status ){
       case 404: message = "Ruta no encontrada";

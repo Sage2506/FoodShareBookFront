@@ -1,13 +1,20 @@
 import { GET_MEASURES } from "../actions/measure";
 
+
 const initialMeasureState = {
-  measures: []
+  measures: [],
+  pagination: {
+    pages: [],
+    arrows: {},
+  },
+  measure: undefined,
+  newMeasure: undefined
 }
 
-export const measureReducer = (state = initialMeasureState, action) => {
+export const measureReducer = (state = initialMeasureState, action ) => {
   switch(action.type){
     case GET_MEASURES:
-      return {...state, measures: action.measures}
+      return {...state, measures: action.measures, pagination: action.pagination, measure: undefined }
     default:
       return state
   }

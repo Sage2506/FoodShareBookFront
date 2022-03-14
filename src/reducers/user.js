@@ -1,23 +1,41 @@
-import { LOG_IN, LOG_OUT, GET_USERS, SET_CURRENT_USER, SET_USER } from "../actions/user";
+import { LOG_IN, LOG_OUT, GET_USERS, SET_CURRENT_USER, SET_USER, SET_USER_PERMISSIONS, SET_CURRENT_USER_PERMISSIONS } from "../actions/user";
+import IUser from "../interfaces/users";
 
-const initialUserState = {
+interface IUserState {
+  current_user : IUser,
+  user : IUser,
+  authenticated: boolean,
+  users: IUser[],
+  pagination: {
+    pages: [],
+    arrows: { arrow : string }
+  }
+}
+
+const initialUserState : IUserState = {
     current_user: {
-      id:null,
+      id: 0,
       dishes_ids: [],
-      email:null,
-      role_id:null,
+      email: "",
+      role_id: 0,
       permissions: []
     },
-    user: {},
+    user: {
+      id: 0,
+      dishes_ids: [],
+      email: "",
+      role_id: 0,
+      permissions: []
+    },
     authenticated: false,
     users: [],
     pagination: {
       pages: [],
-      arrows: {},
+      arrows: { arrow: "" },
     }
 }
 
-export const userReducer = ( state = initialUserState, action ) => {
+export const userReducer = ( state = initialUserState, action: any ) => {
   switch(action.type){
       case LOG_IN:
         return {
@@ -37,13 +55,29 @@ export const userReducer = ( state = initialUserState, action ) => {
       case SET_USER:
         return {
           ...state,
-          user: action.user
+          user: {...state.user,...action.user}
         }
       case SET_CURRENT_USER:
         return {
           ...state,
-          current_user: action.user
+          current_user: {...action.user, permissions: []}
         }
+      case SET_USER_PERMISSIONS:
+        return {
+          ...state,
+          user : {
+            ...state.user,
+            permissions : action.permissions
+          }
+        }
+      case SET_CURRENT_USER_PERMISSIONS:
+      return {
+        ...state,
+        current_user : {
+          ...state.current_user,
+          permissions : action.permissions
+        }
+      }
       default:
         return state;
   }
