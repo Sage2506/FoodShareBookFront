@@ -1,5 +1,6 @@
 import { IDish } from "./interfaces/dishes";
 import { IIngredients } from "./interfaces/ingredients";
+import { IMeasure } from "./interfaces/measure";
 
 export const dishObject : IDish = {
     name: "",
@@ -12,9 +13,15 @@ export const dishObject : IDish = {
 }
 
 export const ingredientObject : IIngredients = {
-    id: undefined,
+    id: 0,
     name: "",
     description: "",
     image: "",
     measures: []
+}
+
+export const measureObject : IMeasure = {
+    id : 0,
+    name : "Cargando medida..",
+    group : ""
 }

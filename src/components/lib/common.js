@@ -96,6 +96,16 @@ export function paginate(totalItems : number, currentPage: number = 1 , pageSize
   return result;
 }
 
+export const paginateHeaders = headers =>    
+    paginate(
+    parseInt(headers['pagination-total']),
+    parseInt(headers['pagination-page']),
+    parseInt(headers['pagination-per-page']),
+    undefined,
+    headers['link']
+  );
+
+
 function extractPageNumber(link : string){
   let page_index = link.indexOf('page=');
   let greater_than_index = link.indexOf('&per_page')

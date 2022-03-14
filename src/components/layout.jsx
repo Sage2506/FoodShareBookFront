@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, Container, Modal, Button } from "react-bootstrap";
 import { connect } from "react-redux";
-import { get_measures } from "../services/measure_requests";
 import { login, logout } from "../actions/user";
 import { clearError } from '../actions/error';
 import { IndexLinkContainer } from "react-router-bootstrap";
@@ -9,6 +8,8 @@ import {Cookies} from 'react-cookie';
 import LoginHOC from "./users/login_hoc";
 import { api } from "../services/foodsharebook_api";
 import { getCurrentUserData } from '../services/user_requests';
+import { getAndSendAction } from '../services/common_requests';
+import { getMeasures, setMeasuresAndPaginate } from '../actions/measure';
 
 export class Layout extends Component {
 
@@ -92,8 +93,8 @@ const mapStateToProps = store => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    get_measures: () => {
-      dispatch(get_measures())
+    get_measures: params => {
+      dispatch(getAndSendAction ({path:"measures", action: setMeasuresAndPaginate , params : { page : 1, per_page : 10, ...params} } ))
     },
     user_login: () => {
       dispatch(login());
