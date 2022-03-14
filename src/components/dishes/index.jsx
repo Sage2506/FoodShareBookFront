@@ -8,6 +8,8 @@ import { DishTable } from './table';
 import { FloatingActionButtonPlus } from '../common/floating_action_button';
 import { getCurrentUserPermissionByType } from '../../services/permissions_type_requests';
 import { updatePermissions } from '../../lib/common';
+import { getAndSendAction } from '../../services/common_requests';
+import { setDishesAndPagination } from '../../actions/dish';
 
 export class DishesIndex extends Component {
   constructor(props){
@@ -97,8 +99,12 @@ const mapStateToProps = (store ) => {
 
 const mapDispatchToProps = (dispatch ) => {
   return {
-      getDishes: (page = 1, per_page = 10) => {
-          dispatch(get_dishes(page, per_page))
+      getDishes: (params) => {
+          dispatch( getAndSendAction({
+            path:"dishes", 
+            action: setDishesAndPagination , 
+            params : { page : 1, per_page : 10, ...params} 
+          }))
       },
       clearError: () => {
           dispatch(clearError())

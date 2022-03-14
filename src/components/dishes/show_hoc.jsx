@@ -4,6 +4,7 @@ import { get_dish } from "../../services/dish_requests";
  import { DishShow } from "./show";
  import { buildImageSecureUrl } from "../lib/common";
 import { dishObject } from '../../models';
+import { getDish } from '../../actions/dish';
  export class DishShowHOC extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +43,10 @@ import { dishObject } from '../../models';
 const mapDispatchToProps = (dispatch  ) => {
   return {
       getDish: (id ) => {
-          dispatch(get_dish(id))
+        dispatch( getAndSendAction({
+          path : `dishes/${id}`,
+          action : getDish
+        }) )
       }
   }
 }

@@ -2,7 +2,7 @@ import { raiseError } from '../../actions/error';
 import { IPagination } from '../../interfaces/common';
 import { IPermissions } from '../../interfaces/permission_types';
 
-export function buildImageSecureUrl (image : string) {
+export function buildImageSecureUrl (image ) {
   if ( image === undefined || image === null || image ==="" ){
     return ''
   } else {
@@ -12,7 +12,7 @@ export function buildImageSecureUrl (image : string) {
   }
 }
 
-export async function uploadImage(image : string) {
+export async function uploadImage(image ) {
   let url = `https://api.cloudinary.com/v1_1/dbo96sjb/upload`;
   let xhr = new XMLHttpRequest();
   let fd = new FormData();
@@ -37,8 +37,8 @@ export async function uploadImage(image : string) {
   xhr.send(fd);
 }
 
-export function paginate(totalItems : number, currentPage: number = 1 , pageSize : number = 10, maxPages : number = 10, links: string){
-  let result : IPagination;
+export function paginate(totalItems, currentPage = 1 , pageSize = 10, maxPages = 10, links){
+  let result;
   let totalPages = Math.ceil(totalItems / pageSize);
   // ensure current page isn't out of range
   if (currentPage < 1) {
@@ -47,8 +47,8 @@ export function paginate(totalItems : number, currentPage: number = 1 , pageSize
       currentPage = totalPages;
   }
 
-  let startPage : number;
-  let endPage : number;
+  let startPage;
+  let endPage;
   if (totalPages <= maxPages) {
       // total pages less than max so show all pages
       startPage = 1;
@@ -96,33 +96,35 @@ export function paginate(totalItems : number, currentPage: number = 1 , pageSize
   return result;
 }
 
-export const paginateHeaders = headers =>    
-    paginate(
-    parseInt(headers['pagination-total']),
-    parseInt(headers['pagination-page']),
-    parseInt(headers['pagination-per-page']),
-    undefined,
-    headers['link']
-  );
+export function paginateHeaders(headers){
+  console.log("headers", headers)
+  return paginate(
+  parseInt(headers['pagination-total']),
+  parseInt(headers['pagination-page']),
+  parseInt(headers['pagination-per-page']),
+  undefined,
+  headers['link']
+);
+}    
 
 
-function extractPageNumber(link : string){
+function extractPageNumber(link ){
   let page_index = link.indexOf('page=');
   let greater_than_index = link.indexOf('&per_page')
   let page = link.substring(page_index+5,greater_than_index);
   return page;
 }
 
-function extractLinkRef(link : string) {
+function extractLinkRef(link ) {
   let page_index = link.indexOf('rel="');
   let greater_than_index = link.length - 1
   let page = link.substring(page_index+5,greater_than_index);
   return page;
 }
 
-export function extractLinksPages(links : string = ''){
-  let pages : { [key : string] : string } = {};
-  const linksArray : string[] = links.split(',');
+export function extractLinksPages(links  = ''){
+  let pages  = {};
+  const linksArray= links.split(',');
   linksArray.forEach(link => {
     pages[extractLinkRef(link)] = extractPageNumber(link)
   });
@@ -143,11 +145,13 @@ export function urlGetParam(param, link) {
   return result;
 }
  */
-export const showError = (error : any) => {
+export const showError = (error) => {
   let {response} = error;
   let message = ''
-  if(response === undefined){
-    message = "Sin conexion a internet";
+  if(typeof error === 'string'){
+    message = error
+  } else if(response === undefined){
+    message = error.toString();
   } else {
     switch( response.status ){
       case 404: message = "Ruta no encontrada";

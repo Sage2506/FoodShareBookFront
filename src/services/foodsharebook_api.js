@@ -7,4 +7,5 @@ export const api = axios.create({
   }
 })
 
+export const api_get = args => api.get(`${args.path}?${ args.params ? new URLSearchParams(args.params).toString() : '' }`)
 export default api;

@@ -2,12 +2,12 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { default as Pagination } from '../common/pagination';
 import MeasuresTable from './table';
-import { getMeasures, setMeasuresAndPaginate } from '../../actions/measure';
-import { getAllAndPaginate } from '../../services/common_requests';
+import { setMeasuresAndPaginate } from '../../actions/measure';
+import { getAllAndPaginate, getAndSendAction } from '../../services/common_requests';
 
 export class MeasuresTableHOC extends Component {
   componentDidMount() {
-    //this.props.getAllMeasures()
+    this.props.getMeasures()
    }
 
   render (  ) {
@@ -30,8 +30,12 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    getAllMeasures : (params) =>{
-      dispatch( getAndSendAction(  {path:"measures", action: setMeasuresAndPaginate , params : { page : 1, per_page : 10, ...params} } ))
+    getMeasures : (params) =>{
+      dispatch( getAndSendAction ({
+          path:"measures", 
+          action: setMeasuresAndPaginate , 
+          params : { page : 1, per_page : 10, ...params} 
+        }))
     }
   }
 }
