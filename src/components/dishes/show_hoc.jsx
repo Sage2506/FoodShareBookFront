@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { DishShow } from "./show";
 import { buildImageSecureUrl } from "../lib/common";
 import { dishObject } from '../../models';
-import { getDish } from '../../actions/dish';
+import { setDish } from '../../actions/dish';
 import { getAndSendAction } from '../../services/common_requests';
  export class DishShowHOC extends Component {
   constructor(props) {
@@ -45,7 +45,7 @@ const mapDispatchToProps = (dispatch  ) => {
       getDish: id => {
         dispatch( getAndSendAction ({
           path : `dishes/${id}`,
-          action : getDish
+          action : setDish
         }) )
       }
   }

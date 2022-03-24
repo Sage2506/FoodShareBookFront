@@ -3,12 +3,12 @@ import RoleShow from './show';
 import { connect } from 'react-redux';
 import { getAndSendAction } from '../../services/common_requests';
 import { setRoles } from '../../actions/role';
-// import { convertPermisionStringToList } from '../../lib/common';
+import { getRole } from '../../services/role_requests';
 
 export class RoleShowHOC extends Component {
 
   componentDidMount() {
-    this.props.getRole(this.props.match.params.id)
+    //this.props.getRole(this.props.match.params.id)
   }
 
 
@@ -29,10 +29,7 @@ const mapStateToProps = ( store ) => ({
 
 const mapDistpatchToProps = ( dispatch ) => ({
   getRole: (id) => {
-    dispatch( getAndSendAction({
-      path:`roles`,
-      action: setRoles
-    }))
+    dispatch( getRole(id))
   }
 })
 

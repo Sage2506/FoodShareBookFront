@@ -4,12 +4,12 @@ export const DELETE_DISH = 'DELETE_DISH';
 export const GET_DISH = 'GET_DISH';
 export const ADD_DISH = 'ADD_DISH';
 // Action Creators
-export const deleteDish = ( id  ) => ({
+export const removeDish = ( id  ) => ({
   type: DELETE_DISH,
   id,
 });
 
-export const getDish = data => ({
+export const setDish = data => ({
   type: GET_DISH,
   dish: data,
 });

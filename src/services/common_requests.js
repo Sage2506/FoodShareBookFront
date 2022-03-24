@@ -1,4 +1,4 @@
-import { api, api_get } from './foodsharebook_api';
+import { api, api_delete, api_get } from './foodsharebook_api';
 import { paginateHeaders,showError } from "../components/lib/common"
 
 export const getAndSendAction = args => {
@@ -9,14 +9,29 @@ export const getAndSendAction = args => {
         try {
             const response = await api_get(args)
             const {data, headers} = response
-            if(args.params && args.params.page && args.params.per_page){ 
+            if(args.params && args.params.page && args.params.per_page){
                 dispatch( action( data, paginateHeaders(headers) ))
-             } else {
-                dispatch( action( data ))
-             }
+            } else {
+            dispatch( action( data ))
+            }
         } catch (error) {
-            console.log(error)
             dispatch(showError(error))
+        }
+    }
+}
+
+export const deleteAndSendAction = args => {
+    if( !args.path ) { return dispatch(showError("No path provided"))}
+    if( !args.action ) { return dispatch(showError("No action provided"))}
+    if( !args.id ) { return dispatch(showError("No object id provided"))}
+    const { action } = args
+    return async dispatch => {
+        try {
+            const response = await api_delete(args)
+            const { data } = response
+            dispatch( action(data) )
+        } catch (error) {
+            dispatch( showError(error) )
         }
     }
 }

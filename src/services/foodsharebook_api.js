@@ -8,4 +8,7 @@ export const api = axios.create({
 })
 
 export const api_get = args => api.get(`${args.path}?${ args.params ? new URLSearchParams(args.params).toString() : '' }`)
+
+export const api_delete = args => api.delete(`${args.path}/${args.id}`)
+
 export default api;
