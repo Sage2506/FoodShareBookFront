@@ -1,21 +1,21 @@
-export const GET_INGREDIENTS = 'GET_INGREDIENTS'
-export const GET_INGREDIENT = 'GET_INGREDIENT'
+export const SET_INGREDIENTS = 'SET_INGREDIENTS'
+export const SET_INGREDIENT = 'SET_INGREDIENT'
 export const ADD_INGREDIENT = 'ADD_INGREDIENT'
 export const UPDATE_INGREDIENT = 'UPDATE_INGREDIENT'
 export const DELETE_INGREDIENT = 'DELETE_INGREDIENT'
 
-export const getIngredients = (data, pagination) => {
+export const setIngredients = (data, pagination) => {
   return {
-    type : GET_INGREDIENTS,
+    type : SET_INGREDIENTS,
     ingredients: data,
     pagination: pagination,
   }
 }
 
-export const getIngredient =  response => {
+export const setIngredient =  data => {
   return {
-    type : GET_INGREDIENT,
-    ingredient : response.data
+    type : SET_INGREDIENT,
+    ingredient : data
   }
 }
 

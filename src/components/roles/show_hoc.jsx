@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import RoleShow from './show';
 import { connect } from 'react-redux';
-import { getAndSendAction } from '../../services/common_requests';
-import { setRoles } from '../../actions/role';
 import { getRole } from '../../services/role_requests';
 
 export class RoleShowHOC extends Component {

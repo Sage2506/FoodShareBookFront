@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { deleteDish, getDishes } from "../../services/dish_requests";
 import { clearError } from '../../actions/error';
@@ -23,7 +23,7 @@ export class DishesIndex extends Component {
   }
 
   componentDidMount() {
-    let { getDishes, pagination, getCurrentUserPermissionsByType, currentUser  } = this.props;
+    let { getDishes, pagination, getCurrentUserPermissionsByType  } = this.props;
     getDishes(pagination.currentPage);
     getCurrentUserPermissionsByType();
   }
@@ -47,7 +47,7 @@ export class DishesIndex extends Component {
   render() {
     let { pagination , getDishes, dishes, currentUser } = this.props;
     let {show, permissions } = this.state;
-    let newPermissions = {}
+    //let newPermissions = {}
 
     return (
       <div>

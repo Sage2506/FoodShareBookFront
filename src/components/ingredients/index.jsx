@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { get_ingredients, destroy_ingredient } from "../../services/ingredient_requests";
+import {  destroy_ingredient } from "../../services/ingredient_requests";
 import { IngredientTable } from './table';
 import { FloatingActionButtonPlus } from '../common/floating_action_button';
 import { default as Pagination } from '../common/pagination';
-import { IPagination } from '../../interfaces/common';
-import { IIngredients } from '../../interfaces/ingredients';
 import { getCurrentUserPermissionByType } from '../../services/permissions_type_requests';
-import { mapPermissions } from '../lib/common';
 import { updatePermissions } from '../../lib/common';
-import { getIngredients } from '../../actions/ingredient';
-import { getAndSendAction } from '../../services/common_requests';
-
+import { getIngredients } from "../../services/ingredient_requests";
 export class IngredientsIndex extends Component {
   constructor(props) {
     super(props)
@@ -20,7 +15,7 @@ export class IngredientsIndex extends Component {
     }
   }
   componentDidMount() {
-    let { getIngredients, pagination, currentUser } = this.props;
+    let { getIngredients, pagination } = this.props;
     getIngredients(pagination.currentPage);
     this.props.getCurrentUserPermissionsByType();
   }
@@ -70,11 +65,7 @@ const mapStateToProps = (store) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getIngredients: (params) =>{
-    dispatch( getAndSendAction ({
-        path:"ingredients", 
-        action: getIngredients , 
-        params : { page : 1, per_page : 10, ...params} 
-      }))
+    dispatch( getIngredients(params))
   },
   deleteIngredient: (id) => {
     dispatch(destroy_ingredient(id));

@@ -1,7 +1,6 @@
 import { api } from "./foodsharebook_api";
 import { setDish, postDish, setDishesAndPagination, removeDish } from "../actions/dish";
-import { paginate, showError } from '../components/lib/common';
-import { IDish } from "../interfaces/dishes";
+import { showError } from '../components/lib/common';
 import { deleteAndSendAction, getAndSendAction } from "./common_requests";
 
 const path = 'dishes';

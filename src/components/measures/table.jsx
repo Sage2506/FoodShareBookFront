@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { MeasuresTableRowHOC } from './table_row_hoc'
-import { Table, Modal, Button} from "react-bootstrap";
+import { Table } from "react-bootstrap";
 export default class MeasuresTable extends Component {
   render() {
     const { measures } = this.props

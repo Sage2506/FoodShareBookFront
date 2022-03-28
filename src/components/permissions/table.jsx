@@ -5,7 +5,7 @@ import PermissionsTableRowHOC from './table_row_hoc';
 export class PermissionsTable extends Component {
 
   componentDidMount() {
-    const { permissions, deleteShow, deleteId } = this.props
+    //const { permissions, deleteShow, deleteId } = this.props
   }
 
   render() {

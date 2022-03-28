@@ -1,10 +1,8 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { getMeasures } from '../../services/measure_request';
 import { default as Pagination } from '../common/pagination';
 import MeasuresTable from './table';
-import { setMeasuresAndPaginate } from '../../actions/measure';
-import { getAndSendAction } from '../../services/common_requests';
-
 export class MeasuresTableHOC extends Component {
   componentDidMount() {
     this.props.getMeasures()
@@ -31,11 +29,7 @@ const mapStateToProps = store => ({
 const mapDispatchToProps = dispatch => {
   return {
     getMeasures : params =>{
-      dispatch( getAndSendAction ({
-          path:"measures", 
-          action: setMeasuresAndPaginate , 
-          params : { page : 1, per_page : 10, ...params} 
-        }))
+      dispatch( getMeasures(params) )
     }
   }
 }

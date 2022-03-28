@@ -1,7 +1,6 @@
 import axios from "axios";
-import { IPermissions } from "../interfaces/permission_types";
 
-export const uploadImageToCloudinaryNotWorking = (image: any, folder: string, public_id: string = '') => {
+export const uploadImageToCloudinaryNotWorking = (image, folder, public_id = '') => {
   let url = `https://api.cloudinary.com/v1_1/dbo96sjb/upload`;
   let xhr = new XMLHttpRequest();
   let fd = new FormData();
@@ -32,8 +31,8 @@ export const uploadImageToCloudinaryNotWorking = (image: any, folder: string, pu
   xhr.send(fd);
 }
 
-export const uploadImageToCloudinary = (image: any, folder: string, public_id = '') => {
-  const parameters : any = {
+export const uploadImageToCloudinary = (image, folder, public_id = '') => {
+  const parameters  = {
     tags: "browser_upload",
     upload_preset: "rfsb_images",
     api_key: "757447362712211",
@@ -48,24 +47,22 @@ export const uploadImageToCloudinary = (image: any, folder: string, public_id = 
     parameters)
 }
 
-export const convertPermisionStringToList = (permission: any) => {
+export const convertPermisionStringToList = (permission) => {
 
   if (permission.list !== undefined && permission.list !== null && permission.list !== '' && permission.list !== [] && permission.list.length > 0) {
-    permission.list = permission.list.split(',').filter((id: string) => id !== '').map((id: string) => parseInt(id))
+    permission.list = permission.list.split(',').filter((id) => id !== '').map((id) => parseInt(id))
   } else {
     permission.list = []
   }
 }
 
-export const updatePermissions = (that : any) => {
+export const updatePermissions = (that ) => {
   that.setState({permissions : mapPermissions(that.props.currentUser.permissions)})
 }
 
-function mapPermissions(permissions : IPermissions[]){
-  let newPermissions : {
-    [key: string] : boolean
-  } = {}
-  permissions.forEach((permission : IPermissions )=> {
+function mapPermissions(permissions ){
+  let newPermissions = {}
+  permissions.forEach((permission )=> {
     newPermissions[permission.name] = true
   })
   return newPermissions;

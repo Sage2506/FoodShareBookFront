@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { ListGroup, Image } from "react-bootstrap";
 
 import DishIngredientListItemHoc from '../dish_ingredients/list_item_hoc';
-import { IDish } from '../../interfaces/dishes';
-export class DishShow extends Component<IDish> {
+export class DishShow extends Component {
   render() {
     const {
       id,

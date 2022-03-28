@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { UsersIndex } from "./index";
-import { getAllUsers } from '../../services/user_requests';
 import { connect } from 'react-redux';
 import { getAndSendAction } from '../../services/common_requests';
 import { getUsers } from '../../actions/user';

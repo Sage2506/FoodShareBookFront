@@ -1,10 +1,8 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { get_ingredients_search } from "../../services/ingredient_requests";
 import { ListGroup } from "react-bootstrap";
 import ReactAutosuggest from "./autosuggest";
-import { getAndSendAction } from '../../services/common_requests';
-import { getIngredients } from '../../actions/ingredient';
+import { getIngredients } from '../../services/ingredient_requests';
 
 export class ReactAutosuggestHOC extends Component {
   constructor(props) {
@@ -12,15 +10,15 @@ export class ReactAutosuggestHOC extends Component {
     this.state = {
       value: '',
       suggestions: []
-    };    
+    };
   }
-  
+
   getSuggestionValue = suggestion => {
-    
+
     return suggestion.name;
   }
 
-  onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => {    
+  onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => {
     if (method === 'enter') {
       event.preventDefault();
     }
@@ -36,7 +34,7 @@ export class ReactAutosuggestHOC extends Component {
     );
   }
 
-  onChange = (event, { newValue, method }) => {     
+  onChange = (event, { newValue, method }) => {
       this.setState({
         value: this.escapeRegexCharacters(newValue)
       });
@@ -50,7 +48,7 @@ export class ReactAutosuggestHOC extends Component {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
-  onSuggestionsFetchRequested = ({ value }) => {  
+  onSuggestionsFetchRequested = ({ value }) => {
     this.props.get_items({'q[name_cont]': value.trim()})
   };
 
@@ -64,7 +62,7 @@ export class ReactAutosuggestHOC extends Component {
       value,
       onKeyDown: this.onKeyDown,
       onChange: this.onChange
-    };    
+    };
 
     let { items } = this.props;
 
@@ -90,14 +88,7 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return {
     get_items: params => {
-      dispatch( getAndSendAction({
-        path:'ingredients',
-        action:getIngredients,
-        params : {
-          per_page: 10,
-          ...params
-        }
-      }))},
+      dispatch( getIngredients(params) )},
     }
 }
 

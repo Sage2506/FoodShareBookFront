@@ -19,12 +19,12 @@ export class DishTableRow extends Component {
             <LinkContainer to={'/dishes/' + id}>
               <Button variant="primary" title="Detalles"><i className="fas fa-info-circle"></i></Button>
             </LinkContainer>
-            {(currentUserRoleId == 1 || (currentUserId === user_id && permissions.edit)) &&
+            {(currentUserRoleId === 1 || (currentUserId === user_id && permissions.edit)) &&
               <LinkContainer to={'/dishes/edit/' + id}>
                 <Button variant="info" title="Editar"><i className="far fa-edit"></i></Button>
               </LinkContainer>
             }
-            {( currentUserRoleId == 1 || ( currentUserId === user_id && permissions.delete)) &&
+            {( currentUserRoleId === 1 || ( currentUserId === user_id && permissions.delete)) &&
               <Button variant="danger" title="Borrar" onClick={() => handleOpen(id)}><i className="far fa-trash-alt"></i></Button>
             }
           </ButtonToolbar>

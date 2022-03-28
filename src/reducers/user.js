@@ -1,18 +1,6 @@
 import { LOG_IN, LOG_OUT, GET_USERS, SET_CURRENT_USER, SET_USER, SET_USER_PERMISSIONS, SET_CURRENT_USER_PERMISSIONS } from "../actions/user";
-import IUser from "../interfaces/users";
 
-interface IUserState {
-  current_user : IUser,
-  user : IUser,
-  authenticated: boolean,
-  users: IUser[],
-  pagination: {
-    pages: [],
-    arrows: { arrow : string }
-  }
-}
-
-const initialUserState : IUserState = {
+const initialUserState  = {
     current_user: {
       id: 0,
       dishes_ids: [],
@@ -35,7 +23,7 @@ const initialUserState : IUserState = {
     }
 }
 
-export const userReducer = ( state = initialUserState, action: any ) => {
+export const userReducer = ( state = initialUserState, action ) => {
   switch(action.type){
       case LOG_IN:
         return {

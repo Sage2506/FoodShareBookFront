@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { DishForm } from "./form";
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';

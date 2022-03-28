@@ -13,7 +13,7 @@ export interface IDish {
     name: string;
     description: string;
     recipe: string;
-    image?: any;
+    image?: string;
     dish_ingredients?: DishIngredient[];
     ingredients?: IIngredients[];
     user_id?: number;

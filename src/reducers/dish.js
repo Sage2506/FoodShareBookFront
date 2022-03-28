@@ -1,7 +1,5 @@
 
 import { GET_DISH, GET_DISHES, DELETE_DISH, ADD_DISH } from "../actions/dish";
-import { IPagination } from "../interfaces/common";
-import { IDish } from "../interfaces/dishes";
 
 const initialDishState = {
   dishes: [],

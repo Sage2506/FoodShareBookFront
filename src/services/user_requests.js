@@ -1,21 +1,22 @@
 import {Cookies} from 'react-cookie';
 import { api } from './foodsharebook_api';
-import { login, setCurrentUser, setUser, logout, setUserPermissions } from '../actions/user';
-import { paginate, showError } from '../components/lib/common';
+import { login, setCurrentUser } from '../actions/user';
+import { showError } from '../components/lib/common';
+import { getAndSendAction } from './common_requests';
 
-const Path = 'users';
+const path = 'users';
 
 export const logIn = (user, rememberMe ) => {
   return async ( dispatch ) => {
     try {
-      let response = await api.post(`users/login`, user);
+      let response = await api.post(`${path}/login`, user);
       if(response.status === 200 ){
         if(rememberMe){
           const cookies = new Cookies();
           cookies.set('Authorization', response.data.auth_token, { path: '/' , maxAge: 31536000});
         }
         api.defaults.headers.common['Authorization'] = response.data.auth_token;
-        response = await api.get(`users/current_user_data`);
+        response = await api.get(`${path}/current_user_data`);
         const { status, data } = response
         if( status === 200){
           dispatch(setCurrentUser(data))
@@ -31,6 +32,13 @@ export const logIn = (user, rememberMe ) => {
       throw (error)
     }
   }
+}
+
+export const getUserData = () => {
+  return getAndSendAction ({
+    path : `${path}/current_user_data`,
+    action: setCurrentUser
+  })
 }
 
 export default logIn;

@@ -1,6 +1,4 @@
 import { raiseError } from '../../actions/error';
-import { IPagination } from '../../interfaces/common';
-import { IPermissions } from '../../interfaces/permission_types';
 
 export function buildImageSecureUrl (image ) {
   if ( image === undefined || image === null || image ==="" ){
@@ -96,7 +94,7 @@ export function paginate(totalItems, currentPage = 1 , pageSize = 10, maxPages =
   return result;
 }
 
-export const paginateHeaders = headers => 
+export const paginateHeaders = headers =>
   paginate(
   parseInt(headers['pagination-total']),
   parseInt(headers['pagination-page']),

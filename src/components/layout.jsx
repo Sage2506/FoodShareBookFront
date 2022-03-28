@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, Container, Modal, Button } from "react-bootstrap";
 import { connect } from "react-redux";
-import { login, logout, setCurrentUser } from "../actions/user";
+import { login, logout } from "../actions/user";
 import { clearError } from '../actions/error';
 import { IndexLinkContainer } from "react-router-bootstrap";
 import {Cookies} from 'react-cookie';
 import LoginHOC from "./users/login_hoc";
 import { api } from "../services/foodsharebook_api";
-import { getAndSendAction } from '../services/common_requests';
-import { getMeasures, setMeasuresAndPaginate } from '../actions/measure';
+import { getMeasures } from '../services/measure_request';
+import { getUserData } from '../services/user_requests';
 
 export class Layout extends Component {
 
@@ -93,7 +93,7 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return {
     get_measures: params => {
-      dispatch( getAndSendAction ({path:"measures", action: setMeasuresAndPaginate , params : { page : 1, per_page : 10, ...params} } ))
+      dispatch( getMeasures(params) )
     },
     user_login: () => {
       dispatch(login());
@@ -104,11 +104,8 @@ const mapDispatchToProps = dispatch => {
     clearError: () => {
       dispatch(clearError())
     },
-    loadUserData: () => { 
-      dispatch( getAndSendAction ({
-        path:`users/current_user_data`,
-        action: setCurrentUser
-      }))
+    loadUserData: () => {
+      dispatch( getUserData())
     }
   }
 }

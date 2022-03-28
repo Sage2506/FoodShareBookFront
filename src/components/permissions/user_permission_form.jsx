@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import IPermissionType, { IPermissions } from '../../interfaces/permission_types';
 
 export class UserPermissionForm extends Component {
   handleCheckboxChance = e => {

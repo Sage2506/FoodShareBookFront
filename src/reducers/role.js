@@ -9,7 +9,7 @@ const initialRoleState = {
     }
 }
 
-export const roleReducer = ( state = initialRoleState, action : any ) => {
+export const roleReducer = ( state = initialRoleState, action  ) => {
   switch(action.type){
     case SET_ROLES:
       return {

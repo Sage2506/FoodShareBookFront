@@ -1,19 +1,12 @@
 import { GET_PERMISSION_TYPE, GET_PERMISSION_TYPES, ADD_PERMISSION_TYPE, DELETE_PERMISSION_TYPE } from '../actions/permission_type';
-import IPermissionType from '../interfaces/permission_types';
 
-interface IPermissionTypeState {
-  permissionTypes : IPermissionType[],
-  permissionType : IPermissionType,
-  newPermissionType : IPermissionType
-}
-
-const initialPermissionTypeState : IPermissionTypeState = {
+const initialPermissionTypeState = {
   permissionTypes: [],
   permissionType: { id: -1 , name: '', permissions : [] } ,
   newPermissionType : { id: -1 , name: '', permissions : [] }
 }
 
-export const  permissionTypeReducer = ( state = initialPermissionTypeState, action: any ) => {
+export const  permissionTypeReducer = ( state = initialPermissionTypeState, action ) => {
   switch (action.type) {
     case GET_PERMISSION_TYPE:
       return {...state, permissionType: action.permissionType, newPermissionType: {}};

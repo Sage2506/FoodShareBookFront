@@ -6,10 +6,10 @@ import { setCurrentUserPermissions } from '../actions/user';
 const Path = "permission_types"
 
 export const getAllPermissionTypes = () => {
-  return async (dispatch : any) => {
+  return async (dispatch ) => {
     try {
       const response = await api.get(Path)
-      const { headers, data } = response
+      const { data } = response
       dispatch( getPermissionTypes(data) )
     } catch ( error ) {
       dispatch( showError(error) )
@@ -17,11 +17,11 @@ export const getAllPermissionTypes = () => {
   }
 }
 
-export const getCurrentUserPermissionByType = ( typeId : number) => {
-  return async (dispatch : any) => {
+export const getCurrentUserPermissionByType = ( typeId ) => {
+  return async (dispatch ) => {
     try {
       const response = await api.get(Path+`/`+typeId+`/current_user_permissions`)
-      const { headers, data } = response
+      const { data } = response
       dispatch( setCurrentUserPermissions(data) )
     } catch ( error ) {
       dispatch( showError(error) )

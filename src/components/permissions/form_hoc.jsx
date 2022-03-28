@@ -55,7 +55,7 @@ export class PermissionsFormHOC extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { permission } = this.state
-    const { name, description, role_id, permission_type_id } = permission
+    const { name, description, permission_type_id } = permission
     if( name === "" || name.includes(" ") || description === "" || permission_type_id === "-1" ){
       this.setState({
         formSubmited : true
