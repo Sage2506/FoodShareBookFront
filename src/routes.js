@@ -18,6 +18,7 @@ import PermissionsFormHOC from './components/permissions/form_hoc';
 import PermissionsShowHOC from './components/permissions/show_hoc';
 import MeasuresIndexHOC from './components/measures/index_hoc';
 import MeasuresShowHOC from "./components/measures/show_hoc";
+import MeasureFormHOC from './components/measures/form_hoc';
 //import { convertPermisionStringToList } from './lib/common';
 
 export class Routes extends Component {
@@ -34,6 +35,7 @@ export class Routes extends Component {
             <Route path="/ingredients/new" component={IngredientFormHOC}/>
             <Route path="/ingredients/:id" component={IngredientShowHOC}/>
             <Route path="/ingredients/" component={IngredientsIndex}/>
+            <Route path="/measures/edit/:id" component={MeasureFormHOC} />
             <Route path="/measures/:id" component={MeasuresShowHOC} />
             <Route path="/measures" component={MeasuresIndexHOC} />
             <Route path="/permissions/edit/:id" component={PermissionsFormHOC} />

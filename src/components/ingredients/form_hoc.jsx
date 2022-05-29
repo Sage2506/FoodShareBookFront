@@ -113,10 +113,8 @@ export class IngredientFormHOC extends Component {
   createOrUpdateIngredient = (ingredient) => {
     //check if going to create or update
     if (this.state.ingredient.id === undefined || this.state.ingredient.id === null) {
-      console.log(" create ingredient ")
       this.props.create_ingredient(ingredient)
     } else {
-      console.log(" update ingredient ")
       this.props.update_ingredient(this.state.ingredient.id, ingredient)
     }
   }
@@ -160,7 +158,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(post_ingredient(ingredient));
   },
   getIngredient: id => {
-    dispatch ( getIngredient(id))
+    dispatch(getIngredient(id))
   },
   update_ingredient: (id, ingredient) => {
     dispatch(put_ingredient(id, ingredient));

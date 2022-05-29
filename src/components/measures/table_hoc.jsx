@@ -14,6 +14,7 @@ export class MeasuresTableHOC extends Component {
       <div>
         <MeasuresTable
           measures={measures}
+          permissions={permissions}
         />
         <Pagination pagination={pagination} paginationRequest={getMeasures} />
         {permissions.create &&

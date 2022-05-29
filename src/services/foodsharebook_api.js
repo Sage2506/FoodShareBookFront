@@ -11,7 +11,7 @@ export const apiGet = args => api.get(`${args.path}?${ args.params ? new URLSear
 
 export const apiDelete = args => api.delete(`${args.path}/${args.id}`)
 
-export const apiPost = args => api.post(`${args.path}/`,args.data);
+export const apiPost = args => api.post(`${args.path}`,args.data);
 
 export const apiPut = args => api.put(`${args.path}/${args.id}`,args.data)
 
