@@ -2,7 +2,7 @@ import {Cookies} from 'react-cookie';
 import { api } from './foodsharebook_api';
 import { login, setCurrentUser } from '../actions/user';
 import { showError } from '../components/lib/common';
-import { getAndSendAction } from './common_requests';
+import { getAndDispatch } from './common_requests';
 
 const path = 'users';
 
@@ -35,7 +35,7 @@ export const logIn = (user, rememberMe ) => {
 }
 
 export const getUserData = () => {
-  return getAndSendAction ({
+  return getAndDispatch ({
     path : `${path}/current_user_data`,
     action: setCurrentUser
   })

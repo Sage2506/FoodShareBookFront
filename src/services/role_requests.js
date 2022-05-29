@@ -1,10 +1,10 @@
 import { setRole } from "../actions/role";
-import { getAndSendAction } from "./common_requests";
+import { getAndDispatch } from "./common_requests";
 
 const path = 'roles'
 
 export const getRole = id => {
-  return getAndSendAction({
+  return getAndDispatch({
     path : `${path}/${id}`,
     action: setRole
   })

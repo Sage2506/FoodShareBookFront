@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { setUser, setUserPermissions } from '../../actions/user';
-import { getAndSendAction } from '../../services/common_requests';
+import { getAndDispatch } from '../../services/common_requests';
 import { UserForm } from './form';
 
 export class UserFormHOC extends Component {
@@ -27,13 +27,13 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = dispatch => ({
   getUser: id  => {
-    dispatch( getAndSendAction ({
+    dispatch( getAndDispatch ({
       path:`users/${id}`,
       action: setUser
     }))
   },
   getUserPermissions: id => {
-    dispatch( getAndSendAction ({
+    dispatch( getAndDispatch ({
       path:`users/${id}/permissions`,
       action: setUserPermissions
     }))

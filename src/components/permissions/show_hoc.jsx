@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { getPermission } from '../../actions/permission';
-import { getAndSendAction } from '../../services/common_requests';
+import { getAndDispatch } from '../../services/common_requests';
 import PermissionShow from './show';
 
 export class PermissionsShowHOC extends Component {
@@ -24,7 +24,7 @@ const mapStateToProps = ( store ) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getPermission: id => {
-    dispatch(getAndSendAction({
+    dispatch(getAndDispatch({
       path:`permissions/${id}`,
       action: getPermission
     }))
