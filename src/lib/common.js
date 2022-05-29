@@ -32,7 +32,7 @@ export const uploadImageToCloudinaryNotWorking = (image, folder, public_id = '')
 }
 
 export const uploadImageToCloudinary = (image, folder, public_id = '') => {
-  const parameters  = {
+  const parameters = {
     tags: "browser_upload",
     upload_preset: "rfsb_images",
     api_key: "757447362712211",
@@ -56,13 +56,13 @@ export const convertPermisionStringToList = (permission) => {
   }
 }
 
-export const updatePermissions = (that ) => {
-  that.setState({permissions : mapPermissions(that.props.currentUser.permissions)})
+export const updatePermissions = (that) => {
+  that.setState({ permissions: mapPermissions(that.props.currentUser.permissions) })
 }
 
-function mapPermissions(permissions ){
+function mapPermissions(permissions) {
   let newPermissions = {}
-  permissions.forEach((permission )=> {
+  permissions.forEach((permission) => {
     newPermissions[permission.name] = true
   })
   return newPermissions;

@@ -14,9 +14,9 @@ export const setDish = data => ({
   dish: data,
 });
 
-export const postDish = (dish ) => ({
+export const addDish = data => ({
   type: ADD_DISH,
-  dish,
+  dish: data,
 });
 
 export const setDishesAndPagination = (data, pagination) => {

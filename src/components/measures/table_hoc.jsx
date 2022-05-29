@@ -6,16 +6,21 @@ import MeasuresTable from './table';
 export class MeasuresTableHOC extends Component {
   componentDidMount() {
     this.props.getMeasures()
-   }
+  }
 
-  render (  ) {
-    const { measures, pagination, getMeasures } = this.props
-    return(
+  render() {
+    const { measures, pagination, getMeasures, permissions } = this.props
+    return (
       <div>
         <MeasuresTable
-          measures = {measures}
+          measures={measures}
         />
-        <Pagination pagination = {pagination} paginationRequest = { getMeasures } />
+        <Pagination pagination={pagination} paginationRequest={getMeasures} />
+        {permissions.create &&
+          <FloatingActionButtonPlus
+            link='/dishes/new'
+          />
+        }
       </div>
     );
   }
@@ -28,10 +33,10 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    getMeasures : params =>{
-      dispatch( getMeasures(params) )
+    getMeasures: params => {
+      dispatch(getMeasures(params))
     }
   }
 }
 
-export default connect( mapStateToProps, mapDispatchToProps)(MeasuresTableHOC)
+export default connect(mapStateToProps, mapDispatchToProps)(MeasuresTableHOC)
