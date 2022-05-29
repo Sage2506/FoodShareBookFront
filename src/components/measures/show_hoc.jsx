@@ -6,8 +6,7 @@ import MeasureShow from './show';
 
 export class MeasureShowHOC extends Component {
   componentDidMount(){
-    console.log("Measure id: ",this.props.match.params.id)
-    console.log(this.props.measure);
+    this.props.getMeasure(this.props.match.params.id);
   }
   render (  ) {
     const { measure } = this.props
