@@ -36,6 +36,7 @@ export class Routes extends Component {
             <Route path="/ingredients/:id" component={IngredientShowHOC}/>
             <Route path="/ingredients/" component={IngredientsIndex}/>
             <Route path="/measures/edit/:id" component={MeasureFormHOC} />
+            <Route path="/measures/new" component={MeasureFormHOC} />
             <Route path="/measures/:id" component={MeasuresShowHOC} />
             <Route path="/measures" component={MeasuresIndexHOC} />
             <Route path="/permissions/edit/:id" component={PermissionsFormHOC} />

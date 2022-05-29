@@ -21,7 +21,8 @@ export const getMeasures = params => {
 export const postMeasure = data => {
     return postAndDispatch({
         path,
-        action: addMeasure
+        action: addMeasure,
+        data
     })
 }
 

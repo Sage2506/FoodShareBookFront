@@ -63,8 +63,8 @@ export class MeasureFormHOC extends Component {
   handleInputSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget
-    const { name } = this.state.measure
-    if (form.checkValidity() === false || name.length < 1) {
+    const { name, group, equivalent } = this.state.measure
+    if (form.checkValidity() === false || name.length < 1 || !group || equivalent === 0) {
       e.stopPropagation()
     } else {
       this.createOrUpdateMeasure();
@@ -75,6 +75,8 @@ export class MeasureFormHOC extends Component {
   createOrUpdateMeasure = () => {
     if (this.state.measure.id) {
       this.props.putMeasure({ id: this.state.measure.id, data: this.state.measure })
+    } else {
+      this.props.postMeasure(this.state.measure)
     }
   }
 
