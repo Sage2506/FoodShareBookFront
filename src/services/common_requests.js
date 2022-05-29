@@ -1,27 +1,27 @@
-import { api_delete, api_get, api_post } from './foodsharebook_api';
+import { apiDelete, apiGet, apiPost, apiPut } from './foodsharebook_api';
 import { paginateHeaders, showError } from "../components/lib/common"
 
 export const getAndDispatch = args => {
-    args.method = api_get;
+    args.method = apiGet;
     return requestAndDispatch(args);
 }
 
 export const deleteAndDispatch = args => {
     if (!args.id) { return showError("No object id provided") }
-    args.method = api_delete;
+    args.method = apiDelete;
     return requestAndDispatch(args);
 }
 
 export const postAndDispatch = args => {
     if (!args.data) { return showError("No object data provided") }
-    args.method = api_post;
+    args.method = apiPost;
     return requestAndDispatch(args);
 }
 
 export const putAndDispatch = args => {
     if (!args.id) { return showError("No object id provided") }
     if (!args.data) { return showError("No object data provided") }
-    args.method = api_put;
+    args.method = apiPut;
     return requestAndDispatch(args);
 }
 

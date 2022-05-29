@@ -7,12 +7,12 @@ export const api = axios.create({
   }
 })
 
-export const api_get = args => api.get(`${args.path}?${ args.params ? new URLSearchParams(args.params).toString() : '' }`)
+export const apiGet = args => api.get(`${args.path}?${ args.params ? new URLSearchParams(args.params).toString() : '' }`)
 
-export const api_delete = args => api.delete(`${args.path}/${args.id}`)
+export const apiDelete = args => api.delete(`${args.path}/${args.id}`)
 
-export const api_post = args => api.post(`${args.path}/`,args.data);
+export const apiPost = args => api.post(`${args.path}/`,args.data);
 
-export const api_put = args => api.put(`${args.path}/${args.id}`,args.data)
+export const apiPut = args => api.put(`${args.path}/${args.id}`,args.data)
 
 export default api;
