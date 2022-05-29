@@ -5,13 +5,13 @@ import { getMeasure } from '../../services/measure_request';
 import MeasureShow from './show';
 
 export class MeasureShowHOC extends Component {
-  componentDidMount(){
+  componentDidMount() {
     this.props.getMeasure(this.props.match.params.id);
   }
-  render (  ) {
+  render() {
     const { measure } = this.props
-    return(
-    <MeasureShow measure={ measure || measureObject }/>
+    return (
+      <MeasureShow measure={measure || measureObject} />
     );
   }
 }
@@ -26,4 +26,4 @@ const mapDispatchToProps = dispatch => ({
   }
 })
 
-export default connect( mapStateToProps, mapDispatchToProps)(MeasureShowHOC)
+export default connect(mapStateToProps, mapDispatchToProps)(MeasureShowHOC)

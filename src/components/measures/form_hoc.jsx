@@ -49,6 +49,7 @@ export class MeasureFormHOC extends Component {
         })
       }
     } else {
+      console.log("event data:",e.target)
       this.setState({
         measure: {
           ...this.state.measure,
@@ -56,6 +57,7 @@ export class MeasureFormHOC extends Component {
         }
       })
     }
+    console.log('measure: ',this.state.measure);
   }
 
   handleInputSubmit = e => {
@@ -76,19 +78,18 @@ export class MeasureFormHOC extends Component {
     }
   }
 
-
-
   render() {
     if(this.props.newMeasure?.id){
       return <Redirect to = {`/measures/${this.props.newMeasure.id}`}/>
     } else {
 
-      const { name, group } = this.state.measure;
+      const { name, group, equivalent } = this.state.measure;
       return (
         <div>
           <MeasureForm
             name={name}
             group={group}
+            equivalent={equivalent}
             handleInputChange={this.handleInputChange}
             handleInputSubmit={this.handleInputSubmit} />
         </div>

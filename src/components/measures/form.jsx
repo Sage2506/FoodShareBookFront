@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Button, Col } from "react-bootstrap";
 export default class MeasureForm extends Component {
   render() {
-    const { validated, handleInputSubmit, name, handleInputChange, group } = this.props
+    const { validated, handleInputSubmit, name, handleInputChange, group, equivalent } = this.props
     return (
       <Form noValidate validated={validated} onSubmit={handleInputSubmit}>
         <Form.Group as={Col} xl={8} xs={12} controlId="name" >
@@ -28,6 +28,18 @@ export default class MeasureForm extends Component {
             <option value={'liquid'}>Liquid</option>
             <option value={'piece'}>Piece</option>
           </Form.Control>
+        </Form.Group>
+        <Form.Group as={Col} xl={8} xs={12} controlId="equivalent">
+          <Form.Label>Equivalent</Form.Label>
+          <Form.Control
+            type="number"
+            value={equivalent || ''}
+            placeholder={'Set equivalent to group'}
+            onChange={handleInputChange}
+            step='0.001'
+            required
+          />
+
         </Form.Group>
         <Button variant="primary" type="submit">
           Submit
