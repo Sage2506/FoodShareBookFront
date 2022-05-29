@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Form, Button, Col } from "react-bootstrap";
 export default class MeasureForm extends Component {
   render() {
-    const { validated, handleInputSubmit, name, handleInputChange } = this.props
+    const { validated, handleInputSubmit, name, handleInputChange, group } = this.props
     return (
       <Form noValidate validated={validated} onSubmit={handleInputSubmit}>
         <Form.Group as={Col} xl={8} xs={12} controlId="name" >
@@ -20,6 +20,14 @@ export default class MeasureForm extends Component {
           <Form.Text className="text-muted">
             Set a fancy name
           </Form.Text>
+        </Form.Group>
+        <Form.Group as={Col} xl={8} xs={12} controlId="group" >
+          <Form.Label>Group</Form.Label>
+          <Form.Control as="select" onChange={handleInputChange} value={group}>
+            <option value={'solid'}>Solid</option>
+            <option value={'liquid'}>Liquid</option>
+            <option value={'piece'}>Piece</option>
+          </Form.Control>
         </Form.Group>
         <Button variant="primary" type="submit">
           Submit

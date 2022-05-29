@@ -83,11 +83,12 @@ export class MeasureFormHOC extends Component {
       return <Redirect to = {`/measures/${this.props.newMeasure.id}`}/>
     } else {
 
-      const { name } = this.state.measure;
+      const { name, group } = this.state.measure;
       return (
         <div>
           <MeasureForm
             name={name}
+            group={group}
             handleInputChange={this.handleInputChange}
             handleInputSubmit={this.handleInputSubmit} />
         </div>
