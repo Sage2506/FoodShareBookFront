@@ -10,6 +10,8 @@ export default class MeasuresTable extends Component {
           <tr>
             <th>ID</th>
             <th>Nombre</th>
+            <th>Grupo</th>
+            <th>Equivalencia</th>
             <th>Acciones</th>
           </tr>
 
