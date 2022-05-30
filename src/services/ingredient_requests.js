@@ -5,24 +5,6 @@ import { getAndDispatch, postAndDispatch } from "./common_requests";
 
 const path = 'ingredients';
 
-export const getIngredients = params => {
-  return getAndDispatch({
-    path,
-    action: setIngredients,
-    params: { page: 1, per_page: 10, ...params }
-  })
-}
-
-export const getIngredient = id => {
-  return getAndDispatch({
-    path: `${path}/${id}`,
-    action: setIngredient
-  })
-}
-
-export const postIngredient = data => {
-  return postAndDispatch({ path, action: addIngredient, data })
-}
 
 export const put_ingredient = (id, ingredient) => {
   return (dispatch) => {
@@ -35,6 +17,7 @@ export const put_ingredient = (id, ingredient) => {
       })
   }
 }
+
 export const destroy_ingredient = (id) => {
   return dispatch => {
     return api.delete(`ingredients/${id}`)
@@ -46,3 +29,9 @@ export const destroy_ingredient = (id) => {
       })
   }
 }
+
+export const getIngredients = params => getAndDispatch({ path, action: setIngredients, params: { page: 1, per_page: 10, ...params } })
+
+export const getIngredient = id => getAndDispatch({path: `${path}/${id}`,action: setIngredient})
+
+export const postIngredient = data => postAndDispatch({ path, action: addIngredient, data })
