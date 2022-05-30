@@ -81,7 +81,7 @@ export class MeasureFormHOC extends Component {
   }
 
   render() {
-    if(this.props.newMeasure?.id){
+    if(this.props.newMeasure && this.props.newMeasure.id){
       return <Redirect to = {`/measures/${this.props.newMeasure.id}`}/>
     } else {
 

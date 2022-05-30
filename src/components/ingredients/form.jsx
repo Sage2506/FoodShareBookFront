@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button, Col } from "react-bootstrap";
+import { Form, Button, Col, Tabs, Tab } from "react-bootstrap";
 import { default as Dropzone } from "../common/dropzone_hoc";
 
 export const IngredientForm = props => {
@@ -9,11 +9,15 @@ export const IngredientForm = props => {
     description,
     measures,
     measuresCatalog,
+    measureGroups,
     validated,
     handleInputChange,
     handleInputSubmit,
     onImageSelected,
-    goBack
+    goBack,
+    groupDisabled,
+    activeTab,
+    tabChange
   } = props
   return (
     <Form noValidate validated={validated} onSubmit={handleInputSubmit}>
@@ -54,16 +58,22 @@ export const IngredientForm = props => {
       </Form.Group>
       <Form.Group as={Col} controlId="formBasicCheckbox">
         <Form.Label>Measures</Form.Label>
-        {measuresCatalog.map(measure =>
-          <Form.Check
-            key={'measure_id_' + measure.id}
-            type="checkbox"
-            value={measure.id}
-            label={measure.name}
-            onChange={handleInputChange}
-            checked={measures.includes(measure.id)}
-          />
-        )}
+        <Tabs activeKey={activeTab} id="uncontrolled-tab-example" className="mb-3" onSelect={(tab) => tabChange(tab)}>
+          {measureGroups.map(group =>
+            <Tab key={`tab_${group.key}`} eventKey={group.key} title={group.label} disabled={groupDisabled(group.key)} >
+              {measuresCatalog.filter(measure => measure.group === group.key).map(measure =>
+                <Form.Check
+                  key={'measure_id_' + measure.id}
+                  type="checkbox"
+                  value={measure.id}
+                  label={measure.name}
+                  onChange={handleInputChange}
+                  checked={measures.includes(measure.id)}
+                />
+              )}
+            </Tab>
+          )}
+        </Tabs>
       </Form.Group>
       <Button variant="primary" type="submit">
         Submit

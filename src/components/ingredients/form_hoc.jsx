@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { post_ingredient, put_ingredient } from "../../services/ingredient_requests";
+import { postIngredient, put_ingredient } from "../../services/ingredient_requests";
 import IngredientForm from './form';
 import { Redirect } from 'react-router-dom'
 import { uploadImageToCloudinary } from '../../lib/common';
@@ -11,7 +11,12 @@ export class IngredientFormHOC extends Component {
     super(props);
     this.state = {
       ingredient: ingredientObject,
-      validated: false
+      validated: false,
+      activeTab: 'solid',
+      measureGroups: [
+        { key: 'solid', label: 'Solid' },
+        { key: 'liquid', label: 'Liquid' },
+        { key: 'piece', label: 'Piece' }]
     };
   };
 
@@ -24,7 +29,13 @@ export class IngredientFormHOC extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.ingredient.id !== undefined && nextProps.ingredient.id !== prevState.ingredient.id) {
-      return { ...prevState, ingredient: nextProps.ingredient };
+      const { measures } = nextProps.ingredient
+      let activeTab = 'solid'
+      if (measures.length > 0) {
+        const { measuresCatalog } = nextProps
+        activeTab = measuresCatalog.filter(measure => measures.includes(measure.id)).map(measure => measure.group)[0]
+      }
+      return { ...prevState, ingredient: nextProps.ingredient, activeTab };
     } else {
       return prevState
     }
@@ -92,7 +103,7 @@ export class IngredientFormHOC extends Component {
 
     } else {
       //checking if there's any image needed to be uploade
-      if (image !== null && image.length > 0 && !image.includes(' ')) {
+      if (false && image !== null && image.length > 0 && !image.includes(' ')) {
         //uploading image to cloudinary
         uploadImageToCloudinary(image, 'ingredients', (this.state.ingredient.id === undefined || this.state.ingredient.id === null) ? '' : ingredient.id).then(response => {
           const { version, public_id, format } = response.data
@@ -113,19 +124,33 @@ export class IngredientFormHOC extends Component {
   createOrUpdateIngredient = (ingredient) => {
     //check if going to create or update
     if (this.state.ingredient.id === undefined || this.state.ingredient.id === null) {
-      this.props.create_ingredient(ingredient)
+      this.props.postIngredient(ingredient)
     } else {
       this.props.update_ingredient(this.state.ingredient.id, ingredient)
     }
   }
 
+  groupDisabled = (group) => {
+    const { measures } = this.state.ingredient
+    if (measures.length > 0) {
+      const { measuresCatalog } = this.props
+      return !measuresCatalog.filter(measure => measures.includes(measure.id)).map(measure => measure.group).includes(group)
+    } else {
+      return false
+    }
+
+  }
+
+  tabChange = (tab) => {
+    this.setState({ activeTab: tab })
+  }
+
   render() {
     if (this.props.newIngredient.id === undefined) {
 
-      let { ingredient, validated } = this.state
+      let { ingredient, validated, measureGroups, activeTab } = this.state
       let { name, description, image, measures } = ingredient
       let { measuresCatalog, history } = this.props
-
       return (
         <IngredientForm
           name={name}
@@ -139,6 +164,10 @@ export class IngredientFormHOC extends Component {
           validated={validated}
           onImageSelected={this.onImageSelected}
           goBack={history.goBack}
+          measureGroups={measureGroups}
+          groupDisabled={this.groupDisabled}
+          activeTab={activeTab}
+          tabChange={this.tabChange}
         />
       );
     } else {
@@ -154,8 +183,8 @@ const mapStateToProps = (store) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  create_ingredient: (ingredient) => {
-    dispatch(post_ingredient(ingredient));
+  postIngredient: (ingredient) => {
+    dispatch(postIngredient(ingredient));
   },
   getIngredient: id => {
     dispatch(getIngredient(id))

@@ -19,7 +19,7 @@ export const setIngredient =  data => {
   }
 }
 
-export const postIngredient = ingredient => {
+export const addIngredient = ingredient => {
   return {
     type : ADD_INGREDIENT,
     ingredient : ingredient

@@ -9,7 +9,7 @@ export class MeasureShowHOC extends Component {
     this.props.getMeasure(this.props.match.params.id);
   }
   render() {
-    const { measure } = this.props
+    const { measure, handleOpen } = this.props
     return (
       <MeasureShow measure={measure || measureObject} handleOpen={handleOpen} />
     );
