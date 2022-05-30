@@ -11,7 +11,7 @@ export class MeasureShowHOC extends Component {
   render() {
     const { measure } = this.props
     return (
-      <MeasureShow measure={measure || measureObject} />
+      <MeasureShow measure={measure || measureObject} handleOpen={handleOpen} />
     );
   }
 }

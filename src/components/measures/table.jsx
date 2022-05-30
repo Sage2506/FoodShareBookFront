@@ -3,7 +3,7 @@ import MeasuresTableRowHOC from './table_row_hoc'
 import { Table } from "react-bootstrap";
 export default class MeasuresTable extends Component {
   render() {
-    const { measures, permissions } = this.props
+    const { measures, permissions, handleOpen } = this.props
     return (
       <Table>
         <thead>
@@ -18,7 +18,7 @@ export default class MeasuresTable extends Component {
         </thead>
         <tbody>
           {measures.map((measure) =>
-            <MeasuresTableRowHOC key={measure.id} measure={measure}
+            <MeasuresTableRowHOC key={measure.id} measure={measure} handleOpen={handleOpen}
               permissions={permissions} />
           )}
         </tbody>

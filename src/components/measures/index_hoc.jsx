@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MeasuresIndex from '.';
 import { updatePermissions } from '../../lib/common';
+import { deleteMeasure, getMeasures } from '../../services/measure_request';
 import { getCurrentUserPermissionByType } from '../../services/permissions_type_requests';
+import { showError } from '../lib/common';
 
 export class MeasuresIndexHOC extends Component {
   constructor(props) {
@@ -12,7 +14,9 @@ export class MeasuresIndexHOC extends Component {
         create: false,
         delete: false,
         edit: false
-      }
+      },
+      deleteShow: false,
+      id: undefined
     }
   }
 
@@ -28,11 +32,40 @@ export class MeasuresIndexHOC extends Component {
     }
   }
 
+  handleOpen = (id) => {
+    this.setState({
+      deleteShow: true,
+      id,
+    })
+  }
+
+  handleClose = () => {
+    this.setState({
+      deleteShow: false,
+      id: -1
+    })
+  }
+
+  deleteMeasure = id => {
+    deleteMeasure(id).then(response => {
+      if (response.status === 200) {
+        this.handleClose();
+        this.getMeasures();
+      } else {
+        this.props.showError(response);
+      }
+    })
+  }
   render() {
-    const { permissions } = this.state
+    const { permissions, deleteShow, id } = this.state
     return (
       <MeasuresIndex
         permissions={permissions}
+        handleOpen={this.handleOpen}
+        deleteShow={deleteShow}
+        id={id}
+        handleClose={this.handleClose}
+        deleteMeasure={this.deleteMeasure}
       />
     );
   }
@@ -44,12 +77,18 @@ const mapStateToProps = store => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getCurrentUserPermissionsByType: () => {
-      dispatch(getCurrentUserPermissionByType(7))
-    }
+const mapDispatchToProps = dispatch => ({
+
+  getCurrentUserPermissionsByType: () => {
+    dispatch(getCurrentUserPermissionByType(7))
+  },
+  getMeasures: () => {
+    dispatch(getMeasures())
+  },
+  showError: data => {
+    dispatch(showError(data))
   }
-}
+
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(MeasuresIndexHOC)

@@ -5,9 +5,9 @@ import MeasuresTableRow from './table_row';
 export class MeasuresTableRowHOC extends Component {
 
   render() {
-    const { measure, permissions, currentUser } = this.props
+    const { measure, permissions, currentUser, handleOpen } = this.props
     return (
-      <MeasuresTableRow measure={measure} permissions={permissions} currentUserRoleId={currentUser.role_id} />
+      <MeasuresTableRow measure={measure} permissions={permissions} currentUserRoleId={currentUser.role_id} handleOpen={handleOpen}/>
     );
   }
 }

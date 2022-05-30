@@ -1,5 +1,6 @@
 import { addMeasure, setMeasure, setMeasures } from "../actions/measure"
-import { getAndDispatch, postAndDispatch, putAndDispatch } from "./common_requests"
+import { deleteAndDispatch, getAndDispatch, postAndDispatch, putAndDispatch } from "./common_requests"
+import { apiDelete } from "./foodsharebook_api"
 
 const path = 'measures'
 
@@ -32,5 +33,12 @@ export const putMeasure = params => {
         id: params.id,
         data: params.data,
         action: addMeasure
+    })
+}
+
+export const deleteMeasure = (id) => {
+    return apiDelete({
+        path,
+        id
     })
 }
