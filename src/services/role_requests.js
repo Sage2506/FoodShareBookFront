@@ -1,4 +1,11 @@
-import api from "./foodsharebook_api"
-import { setRoles, setRole } from "../actions/role";
-import { showError } from "../components/lib/common";
-import { convertPermisionStringToList } from "../lib/common";
+import { setRole } from "../actions/role";
+import { getAndDispatch } from "./common_requests";
+
+const path = 'roles'
+
+export const getRole = id => {
+  return getAndDispatch({
+    path : `${path}/${id}`,
+    action: setRole
+  })
+}

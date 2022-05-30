@@ -1,6 +1,6 @@
 import {
-  GET_INGREDIENTS,
-  GET_INGREDIENT,
+  SET_INGREDIENTS,
+  SET_INGREDIENT,
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
   UPDATE_INGREDIENT,
@@ -18,9 +18,9 @@ const initialIngredientState = {
 
 export const ingredientReducer = (state = initialIngredientState, action ) => {
   switch (action.type) {
-    case GET_INGREDIENTS:
+    case SET_INGREDIENTS:
       return { ...state, ingredients: action.ingredients, pagination: action.pagination , ingredient:[] };
-    case GET_INGREDIENT:
+    case SET_INGREDIENT:
       return { ...state, ingredient: action.ingredient, newIngredient: [] };
     case DELETE_INGREDIENT:
       return {

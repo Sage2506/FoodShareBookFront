@@ -1,27 +1,37 @@
 import { api } from "./foodsharebook_api";
-import { getDish, getDishes, postDish, deleteDish } from "../actions/dish";
-import { paginate, showError } from '../components/lib/common';
-import { IDish } from "../interfaces/dishes";
+import { setDish, addDish, setDishesAndPagination, removeDish } from "../actions/dish";
+import { showError } from '../components/lib/common';
+import { deleteAndDispatch, getAndDispatch, postAndDispatch } from "./common_requests";
 
-export const post_dish = (dish ) => {
-  return async (dispatch) => {
-    try {
-      const response = await api.post(`dishes`, dish);
-      dispatch(postDish(response.data));
-    }
-    catch (error) {
-      dispatch(showError(error))
-    }
-  }
+const path = 'dishes';
+
+export const getDishes = (params) => {
+  return getAndDispatch({
+    path,
+    action: setDishesAndPagination,
+    params: { page: 1, per_page: 10, ...params }
+  })
 }
-export const delete_dish = ( id ) => {
-  return async (dispatch) => {
-    try {
-      await api.delete(`dishes/${id}`);
-      dispatch(deleteDish(id));
-    }
-    catch (error) {
-      dispatch(showError(error))
-    }
-  }
+
+export const getDish = id => {
+  return getAndDispatch({
+    path: `${path}/${id}`,
+    action: setDish
+  })
+}
+
+export const post_dish = (dish) => {
+  return postAndDispatch({
+    path: `${path}`,
+    action: addDish,
+    data: dish
+  })
+}
+
+export const deleteDish = (id) => {
+  return deleteAndDispatch({
+    path,
+    action: removeDish,
+    id
+  })
 }

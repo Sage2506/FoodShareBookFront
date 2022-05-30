@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RolesIndex from '.';
-import { getAndSendAction } from '../../services/common_requests';
+import { getAndDispatch } from '../../services/common_requests';
 import { setRoles } from '../../actions/role';
 
 export class RolesIndexHOC extends Component {
@@ -26,7 +26,7 @@ const mapStateToProps = ( store ) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getRoles: () => {
-    dispatch( getAndSendAction({
+    dispatch( getAndDispatch({
       path:`roles`,
       action: setRoles
     }))

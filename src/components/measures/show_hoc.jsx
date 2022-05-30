@@ -1,17 +1,17 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { measureObject } from '../../models';
+import { getMeasure } from '../../services/measure_request';
 import MeasureShow from './show';
 
 export class MeasureShowHOC extends Component {
-  componentDidMount(){
-    console.log("Measure id: ",this.props.match.params.id)
-    console.log(this.props.measure);
+  componentDidMount() {
+    this.props.getMeasure(this.props.match.params.id);
   }
-  render (  ) {
+  render() {
     const { measure } = this.props
-    return(
-    <MeasureShow measure={ measure || measureObject }/>
+    return (
+      <MeasureShow measure={measure || measureObject} handleOpen={handleOpen} />
     );
   }
 }
@@ -22,8 +22,8 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = dispatch => ({
   getMeasure: id => {
-    dispatch(get_measure(id))
+    dispatch(getMeasure(id))
   }
 })
 
-export default connect( mapStateToProps, mapDispatchToProps)(MeasureShowHOC)
+export default connect(mapStateToProps, mapDispatchToProps)(MeasureShowHOC)

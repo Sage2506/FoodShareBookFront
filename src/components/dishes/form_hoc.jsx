@@ -2,14 +2,9 @@ import React, { Component } from 'react';
 import { DishForm } from "./form";
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
-import { post_dish, get_dish } from '../../services/dish_requests';
+import { getDish, post_dish} from '../../services/dish_requests';
 import { uploadImageToCloudinary } from '../../lib/common';
 import { dishObject, ingredientObject } from '../../models';
-import { IDish } from '../../interfaces/dishes';
-import { IIngredients } from '../../interfaces/ingredients';
-import { getAndSendAction } from '../../services/common_requests';
-import { getDish } from '../../actions/dish';
-
 export class DishFormHOC extends Component {
   constructor(props) {
     super(props);
@@ -246,10 +241,7 @@ const mapDispatchToProps = dispatch => {
           dispatch(post_dish(dish))
       },
       fetch_dish: id => {
-        dispatch( getAndSendAction ({
-          path : `dishes/${id}`,
-          action : getDish
-        }) )
+        dispatch(getDish(id))
       }
   }
 }

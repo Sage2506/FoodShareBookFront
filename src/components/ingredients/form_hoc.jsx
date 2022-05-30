@@ -1,13 +1,11 @@
-import  { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { post_ingredient, put_ingredient } from "../../services/ingredient_requests";
 import IngredientForm from './form';
 import { Redirect } from 'react-router-dom'
 import { uploadImageToCloudinary } from '../../lib/common';
 import { ingredientObject } from '../../models';
-import { getAndSendAction } from '../../services/common_requests';
-import { getIngredient } from '../../actions/ingredient';
-
+import { getIngredient } from "../../services/ingredient_requests";
 export class IngredientFormHOC extends Component {
   constructor(props) {
     super(props);
@@ -115,10 +113,8 @@ export class IngredientFormHOC extends Component {
   createOrUpdateIngredient = (ingredient) => {
     //check if going to create or update
     if (this.state.ingredient.id === undefined || this.state.ingredient.id === null) {
-      console.log(" create ingredient ")
       this.props.create_ingredient(ingredient)
     } else {
-      console.log(" update ingredient ")
       this.props.update_ingredient(this.state.ingredient.id, ingredient)
     }
   }
@@ -161,11 +157,8 @@ const mapDispatchToProps = (dispatch) => ({
   create_ingredient: (ingredient) => {
     dispatch(post_ingredient(ingredient));
   },
-  getIngredient: (id) => {
-    dispatch ( getAndSendAction({
-      path:`ingredients/${id}`,
-      action: getIngredient,
-    }))
+  getIngredient: id => {
+    dispatch(getIngredient(id))
   },
   update_ingredient: (id, ingredient) => {
     dispatch(put_ingredient(id, ingredient));

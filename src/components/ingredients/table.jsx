@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Table, Modal, Button } from 'react-bootstrap';
-import { IIngredients } from '../../interfaces/ingredients';
 import { default as IngredientTableRow } from './table_row_hoc';
 
 export class IngredientTable extends Component {

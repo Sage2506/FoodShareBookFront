@@ -1,10 +1,10 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { DishShow } from "./show";
 import { buildImageSecureUrl } from "../lib/common";
 import { dishObject } from '../../models';
-import { getDish } from '../../actions/dish';
-import { getAndSendAction } from '../../services/common_requests';
+import { setDish } from '../../actions/dish';
+import { getAndDispatch } from '../../services/common_requests';
  export class DishShowHOC extends Component {
   constructor(props) {
     super(props);
@@ -43,9 +43,9 @@ import { getAndSendAction } from '../../services/common_requests';
 const mapDispatchToProps = (dispatch  ) => {
   return {
       getDish: id => {
-        dispatch( getAndSendAction ({
+        dispatch( getAndDispatch ({
           path : `dishes/${id}`,
-          action : getDish
+          action : setDish
         }) )
       }
   }

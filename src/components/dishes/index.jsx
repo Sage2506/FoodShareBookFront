@@ -1,6 +1,6 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { get_dishes, delete_dish } from "../../services/dish_requests";
+import { deleteDish, getDishes } from "../../services/dish_requests";
 import { clearError } from '../../actions/error';
 import { default as Pagination } from '../common/pagination';
 import { Modal, Button } from 'react-bootstrap';
@@ -8,34 +8,32 @@ import { DishTable } from './table';
 import { FloatingActionButtonPlus } from '../common/floating_action_button';
 import { getCurrentUserPermissionByType } from '../../services/permissions_type_requests';
 import { updatePermissions } from '../../lib/common';
-import { getAndSendAction } from '../../services/common_requests';
-import { setDishesAndPagination } from '../../actions/dish';
 
 export class DishesIndex extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
       show: false,
-      permissions : {
-        create : false,
-        delete : false,
-        edit : false
+      permissions: {
+        create: false,
+        delete: false,
+        edit: false
       }
     }
   }
 
   componentDidMount() {
-    let { getDishes, pagination, getCurrentUserPermissionsByType, currentUser  } = this.props;
+    let { getDishes, pagination, getCurrentUserPermissionsByType } = this.props;
     getDishes(pagination.currentPage);
     getCurrentUserPermissionsByType();
   }
 
-  componentDidUpdate(prevProps , prevState , snapshot){
-    const { permissions: prevPermissions} = prevProps.currentUser
-    const {permissions : newPermissions} = this.props.currentUser
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const { permissions: prevPermissions } = prevProps.currentUser
+    const { permissions: newPermissions } = this.props.currentUser
     //update when they have different sizes
     //update when both have something and first's id's are diff
-    if ( prevPermissions.length !== newPermissions.length || (prevPermissions.length !== 0 && prevPermissions[0].id !== newPermissions[0].id) ){
+    if (prevPermissions.length !== newPermissions.length || (prevPermissions.length !== 0 && prevPermissions[0].id !== newPermissions[0].id)) {
       updatePermissions(this)
     }
   }
@@ -47,75 +45,71 @@ export class DishesIndex extends Component {
   }
 
   render() {
-    let { pagination , getDishes, dishes, currentUser } = this.props;
-    let {show, permissions } = this.state;
-    let newPermissions = {}
+    let { pagination, getDishes, dishes, currentUser } = this.props;
+    let { show, permissions } = this.state;
+    //let newPermissions = {}
 
     return (
       <div>
-      <DishTable
-        dishes = {dishes}
-        per_page = {pagination.pageSize}
-        deleteDish = {this.props.deleteDish}
-        permissions = {permissions }
-        currentUserId = {currentUser.id}
-        currentUserRoleId = { currentUser.role_id}
-      />
-      <Pagination
-        pagination={pagination}
-        paginationRequest={getDishes}
-      />
-      {permissions.create &&
-        <FloatingActionButtonPlus
-          link = '/dishes/new'
+        <DishTable
+          dishes={dishes}
+          per_page={pagination.pageSize}
+          deleteDish={this.props.deleteDish}
+          permissions={permissions}
+          currentUserId={currentUser.id}
+          currentUserRoleId={currentUser.role_id}
         />
-      }
-       <Modal show={show} onHide={this.handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={this.handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={this.handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        <Pagination
+          pagination={pagination}
+          paginationRequest={getDishes}
+        />
+        {permissions.create &&
+          <FloatingActionButtonPlus
+            link='/dishes/new'
+          />
+        }
+        <Modal show={show} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={this.handleClose}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }
 }
 
-const mapStateToProps = (store ) => {
-  return{
-      dishes: store.dishReducer.dishes,
-      pagination: store.dishReducer.pagination,
-      currentUser: store.userReducer.current_user
+const mapStateToProps = (store) => {
+  return {
+    dishes: store.dishReducer.dishes,
+    pagination: store.dishReducer.pagination,
+    currentUser: store.userReducer.current_user
   }
 }
 
-const mapDispatchToProps = (dispatch ) => {
+const mapDispatchToProps = (dispatch) => {
   return {
-      getDishes: (params) => {
-          dispatch( getAndSendAction({
-            path:"dishes", 
-            action: setDishesAndPagination , 
-            params : { page : 1, per_page : 10, ...params} 
-          }))
-      },
-      clearError: () => {
-          dispatch(clearError())
-      },
-      deleteDish: (id ) =>{
-          dispatch(delete_dish(id))
-      },
-      getCurrentUserPermissionsByType: () => {
-        dispatch(getCurrentUserPermissionByType(1))
-      }
+    getDishes: (params) => {
+      dispatch(getDishes(params))
+    },
+    clearError: () => {
+      dispatch(clearError())
+    },
+    deleteDish: (id) => {
+      dispatch(deleteDish(id))
+    },
+    getCurrentUserPermissionsByType: () => {
+      dispatch(getCurrentUserPermissionByType(1))
     }
+  }
 }
 
 export default connect(

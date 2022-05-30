@@ -19,7 +19,7 @@ export const addPermissionType = (permissionType) => ({
   permissionType,
 });
 
-export const deletePermissionType = ( id : number ) => ({
+export const deletePermissionType = ( id ) => ({
   type: DELETE_PERMISSION_TYPE,
   id,
 });

@@ -1,23 +1,44 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Modal, Button } from 'react-bootstrap';
+import { getMeasures } from '../../services/measure_request';
 import { default as Pagination } from '../common/pagination';
 import MeasuresTable from './table';
-import { setMeasuresAndPaginate } from '../../actions/measure';
-import { getAndSendAction } from '../../services/common_requests';
-
+import FloatingActionButtonPlus from '../common/floating_action_button';
 export class MeasuresTableHOC extends Component {
   componentDidMount() {
     this.props.getMeasures()
-   }
+  }
 
-  render (  ) {
-    const { measures, pagination, getMeasures } = this.props
-    return(
+  render() {
+    const { measures, pagination, getMeasures, permissions, handleClose, deleteMeasure, deleteShow, id, handleOpen } = this.props
+    return (
       <div>
         <MeasuresTable
-          measures = {measures}
+          measures={measures}
+          permissions={permissions}
+          handleOpen={handleOpen}
         />
-        <Pagination pagination = {pagination} paginationRequest = { getMeasures } />
+        <Pagination pagination={pagination} paginationRequest={getMeasures} />
+        {permissions.create &&
+          <FloatingActionButtonPlus
+            link='/measures/new'
+          />
+        }
+        <Modal show={deleteShow} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Measure</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Are you sure you want to delete measure with Id: {id} </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={() => deleteMeasure(id)}>
+              Acept
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     );
   }
@@ -30,14 +51,10 @@ const mapStateToProps = store => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    getMeasures : params =>{
-      dispatch( getAndSendAction ({
-          path:"measures", 
-          action: setMeasuresAndPaginate , 
-          params : { page : 1, per_page : 10, ...params} 
-        }))
+    getMeasures: params => {
+      dispatch(getMeasures(params))
     }
   }
 }
 
-export default connect( mapStateToProps, mapDispatchToProps)(MeasuresTableHOC)
+export default connect(mapStateToProps, mapDispatchToProps)(MeasuresTableHOC)

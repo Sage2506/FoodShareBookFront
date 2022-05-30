@@ -1,6 +1,3 @@
-import { IPermissions } from "../interfaces/permission_types"
-import IUser from "../interfaces/users"
-
 export const LOG_IN = 'LOG_IN'
 export const LOG_OUT = 'LOG_OUT'
 export const GET_USERS = 'GET_USERS'

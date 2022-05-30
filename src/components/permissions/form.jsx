@@ -5,7 +5,7 @@ export class PermissionsForm extends Component {
 
 
   render() {
-    const { permission, formSubmited, roles, permissionTypes, handleInputChange, handleSubmit } = this.props
+    const { permission, formSubmited, permissionTypes, handleInputChange, handleSubmit } = this.props
     const { name, description, permission_type_id } = permission
     return(
       < Form onSubmit = { handleSubmit } >

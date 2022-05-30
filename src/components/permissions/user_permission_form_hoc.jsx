@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { getAllPermissionTypes } from '../../services/permissions_type_requests';
-import { getAllPermissions } from '../../services/permissions_requests';
 import UserPermissionForm from './user_permission_form';
-import IPermissionType, {IPermissions} from '../../interfaces/permission_types';
 import { addUserPermission, deleteUserPermission } from '../../services/user_permissions';
 
 
@@ -26,12 +24,14 @@ export class UserPermissionFormHOC extends Component {
 
   userHasPermissionWithId = permissionId => {
     let flag = false
-    let found =this.props.userPermissions.find(user_permission => user_permission.permission_id === permissionId)
+    let found = this.props.userPermissions.find(user_permission => user_permission.permission_id === permissionId)
     if(found !== undefined) { flag = true }
+    return flag
   }
 
   getUserPermissionFromPermissionId = permissionId =>{
     let found = this.props.userPermissions.find(user_permission => user_permission.permission_id === permissionId)
+    return !!found
   }
 
   handleChecboxClick = e => {

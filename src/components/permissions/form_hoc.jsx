@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { getPermission } from '../../actions/permission';
 import { setRoles } from '../../actions/role';
-import { getAndSendAction } from '../../services/common_requests';
+import { getAndDispatch } from '../../services/common_requests';
 import { postPermission, updatePermission } from '../../services/permissions_requests';
 import { getAllPermissionTypes } from '../../services/permissions_type_requests';
 import PermissionsForm from './form';
@@ -55,7 +55,7 @@ export class PermissionsFormHOC extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const { permission } = this.state
-    const { name, description, role_id, permission_type_id } = permission
+    const { name, description, permission_type_id } = permission
     if( name === "" || name.includes(" ") || description === "" || permission_type_id === "-1" ){
       this.setState({
         formSubmited : true
@@ -99,7 +99,7 @@ const mapStateToProps = ( store ) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getPermission: id => {
-    dispatch(getAndSendAction({
+    dispatch(getAndDispatch({
       path:`permissions/${id}`,
       action: getPermission
     }))
@@ -108,7 +108,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(getAllPermissionTypes())
   },
   getRoles : () => {
-    dispatch( getAndSendAction({
+    dispatch( getAndDispatch({
       path:`roles`,
       action: setRoles
     }))

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Table, Modal, Button} from "react-bootstrap";
-import { IDish } from '../../interfaces/dishes';
 import { default as DishTableRow } from './table_row_hoc';
 
 
