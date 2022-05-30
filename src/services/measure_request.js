@@ -1,5 +1,5 @@
 import { addMeasure, setMeasure, setMeasures } from "../actions/measure"
-import { deleteAndDispatch, getAndDispatch, postAndDispatch, putAndDispatch } from "./common_requests"
+import { getAndDispatch, postAndDispatch, putAndDispatch } from "./common_requests"
 import { apiDelete } from "./foodsharebook_api"
 
 const path = 'measures'
