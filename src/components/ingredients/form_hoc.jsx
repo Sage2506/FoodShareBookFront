@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { postIngredient, put_ingredient } from "../../services/ingredient_requests";
+import { postIngredient, putIngredient } from "../../services/ingredient_requests";
 import IngredientForm from './form';
 import { Redirect } from 'react-router-dom'
 import { uploadImageToCloudinary } from '../../lib/common';
@@ -100,7 +100,6 @@ export class IngredientFormHOC extends Component {
     let { name, description, image, measures } = ingredient
     if (form.checkValidity() === false || measures.length < 1 || name === "" || description === "") { //TODO: validate
       e.stopPropagation()
-
     } else {
       //checking if there's any image needed to be uploade
       if (false && image !== null && image.length > 0 && !image.includes(' ')) {
@@ -123,7 +122,8 @@ export class IngredientFormHOC extends Component {
 
   createOrUpdateIngredient = (ingredient) => {
     //check if going to create or update
-    if (this.state.ingredient.id === undefined || this.state.ingredient.id === null) {
+    console.log(ingredient);
+    if (this.state.ingredient.id === 0) {
       this.props.postIngredient(ingredient)
     } else {
       this.props.update_ingredient(this.state.ingredient.id, ingredient)
@@ -189,8 +189,8 @@ const mapDispatchToProps = (dispatch) => ({
   getIngredient: id => {
     dispatch(getIngredient(id))
   },
-  update_ingredient: (id, ingredient) => {
-    dispatch(put_ingredient(id, ingredient));
+  update_ingredient: (id, data) => {
+    dispatch(putIngredient({id, data}));
   }
 });
 

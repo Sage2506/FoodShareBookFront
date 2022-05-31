@@ -1,34 +1,13 @@
-import { api } from "./foodsharebook_api";
-import { addIngredient, putIngredient, deleteIngredient, setIngredients, setIngredient } from '../actions/ingredient';
+import { api, apiDelete } from "./foodsharebook_api";
+import { addIngredient, setIngredients, setIngredient } from '../actions/ingredient';
 import { showError } from '../components/lib/common';
-import { getAndDispatch, postAndDispatch } from "./common_requests";
+import { getAndDispatch, postAndDispatch, putAndDispatch } from "./common_requests";
 
 const path = 'ingredients';
 
+export const putIngredient = params => putAndDispatch({path, action: addIngredient, ...params })
 
-export const put_ingredient = (id, ingredient) => {
-  return (dispatch) => {
-    return api.put(`ingredients/${id}`, ingredient)
-      .then(response => {
-        dispatch(putIngredient(response.data))
-      })
-      .catch(error => {
-        dispatch(showError(error))
-      })
-  }
-}
-
-export const destroy_ingredient = (id) => {
-  return dispatch => {
-    return api.delete(`ingredients/${id}`)
-      .then(response => {
-        dispatch(deleteIngredient(id))
-      })
-      .catch(error => {
-        dispatch(showError(error))
-      })
-  }
-}
+export const deleteIngredient = id => apiDelete({path, id});
 
 export const getIngredients = params => getAndDispatch({ path, action: setIngredients, params: { page: 1, per_page: 10, ...params } })
 
