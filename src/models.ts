@@ -22,6 +22,6 @@ export const ingredientObject : IIngredients = {
 
 export const measureObject : IMeasure = {
     id : 0,
-    name : "Cargando medida..",
+    name : "",
     group : ""
 }

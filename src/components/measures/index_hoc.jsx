@@ -50,7 +50,7 @@ export class MeasuresIndexHOC extends Component {
     deleteMeasure(id).then(response => {
       if (response.status === 200) {
         this.handleClose();
-        this.getMeasures();
+        this.props.getMeasures();
       } else {
         this.props.showError(response);
       }

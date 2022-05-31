@@ -73,7 +73,7 @@ export class MeasureFormHOC extends Component {
   }
 
   createOrUpdateMeasure = () => {
-    if (this.state.measure.id) {
+    if (this.state.measure.id !== 0 ) {
       this.props.putMeasure({ id: this.state.measure.id, data: this.state.measure })
     } else {
       this.props.postMeasure(this.state.measure)

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Table, Modal, Button } from 'react-bootstrap';
+import { deleteIngredient } from '../../services/ingredient_requests';
 import { default as IngredientTableRow } from './table_row_hoc';
 
 export class IngredientTable extends Component {
@@ -26,8 +27,12 @@ export class IngredientTable extends Component {
   }
 
   deleteIngredient = (id) => {
-    this.props.deleteIngredient(id);
-    this.handleClose();
+    deleteIngredient(id).then( response =>{
+      if(response.code === 200){
+        this.handleClose();
+        this.props.getIngredients();
+      }
+    })
   }
 
   render() {

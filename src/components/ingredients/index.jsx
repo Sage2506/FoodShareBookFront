@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {  destroy_ingredient } from "../../services/ingredient_requests";
 import { IngredientTable } from './table';
 import { FloatingActionButtonPlus } from '../common/floating_action_button';
 import { default as Pagination } from '../common/pagination';
@@ -32,7 +31,7 @@ export class IngredientsIndex extends Component {
   }
 
   render() {
-    let { ingredients, getIngredients, pagination, deleteIngredient, currentUser } = this.props;
+    let { ingredients, getIngredients, pagination, currentUser } = this.props;
     const {permissions} = this.state
     let { pageSize } = pagination
     return (
@@ -41,9 +40,9 @@ export class IngredientsIndex extends Component {
           permissions ={permissions}
           ingredients={ingredients}
           per_page={pageSize}
-          deleteIngredient={deleteIngredient}
           currentUserId = {currentUser.id}
           currentUserRoleId = {currentUser.role_id}
+          getIngredients={getIngredients}
         />
         <Pagination
           pagination={pagination}
@@ -66,9 +65,6 @@ const mapStateToProps = (store) => ({
 const mapDispatchToProps = (dispatch) => ({
   getIngredients: (params) =>{
     dispatch( getIngredients(params))
-  },
-  deleteIngredient: (id) => {
-    dispatch(destroy_ingredient(id));
   },
   getCurrentUserPermissionsByType: () => {
     dispatch(getCurrentUserPermissionByType(2))
