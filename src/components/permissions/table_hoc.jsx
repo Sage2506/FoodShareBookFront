@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PermissionsTable from './table';
-import { deletePermission } from '../../services/permissions_requests'
+import { deletePermission, getPermissions } from '../../services/permissions_requests'
+import { connect } from 'react-redux';
 export class PermissionsTableHOC extends Component {
 
   constructor(props) {
@@ -26,11 +27,13 @@ export class PermissionsTableHOC extends Component {
   }
 
   deletePermission = id => {
-    const promises = []
-    promises.push(deletePermission(id))
-    Promise.all(promises).then(response => {
-      this.setState({ deleteShow: false, deleteId: -1 })
-      this.props.getPermissions();
+    deletePermission(id).then(response => {
+      if (response.code === 200) {
+        this.handleClose()
+        this.props.getPermissions();
+      } else {
+        this.props.showError(response)
+      }
     })
   }
 
@@ -48,4 +51,9 @@ export class PermissionsTableHOC extends Component {
   }
 }
 
-export default PermissionsTableHOC;
+
+const mapDispatchToProps = (dispatch) => ({
+  getPermissions: params => { dispatch(getPermissions(params)) }
+})
+
+export default connect(null, mapDispatchToProps)(PermissionsTableHOC)

@@ -1,6 +1,5 @@
-import { api, apiDelete } from "./foodsharebook_api";
+import { apiDelete } from "./foodsharebook_api";
 import { addIngredient, setIngredients, setIngredient } from '../actions/ingredient';
-import { showError } from '../components/lib/common';
 import { getAndDispatch, postAndDispatch, putAndDispatch } from "./common_requests";
 
 const path = 'ingredients';

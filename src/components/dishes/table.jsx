@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Table, Modal, Button} from "react-bootstrap";
+import { deleteDish } from '../../services/dish_requests';
 import { default as DishTableRow } from './table_row_hoc';
 
 
@@ -27,8 +28,14 @@ export class DishTable extends Component {
   }
 
   deleteDish = (id) => {
-    this.props.deleteDish(id);
-    this.handleClose();
+    deleteDish(id).then( response => {
+      if(response.code === 200){
+        this.props.getDishes();
+      } else {
+        this.props.showError(response)
+      }
+      this.handleClose()
+    })
   }
 
   render() {

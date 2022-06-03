@@ -1,35 +1,13 @@
-import { setDish, addDish, setDishesAndPagination, removeDish } from "../actions/dish";
-import { deleteAndDispatch, getAndDispatch, postAndDispatch } from "./common_requests";
+import { setDish, addDish, setDishesAndPagination } from "../actions/dish";
+import { getAndDispatch, postAndDispatch } from "./common_requests";
+import { apiDelete } from "./foodsharebook_api";
 
 const path = 'dishes';
 
-export const getDishes = (params) => {
-  return getAndDispatch({
-    path,
-    action: setDishesAndPagination,
-    params: { page: 1, per_page: 10, ...params }
-  })
-}
+export const getDishes = params => getAndDispatch({ path, action: setDishesAndPagination, params: { page: 1, per_page: 10, ...params } })
 
-export const getDish = id => {
-  return getAndDispatch({
-    path: `${path}/${id}`,
-    action: setDish
-  })
-}
+export const getDish = id => getAndDispatch({ path: `${path}/${id}`, action: setDish })
 
-export const post_dish = (dish) => {
-  return postAndDispatch({
-    path: `${path}`,
-    action: addDish,
-    data: dish
-  })
-}
+export const postDish = data => postAndDispatch({ path: `${path}`, action: addDish, data })
 
-export const deleteDish = (id) => {
-  return deleteAndDispatch({
-    path,
-    action: removeDish,
-    id
-  })
-}
+export const deleteDish = id => apiDelete({path,id})
