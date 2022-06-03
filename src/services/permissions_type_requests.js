@@ -5,4 +5,4 @@ const path = "permission_types"
 
 export const getAllPermissionTypes = () => getAndDispatch({ path, action: getPermissionTypes });
 
-export const getCurrentUserPermissionByType = id => getAndDispatch({ path: `${path}/${id}`, action: setCurrentUserPermissions })
+export const getCurrentUserPermissionByType = id => getAndDispatch({ path: `${path}/${id}/current_user_permissions`, action: setCurrentUserPermissions })
