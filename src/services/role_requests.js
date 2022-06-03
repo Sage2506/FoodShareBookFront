@@ -3,9 +3,4 @@ import { getAndDispatch } from "./common_requests";
 
 const path = 'roles'
 
-export const getRole = id => {
-  return getAndDispatch({
-    path : `${path}/${id}`,
-    action: setRole
-  })
-}
+export const getRole = id => getAndDispatch({ path: `${path}/${id}`, action: setRole })

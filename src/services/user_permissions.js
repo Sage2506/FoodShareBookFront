@@ -1,10 +1,6 @@
 import api from "./foodsharebook_api"
+const path = 'user_permissions'
 
-const Path = 'user_permissions'
-export const addUserPermission = (userId , permissionId ) =>{
-  return api.post(Path,{user_id: userId, permission_id: permissionId});
-}
+export const addUserPermission = (userId, permissionId) => api.post(path, { user_id: userId, permission_id: permissionId });
 
-export const deleteUserPermission = (userPermissionId ) =>{
-  return api.delete(Path+`/`+userPermissionId);
-}
+export const deleteUserPermission = (userPermissionId) => api.delete(path + `/` + userPermissionId);

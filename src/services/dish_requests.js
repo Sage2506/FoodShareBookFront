@@ -10,4 +10,4 @@ export const getDish = id => getAndDispatch({ path: `${path}/${id}`, action: set
 
 export const postDish = data => postAndDispatch({ path: `${path}`, action: addDish, data })
 
-export const deleteDish = id => apiDelete({path,id})
+export const deleteDish = id => apiDelete({ path, id })
