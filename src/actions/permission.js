@@ -1,11 +1,11 @@
 // Action Types
-export const GET_PERMISSIONS = 'GET_PERMISSIONS';
+export const SET_PERMISSIONS = 'SET_PERMISSIONS';
 export const GET_PERMISSION = 'GET_PERMISSION';
 export const DELETE_PERMISSION = 'DELETE_PERMISSION';
 export const ADD_PERMISSION = 'ADD_PERMISSION';
 
-export const getPermissions = (permissions , pagination ) => ({
-  type: GET_PERMISSIONS,
+export const setPermissions = (permissions , pagination ) => ({
+  type: SET_PERMISSIONS,
   permissions,
   pagination
 });

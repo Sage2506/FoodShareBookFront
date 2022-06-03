@@ -1,30 +1,8 @@
-import { api } from './foodsharebook_api';
-import { showError } from '../components/lib/common';
 import { getPermissionTypes } from '../actions/permission_type';
 import { setCurrentUserPermissions } from '../actions/user';
+import { getAndDispatch } from './common_requests';
+const path = "permission_types"
 
-const Path = "permission_types"
+export const getAllPermissionTypes = () => getAndDispatch({ path, action: getPermissionTypes });
 
-export const getAllPermissionTypes = () => {
-  return async (dispatch ) => {
-    try {
-      const response = await api.get(Path)
-      const { data } = response
-      dispatch( getPermissionTypes(data) )
-    } catch ( error ) {
-      dispatch( showError(error) )
-    }
-  }
-}
-
-export const getCurrentUserPermissionByType = ( typeId ) => {
-  return async (dispatch ) => {
-    try {
-      const response = await api.get(Path+`/`+typeId+`/current_user_permissions`)
-      const { data } = response
-      dispatch( setCurrentUserPermissions(data) )
-    } catch ( error ) {
-      dispatch( showError(error) )
-    }
-  }
-}
+export const getCurrentUserPermissionByType = id => getAndDispatch({ path: `${path}/${id}/current_user_permissions`, action: setCurrentUserPermissions })

@@ -78,7 +78,6 @@ const mapStateToProps = store => {
 }
 
 const mapDispatchToProps = dispatch => ({
-
   getCurrentUserPermissionsByType: () => {
     dispatch(getCurrentUserPermissionByType(7))
   },

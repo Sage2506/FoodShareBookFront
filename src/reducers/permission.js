@@ -1,4 +1,4 @@
-import { GET_PERMISSION, GET_PERMISSIONS, ADD_PERMISSION } from '../actions/permission';
+import { GET_PERMISSION, SET_PERMISSIONS, ADD_PERMISSION } from '../actions/permission';
 
 const initialPermissionState = {
   permissions: [],
@@ -24,7 +24,7 @@ export const  permissionReducer = ( state = initialPermissionState, action  ) =>
   switch (action.type) {
     case GET_PERMISSION:
       return {...state, permission: action.permission, newPermission: initialPermissionState.newPermission};
-    case GET_PERMISSIONS:
+    case SET_PERMISSIONS:
       return {...state, permissions: action.permissions, permission: initialPermissionState.permission, pagination: action.pagination};
     case ADD_PERMISSION:
       return {...state, newPermission: action.permission};

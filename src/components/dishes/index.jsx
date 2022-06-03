@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
-import { deleteDish, getDishes } from "../../services/dish_requests";
+import { getDishes } from "../../services/dish_requests";
 import { clearError } from '../../actions/error';
 import { default as Pagination } from '../common/pagination';
 import { Modal, Button } from 'react-bootstrap';
@@ -8,6 +8,7 @@ import { DishTable } from './table';
 import { FloatingActionButtonPlus } from '../common/floating_action_button';
 import { getCurrentUserPermissionByType } from '../../services/permissions_type_requests';
 import { updatePermissions } from '../../lib/common';
+import { showError } from '../lib/common';
 
 export class DishesIndex extends Component {
   constructor(props) {
@@ -31,8 +32,6 @@ export class DishesIndex extends Component {
   componentDidUpdate(prevProps, prevState, snapshot) {
     const { permissions: prevPermissions } = prevProps.currentUser
     const { permissions: newPermissions } = this.props.currentUser
-    //update when they have different sizes
-    //update when both have something and first's id's are diff
     if (prevPermissions.length !== newPermissions.length || (prevPermissions.length !== 0 && prevPermissions[0].id !== newPermissions[0].id)) {
       updatePermissions(this)
     }
@@ -47,17 +46,17 @@ export class DishesIndex extends Component {
   render() {
     let { pagination, getDishes, dishes, currentUser } = this.props;
     let { show, permissions } = this.state;
-    //let newPermissions = {}
 
     return (
       <div>
         <DishTable
           dishes={dishes}
           per_page={pagination.pageSize}
-          deleteDish={this.props.deleteDish}
           permissions={permissions}
           currentUserId={currentUser.id}
           currentUserRoleId={currentUser.role_id}
+          getDishes={this.props.getDishes}
+          showError={this.props.showError}
         />
         <Pagination
           pagination={pagination}
@@ -103,11 +102,11 @@ const mapDispatchToProps = (dispatch) => {
     clearError: () => {
       dispatch(clearError())
     },
-    deleteDish: (id) => {
-      dispatch(deleteDish(id))
-    },
     getCurrentUserPermissionsByType: () => {
       dispatch(getCurrentUserPermissionByType(1))
+    },
+    showError: error => {
+      dispatch(showError(error))
     }
   }
 }

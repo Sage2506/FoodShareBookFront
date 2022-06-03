@@ -4,7 +4,7 @@ import { Redirect } from 'react-router';
 import { getPermission } from '../../actions/permission';
 import { setRoles } from '../../actions/role';
 import { getAndDispatch } from '../../services/common_requests';
-import { postPermission, updatePermission } from '../../services/permissions_requests';
+import { postPermission, putPermission } from '../../services/permissions_requests';
 import { getAllPermissionTypes } from '../../services/permissions_type_requests';
 import PermissionsForm from './form';
 
@@ -62,7 +62,7 @@ export class PermissionsFormHOC extends Component {
       })
     } else {
       if( this.props.permission.id !== undefined ){
-        this.props.updatePermission(this.props.permission.id, permission);
+        this.props.putPermission(this.props.permission.id, permission);
       } else {
         this.props.postPermission(permission)
       }
@@ -116,8 +116,8 @@ const mapDispatchToProps = (dispatch) => ({
   postPermission: ( permission ) => {
     dispatch( postPermission(permission))
   },
-  updatePermission: (id, permission) => {
-    dispatch( updatePermission(id, permission))
+  putPermission: (id, permission) => {
+    dispatch( putPermission(id, permission))
   }
 })
 
