@@ -52,7 +52,12 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.20.2",
+    "@popperjs/core": "^2.11.6",
     "@types/react-router-bootstrap": "^0.24.5",
+    "browserslist": "^4.21.4",
+    "jquery": "^3.6.1",
+    "popper.js": "^1.16.1",
     "react-error-overlay": "6.0.9"
   }
 }
