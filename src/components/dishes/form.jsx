@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Form, Button, Col, FormGroup, ListGroup, Alert } from "react-bootstrap";
 import { default as Autosuggest } from "../common/autosuggest_hoc";
 import DishIngredientListItemHoc from "../dish_ingredients/list_item_hoc";
-import { default as Dropzone } from "../common/dropzone_hoc";
 export class DishForm extends Component {
 
   render() {
@@ -21,8 +20,6 @@ export class DishForm extends Component {
       handleSelectChange,
       handleInputQuantityChange,
       onKeyDown,
-      image,
-      onImageSelected
     } = this.props
 
     let {
@@ -48,13 +45,6 @@ export class DishForm extends Component {
           <Form.Text className="text-muted">
             Set a fancy name
           </Form.Text>
-        </Form.Group>
-        <Form.Group as={Col} xl={8} xs={12} controlId="image">
-          <Form.Label>Dish image</Form.Label>
-          <Dropzone
-            onImageSelected={onImageSelected}
-            image = {image}
-          />
         </Form.Group>
         <Form.Group as={Col} xl={8} xs={12} controlId="description" >
           <Form.Label>description</Form.Label>
