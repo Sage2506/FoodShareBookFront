@@ -1,11 +1,9 @@
 import React from 'react';
 import { Form, Button, Col, Tabs, Tab } from "react-bootstrap";
-import { default as Dropzone } from "../common/dropzone_hoc";
 
 export const IngredientForm = props => {
   let {
     name,
-    image,
     description,
     measures,
     measuresCatalog,
@@ -13,7 +11,6 @@ export const IngredientForm = props => {
     validated,
     handleInputChange,
     handleInputSubmit,
-    onImageSelected,
     goBack,
     groupDisabled,
     activeTab,
@@ -21,13 +18,6 @@ export const IngredientForm = props => {
   } = props
   return (
     <Form noValidate validated={validated} onSubmit={handleInputSubmit}>
-      <Form.Group as={Col} xl={8} xs={12} controlId="image">
-        <Form.Label>Ingredient image</Form.Label>
-        <Dropzone
-          onImageSelected={onImageSelected}
-          image={image}
-        />
-      </Form.Group>
       <Form.Group as={Col} xl={8} xs={12} controlId="name" >
         <Form.Label>Ingredient name</Form.Label>
         <Form.Control

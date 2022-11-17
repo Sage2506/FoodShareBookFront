@@ -16,7 +16,7 @@ export class RolesTable extends Component {
         </thead>
         <tbody>
           {roles.map( (role, position) =>
-            <RoleTableRowHOC role = {role} />
+            <RoleTableRowHOC role = {role} key={role.id} />
           )}
         </tbody>
       </Table>
