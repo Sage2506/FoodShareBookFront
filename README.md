@@ -1,68 +1,162 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# FoodShareBookFront (React + Redux)
 
-## Available Scripts
+FoodShareBookFront is the web client for FoodShareBook. It consumes the
+`ApiFoodShareBook` backend and provides UI flows for dishes, ingredients,
+measures, users, roles, and permissions.
 
-In the project directory, you can run:
+This document is an onboarding guide intended for mid/senior developers.
 
-### `npm start`
+## 1. Tech Stack and Runtime
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- React `16.14`
+- Redux + Redux Thunk
+- React Router `v5`
+- Axios for API calls
+- Bootstrap + React-Bootstrap + Material UI v4
+- TypeScript typings are present, but the app is mainly JS/JSX
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Pinned engines in `package.json`:
 
-### `npm test`
+- Node: `10.16.0`
+- npm: `6.9.0`
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Important: these versions are legacy. Newer Node/npm versions may work but can
+introduce compatibility issues due to the older CRA/react-scripts toolchain.
 
-### `npm run build`
+## 2. Repository Structure
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- `src/components`: feature and shared UI components
+- `src/services`: API access layer and async request helpers
+- `src/actions`: Redux actions
+- `src/reducers`: Redux reducers and root reducer
+- `src/routes.js`: application route map and role-based navigation
+- `src/store.js`: Redux store configuration
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+## 3. Prerequisites
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Install before bootstrapping:
 
-### `npm run eject`
+1. Node.js `10.16.0` and npm `6.9.0` (recommended via nvm)
+2. Git
+3. Running local backend (`ApiFoodShareBook`) on `http://localhost:5000`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Suggested with nvm:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+nvm install 10.16.0
+nvm use 10.16.0
+node -v
+npm -v
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 4. First-Time Setup
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+From the `FoodShareBookFront` folder:
 
-## Learn More
+```bash
+npm install
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Start the app:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm start
+```
 
-### Code Splitting
+Default local URL:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+- `http://localhost:3000`
 
-### Analyzing the Bundle Size
+## 5. Backend Integration Contract
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+The app is wired to this local API base URL:
 
-### Making a Progressive Web App
+- `http://localhost:5000/api/v1/`
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+It is configured in `src/services/foodsharebook_api.js`.
 
-### Advanced Configuration
+Before running frontend workflows, ensure backend is up:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+```bash
+# In ApiFoodShareBook
+bin/rails s -p 5000
+```
 
-### Deployment
+## 6. Authentication and Session Flow
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+Login flow:
 
-### `npm run build` fails to minify
+1. `POST /users/login` with email/password.
+2. If successful, frontend stores `auth_token` in cookie (`Authorization`) when
+   "Remember me" is enabled.
+3. Axios default header `Authorization` is set from token.
+4. Frontend fetches `GET /users/current_user_data` and updates Redux state.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Startup behavior:
+
+- On mount, layout checks cookie token and restores authenticated session if
+  token exists.
+
+Logout behavior:
+
+- Deletes `Authorization` cookie and resets auth state.
+
+## 7. Authorization and Route Access
+
+Routing logic is role-aware in `src/routes.js`.
+
+- Admin-like behavior is currently hardcoded as `current_user.id === 1`.
+- Non-admin users get a reduced route set.
+
+This is a practical implementation detail to be aware of when extending role
+or permission logic.
+
+## 8. State Management Conventions
+
+- Global state is managed by Redux reducers under `src/reducers`.
+- Async workflows use Redux Thunk service calls from `src/services`.
+- API errors are surfaced through `errorReducer` and shown in a modal in the
+  main layout.
+
+## 9. Common Developer Commands
+
+Run local dev server:
+
+```bash
+npm start
+```
+
+Run tests:
+
+```bash
+npm test
+```
+
+Create production build:
+
+```bash
+npm run build
+```
+
+## 10. Known Gotchas
+
+1. The project targets an old Node/npm toolchain.
+2. API URL is hardcoded in code (`foodsharebook_api.js`), not environment-based.
+3. CORS must allow `localhost:3000` on backend.
+4. Admin route visibility is tied to user id check (`id === 1`), not only role.
+
+## 11. Recommended Day-to-Day Workflow
+
+1. Start backend first on port 5000.
+2. Start frontend with `npm start`.
+3. Log in and verify token/cookie flow.
+4. Implement feature changes in components/services/actions/reducers together.
+5. Run tests and smoke critical routes before opening PR.
+
+## 12. Production Hardening Checklist (Short)
+
+- Move API base URL to environment variables.
+- Replace hardcoded admin check with permission/role based guards.
+- Add route-level tests for auth and authorization behavior.
+- Add linting and CI quality gates if missing.
+- Review dependency upgrade strategy (React Scripts and Node runtime).
